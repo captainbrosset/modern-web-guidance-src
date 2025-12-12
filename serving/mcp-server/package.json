@@ -1,0 +1,30 @@
+{
+  "name": "modern-web-mcp",
+  "version": "1.0.0",
+  "description": "An MCP server for modern web development",
+  "type": "module",
+  "main": "build/index.js",
+  "exports": {
+    ".": "./build/index.js",
+    "./lib": "./build/lib.js"
+  },
+  "scripts": {
+    "build": "tsc && rm -rf build/guides && cp -r src/guides build/",
+    "start": "node build/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3",
+    "vitest": "^3.2.4"
+  }
+}
