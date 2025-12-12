@@ -3,10 +3,13 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getUseCasesByCategory, getGuide } from "../data/modern-practices.js";
 
 export function registerModernWebTools(server: McpServer) {
-  server.tool(
+  server.registerTool(
     "list_use_cases",
     {
-      category: z.string().optional().describe("Category to filter by (e.g., 'webperf', 'ui')"),
+      description: "List available modern web use cases, optionally filtered by category",
+      inputSchema: {
+        category: z.string().optional().describe("Category to filter by (e.g., 'webperf', 'ui')"),
+      },
     },
     async ({ category }) => {
       const useCases = getUseCasesByCategory(category);
@@ -21,10 +24,13 @@ export function registerModernWebTools(server: McpServer) {
     }
   );
 
-  server.tool(
+  server.registerTool(
     "get_best_practices",
     {
-      use_case_id: z.string().describe("The ID of the use case to get the guide for"),
+      description: "Get the best practices guide for a specific use case",
+      inputSchema: {
+        use_case_id: z.string().describe("The ID of the use case to get the guide for"),
+      },
     },
     async ({ use_case_id }) => {
       const guide = await getGuide(use_case_id);

@@ -9,10 +9,10 @@
     "./lib": "./build/lib.js"
   },
   "scripts": {
-    "build": "tsc && rm -rf build/guides && cp -r src/guides build/",
+    "build": "tsx scripts/build-guides.ts && tsc && cp AGENTS.md build/",
     "start": "node build/index.js",
-    "dev": "tsx src/index.ts",
-    "test": "vitest run"
+    "dev": "tsx scripts/build-guides.ts && tsx src/index.ts",
+    "test": "tsx scripts/build-guides.ts && vitest run"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "gray-matter": "^4.0.3",
     "tsx": "^4.7.1",
     "typescript": "^5.3.3",
     "vitest": "^3.2.4"

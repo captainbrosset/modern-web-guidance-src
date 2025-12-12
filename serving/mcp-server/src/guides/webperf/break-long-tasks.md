@@ -1,3 +1,9 @@
+---
+description: Improve interaction responsiveness (INP) by yielding to the main thread.
+web-feature-ids:
+  - scheduler
+---
+
 # Break Up Long Tasks for Better INP
 
 Long tasks block the main thread, preventing the browser from responding to user interactions (clicks, taps, key presses). This hurts **Interaction to Next Paint (INP)**.
@@ -44,3 +50,15 @@ async function doHeavyWork() {
 - After processing a chunk of data.
 - In critical input handlers if they do expensive logic.
 - Between major phases of application initialization.
+
+## Fallback strategies
+
+If the user's Baseline target (or Widely available, if unavailable) does not support any of the required features, the following fallback strategies MUST be used.
+
+### Scheduler API
+
+Baseline status: Limited availability
+
+- **DO** use `'scheduler' in window && 'yield' in scheduler` for feature detection.
+- **DO** fall back to `setTimeout(resolve, 0)` if `scheduler.yield` is not available.
+- **DO NOT** use `requestAnimationFrame` for yielding to the main thread for general background work, as it runs before paint and can delay rendering if overused for non-visual tasks.

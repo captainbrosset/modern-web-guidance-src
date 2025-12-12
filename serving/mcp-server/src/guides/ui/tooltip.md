@@ -1,72 +1,70 @@
-# Modern Tooltip
+---
+description: Create tooltips with Popover API and Interest Invokers
+web-feature-ids:
+  - interest-invokers
+  - popover
+  - anchor-positioning
+---
 
-Modern tooltips leverage platform features like the **Popover API** and **Interest Invokers** to provide accessible, performant, and easy-to-implement contextual information.
+# Tooltip
 
-## Key Features
-- **Popover API**: Handles the "top-layer" behavior, ensuring tooltips break out of containers (z-index wars are over!).
-- **Interest Invokers**: Provides native `hover` and `focus` triggers for showing/hiding popovers without custom JavaScript event listeners.
-- **CSS Anchor Positioning**: Allows positioning the tooltip relative to the trigger element using CSS alone (with fallbacks if needed).
+Reference docs:
+- https://open-ui.org/components/interest-invokers.explainer/
+- https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning
 
 ## Best Practices
 
-### 1. Basic Structure (Popover + Interest Invoker)
-Use the `popover` attribute on the tooltip and `interesttarget` (experimental) on the trigger.
+Use `interestfor` to declaratively build a hovercard using `popover`. Use CSS Anchor Positioning to tether the popover to the button.
 
-> [!NOTE]
-> The `interesttarget` attribute is experimental. As of late 2024/early 2025, it is being standardized as `interestfor` (or similar) in some contexts. Always check browser support.
-> For broad compatibility today, you might still need a small JS polyfill or fallback for the trigger behavior.
+```css
+.my-trigger {
+  anchor-name: --my-trigger;
+}
+
+.my-popover {
+  position-anchor: --my-trigger;
+  position-area: top center;
+  position-try-fallbacks: flip-block;
+}
+```
 
 ```html
-<!-- Trigger -->
-<button type="button" interestfor="my-tooltip">
-  Hover me
+<button class="my-trigger" interestfor="my-popover">
+  Hover for popover
 </button>
 
-<!-- Tooltip -->
-<div id="my-tooltip" popover role="tooltip">
-  This is a modern tooltip!
+<div class="my-popover" popover="hint">
+  Hello world
 </div>
 ```
 
-### 2. Positioning with CSS Anchors
-Link the tooltip to the trigger visually.
+**DO NOT** use the `interesttarget` attribute, as it has been recently deprecated in favor of `interestfor`.
 
-```css
-/* Assign anchor name to the trigger */
-button[interestfor] {
-  anchor-name: --tooltip-trigger;
-}
+## Fallback strategies
 
-/* Position the tooltip */
-[popover] {
-  position-anchor: --tooltip-trigger;
-  top: anchor(bottom); /* Position below the trigger */
-  left: anchor(center); /* Center horizontally */
-  margin: 0.5rem 0; /* Add some spacing */
-  
-  /* Reset default popover styles */
-  margin: 0; 
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-```
+If the user's Baseline target (or Widely available, if unavailable) does not support any of the required features, the following fallback strategies MUST be used.
 
-### 3. Fallback (If Interest Invokers not supported)
-If `interestfor` isn't fully supported yet, you can use `popovertarget` for click-toggles, or minimal JS for hover.
+### Interest Invokers
 
-```javascript
-// Minimal hover support if native interestfor is missing
-const trigger = document.querySelector('button[interestfor]');
-const tooltip = document.getElementById(trigger.getAttribute('interestfor'));
+Baseline status: Limited availability
 
-trigger.addEventListener('mouseenter', () => tooltip.showPopover());
-trigger.addEventListener('mouseleave', () => tooltip.hidePopover());
-trigger.addEventListener('focus', () => tooltip.showPopover());
-trigger.addEventListener('blur', () => tooltip.hidePopover());
-```
+- **DO** use `HTMLButtonElement.prototype.hasOwnProperty("interestForElement")` for feature detection
+- **DO** conditionally load the `interestfor` polyfill if and only if the browser fails the feature detection check
+- **DO** download a local copy of the polyfill at https://unpkg.com/interestfor@1.0.7/src/interestfor.min.js or `npm install interestfor`
 
-## Anti-Patterns
-- **Avoid global event listeners** to manage open/close state if possible.
-- **Don't use `title` attribute** for rich tooltips; it's not accessible enough and styling is impossible.
-- **Avoid purely CSS-based tooltips** (e.g., generic `::after` content) if the content is important for accessibility trees.
+### Popover
+
+Baseline status: Newly available since 2025-01-27
+
+- **DO** use `HTMLDivElement.prototype.hasOwnProperty("popover")` for feature detection
+- **DO** conditionally load the polyfill if and only if the browser fails the feature detection check
+- **DO** download a local copy of the polyfill at https://unpkg.com/@oddbird/popover-polyfill@0.6.1/dist/popover.min.js or `npm install @oddbird/popover-polyfill`
+
+### Anchor Positioning
+
+Baseline status: Limited availability 
+
+- **DO** use `@supports (position-anchor: --foo)` for CSS feature detection
+- **DO** use `if ("positionAnchor" in document.documentElement.style)` for JS feature detection
+- **DO** conditionally load the polyfill if and only if the browser fails the feature detection check
+- **DO** download a local copy of the polyfill at https://unpkg.com/@oddbird/css-anchor-positioning@0.8.0/dist/css-anchor-positioning.js or `npm install @oddbird/css-anchor-positioning`

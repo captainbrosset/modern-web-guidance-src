@@ -6,6 +6,7 @@ import * as modernPractices from '../data/modern-practices.js';
 const mockTool = vi.fn();
 const mockServer = {
   tool: mockTool,
+  registerTool: mockTool,
 } as any;
 
 // Mock modern-practices data
@@ -34,7 +35,7 @@ describe('modern-web tools', () => {
 
   describe('list_use_cases handler', () => {
     it('should return use cases list', async () => {
-      const mockUseCases = [{ id: 'test', title: 'Test', category: 'webperf' }];
+      const mockUseCases = [{ id: 'test', category: 'webperf' }];
       vi.mocked(modernPractices.getUseCasesByCategory).mockReturnValue(mockUseCases as any);
 
       registerModernWebTools(mockServer);

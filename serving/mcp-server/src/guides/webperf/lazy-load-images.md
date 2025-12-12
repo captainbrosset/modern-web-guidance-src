@@ -1,28 +1,33 @@
-# Best Practices for Lazy Loading Images
+---
+description: Defer loading of off-screen images to minimize network contention and improve LCP.
+web-feature-ids:
+  - loading-lazy
+---
 
-Lazy loading images helps reduce initial page weight and network contention, ensuring critical resources (like the LCP candidate) load faster.
+# Lazy loading images
 
-## The `loading="lazy"` Attribute
-The standard way to lazy load images is the native HTML attribute:
+## Best practices
+
+The standard way to lazy load images is the `loading="lazy"` HTML attribute:
 
 ```html
 <img src="image.jpg" loading="lazy" alt="..." width="800" height="600">
 ```
 
-## When TO Use It
+### When TO Use It
 - Images that are **below the fold** (off-screen initially).
 - Non-critical decorative images.
 
-## When NOT To Use It
+### When NOT To Use It
 - **The LCP candidate**: The largest image in the viewport (often the hero image) should NEVER be lazy-loaded. It delays the Largest Contentful Paint metric.
-- Icons or small UI elements that are always visible.
 
-## Browser Support
-Native lazy loading is supported in all modern browsers (Chrome, Firefox, Safari).
-Baseline Status: [Widely available](https://web.dev/baseline).
+## Fallback strategies
 
-## Feature Detection & Fallback
-If you need to support very old browsers (like IE), you can use a polyfill or a library like lazysizes, but for modern web development, the native attribute is usually sufficient.
+If the user's Baseline target (or Widely available, if unavailable) does not support any of the required features, the following fallback strategies MUST be used.
 
-## Anti-Pattern: CSS Background Images
-Native `loading="lazy"` does NOT apply to CSS `background-image`. For those, you generally need JavaScript (IntersectionObserver) to apply a class when the element is near the viewport.
+### Loading Attribute
+
+Baseline status: Widely available
+
+- **DO** rely on standard browser behavior: if `loading="lazy"` is not supported, browsers will simply ignore it and fetch the resource immediately (equivalent to `loading="eager"`). This is a safe and acceptable graceful degradation.
+- **DO NOT** use JavaScript libraries like `lazysizes` unless you specifically need to support very old browsers (e.g., IE) or require custom thresholds, as native lazy loading is highly optimized.

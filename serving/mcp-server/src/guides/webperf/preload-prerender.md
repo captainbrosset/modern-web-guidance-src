@@ -1,6 +1,12 @@
+---
+description: Improve navigation speed by preloading key resources or prerendering pages before the user clicks.
+web-feature-ids:
+  - speculation-rules
+---
+
 # Speculative Preloading & Prerendering
 
-Accelerate navigation by fetching future content before the user navigates.
+Accelerate navigation by fetching and prerendering future content before the user navigates.
 
 ## Speculation Rules API
 The modern way to handle this is the **Speculation Rules API**.
@@ -10,8 +16,14 @@ The modern way to handle this is the **Speculation Rules API**.
 {
   "prerender": [
     {
-      "source": "list",
-      "urls": ["/next-page", "/about"]
+      "source": "document",
+      "where": {
+        "and": [
+          { "href_matches": "/*" },
+          { "not": { "href_matches": ["/logout", "/add-to-cart", "/checkout/*"] }}
+        ]
+      },
+      "eagerness": "moderate"
     }
   ]
 }
@@ -19,6 +31,11 @@ The modern way to handle this is the **Speculation Rules API**.
 ```
 
 ## Best Practices
-- **Prerender** only highly likely candidates (e.g., on hover or very high confidence).
-- **Prefetch** slightly less certain candidates.
-- Be mindful of data usage; don't prerender the whole site.
+- **DO** reserve eager prefetches and prerenders ("eagerness" values of "immediate" or "eager") for only the highest-confidence speculative navigations
+- **DO NOT** prerender URLs that trigger state changes, like `/logout`
+
+## Fallback strategies
+
+Baseline status: Limited availability
+
+No fallback strategies are required; this feature is safe to use in all browsers. Unsupported browsers will gracefully ignore the `<script type="speculationrules">` tag and navigate to the page as normal.

@@ -6,45 +6,13 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export interface UseCase {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-}
 
-const USE_CASES: UseCase[] = [
-  {
-    id: "preload-prerender",
-    title: "Speculatively preload and prerender intrasite links",
-    description: "Improve navigation speed by preloading key resources or prerendering pages before the user clicks.",
-    category: "webperf",
-  },
-  {
-    id: "lazy-load-images",
-    title: "Lazy load images",
-    description: "Defer loading of off-screen images to minimize network contention and improve LCP.",
-    category: "webperf",
-  },
-  {
-    id: "break-long-tasks",
-    title: "Break up long tasks",
-    description: "Improve interaction responsiveness (INP) by yielding to the main thread.",
-    category: "webperf",
-  },
-  {
-    id: "carousel",
-    title: "Modern Carousel",
-    category: "ui",
-    description: "Build responsive, accessible carousels with CSS Scroll Snap",
-  },
-  {
-    id: "tooltip",
-    title: "Modern Tooltip",
-    category: "ui",
-    description: "Create tooltips with Popover API and Interest Invokers",
-  },
-];
+
+import { USE_CASES, UseCase } from "./use-cases.gen.js";
+export { UseCase };
+
+// Re-export USE_CASES so other files can use it
+export { USE_CASES };
 
 export function getUseCasesByCategory(category?: string): UseCase[] {
   if (!category) return USE_CASES;
