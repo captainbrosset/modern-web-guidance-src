@@ -27,6 +27,11 @@ export const USE_CASES: UseCase[] = [
     "category": "ui"
   },
   {
+    "id": "adaptive-loading",
+    "description": "Load a fallback image when network conditions are poor using the Adaptive Loading API",
+    "category": "webperf"
+  },
+  {
     "id": "break-long-tasks",
     "description": "Improve interaction responsiveness (INP) by yielding to the main thread.",
     "category": "webperf"
