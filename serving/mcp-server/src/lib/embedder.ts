@@ -16,7 +16,7 @@ export class Embedder {
 
   public async init() {
     if (this.pipe) return;
-    this.pipe = (await pipeline("feature-extraction", this.modelName)) as any as FeatureExtractionPipeline;
+    this.pipe = (await pipeline("feature-extraction", this.modelName, { dtype: "q8" })) as any as FeatureExtractionPipeline;
   }
 
   public async embed(text: string): Promise<number[]> {

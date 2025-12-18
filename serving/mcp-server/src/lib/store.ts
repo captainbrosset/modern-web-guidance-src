@@ -14,6 +14,7 @@ export interface UseCase {
   description: string;
   category: string;
   vector?: number[];
+  distance?: number;
 }
 
 export class Store {
@@ -48,7 +49,7 @@ export class Store {
     await db.createTable("use_cases", data as any);
   }
 
-  public async search(queryVector: number[], limit = 5): Promise<UseCase[]> {
+  public async search(queryVector: number[], limit = 5, maxDistance = 1.5): Promise<UseCase[]> {
     const table = await this.getTable();
     if (!table) {
       return [];
@@ -58,10 +59,13 @@ export class Store {
       .limit(limit)
       .toArray();
 
-    return results.map((r: any) => ({
-      id: r.id,
-      description: r.description,
-      category: r.category,
-    }));
+    return results
+      .filter((r: any) => r._distance !== undefined && r._distance <= maxDistance)
+      .map((r: any) => ({
+        id: r.id,
+        description: r.description,
+        category: r.category,
+        distance: r._distance,
+      }));
   }
 }

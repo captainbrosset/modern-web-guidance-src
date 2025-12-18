@@ -17,10 +17,10 @@ async function main() {
   const results = await store.search(vector, 3);
 
   // 3. Display
-  console.log("\nTop 3 Results:");
+  console.log("\nTop Results:");
   results.forEach((r, i) => {
-    console.log(`\n${i + 1}. [${r.id}] (${r.category})`);
-    console.log(`   ${r.description.slice(0, 100)}...`);
+    console.log(`\n${i + 1}. [${r.id}] (${r.category}) - Distance: ${r.distance?.toFixed(4)}`);
+    console.log(`   ${r.description}`);
   });
 }
 

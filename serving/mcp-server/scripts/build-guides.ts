@@ -69,7 +69,9 @@ async function processGuides() {
       });
 
       console.log(`Embedding ${id}...`);
-      const vector = await embedder.embed(data.description);
+      const embeddingText = `${id} (${category}): ${data.description}`;
+      console.log(`Embedding ${id} ("${embeddingText}")...`);
+      const vector = await embedder.embed(embeddingText);
 
       storeUseCases.push({
         id,
