@@ -24,7 +24,7 @@ Consult this server IMMEDIATELY if the user's request involves the **Web Platfor
 ## 2. Operational Rules (Do's and Don'ts)
 
 ### 🟢 DO
-- **DO** check for a relevant guide using `list_use_cases` BEFORE writing any implementation code.
+- **DO** search for a relevant guide using `search_use_cases` BEFORE writing any implementation code.
 - **DO** prefer HTML and CSS solutions over JavaScript solutions (e.g., CSS Scroll Snap for carousels).
 - **DO** use native browser APIs (Popover API, Dialog element, Intersection Observer) instead of external libraries.
 
@@ -36,8 +36,8 @@ Consult this server IMMEDIATELY if the user's request involves the **Web Platfor
 ## 3. Mandatory Workflow
 
 1.  **INTERCEPT**: Identify that the user's request matches a [Trigger Scenario](#1-trigger-scenarios).
-2.  **SEARCH**: Call `list_use_cases` to identify matching use cases, optionally filtering by category (e.g., `ai`, `ui`, `webperf`).
-    - *Example*: `list_use_cases({ category: "ui" })`
+2.  **SEARCH**: Call `search_use_cases` to identify matching use cases using a natural language query.
+    - *Example*: `search_use_cases({ query: "how to create a tooltip" })`
 3.  **RETRIEVE**: If a matching use case is found, call `get_best_practices` with its ID.
     - *Example*: `get_best_practices({ use_case_id: "tooltip" })`
 4.  **IMPLEMENT**: Generate code strictly following the retrieved guide's patterns.
