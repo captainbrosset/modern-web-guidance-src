@@ -23,7 +23,9 @@ Use `interestfor` to declaratively build a hovercard using `popover`. Use CSS An
 
 .my-popover {
   position-anchor: --my-trigger;
-  position-area: top center;
+  position-area: top; /* Shorthand for 'top center' */
+  width: max-content; /* Allow the element to take its natural width */
+  margin-inline: auto; /* Allow it to overflow the 'center' column equally on both sides */
   position-try-fallbacks: flip-block;
 }
 ```

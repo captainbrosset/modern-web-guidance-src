@@ -37,7 +37,7 @@ export function registerModernWebTools(server: McpServer) {
     {
       description: "Get the best practices guide for a specific use case",
       inputSchema: {
-        use_case_id: z.string().describe("The ID of the use case to get the guide for"),
+        use_case_id: z.string().describe("The ID of the use case to get the guide for (must be one of the IDs returned by `search_use_cases`)"),
       },
     },
     async ({ use_case_id }) => {
