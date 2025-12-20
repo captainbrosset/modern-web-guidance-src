@@ -6,7 +6,7 @@ export function registerModernWebTools(server: McpServer) {
   server.registerTool(
     "search_use_cases",
     {
-      description: "MANDATORY: Execute this FIRST for ANY request involving web development, UI creation, or modernizing web code. Returns use case IDs. You MUST subsequently call 'get_best_practices' with the most relevant ID to get the implementation guide.",
+      description: "MANDATORY: Execute this FIRST for each and every web development use case, especially for writing modern web code. Returns use case IDs. You MUST subsequently call 'get_best_practices' with the most relevant ID to get the implementation guide.",
       inputSchema: {
         query: z.string().describe("Action-oriented description of the desired use case (e.g., 'lazy load images' or 'create a tooltip'). Avoid 'how to' questions and single-keyword queries (e.g. 'images')."),
       },
