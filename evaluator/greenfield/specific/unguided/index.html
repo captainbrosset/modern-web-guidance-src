@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espresso & Vibes | Premium Coffee Experience</title>
+    <meta name="description" content="Experience the finest artisanal coffee at Espresso & Vibes.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="main-header">
+        <nav>
+            <div class="logo">Espresso & Vibes</div>
+            <ul class="nav-links">
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#locations">Locations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Crafting moments, <br>one cup at a time.</h1>
+                <p>Artisanal blends sourced from the finest growers.</p>
+                <div class="cta-container">
+                    <button id="details-btn" popovertarget="ingredients-popover" popovertargetaction="show">
+                        Details
+                    </button>
+                    <!-- Popover Content -->
+                    <div id="ingredients-popover" popover>
+                        <h3>Signature Blend Ingredients</h3>
+                        <ul>
+                            <li>100% Arabica Beans (Ethiopian Yirgacheffe)</li>
+                            <li>Notes of Jasmine & Bergamot</li>
+                            <li>Roasted to Medium-Dark Perfection</li>
+                            <li>Filtered Spring Water</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-image-container">
+                <!-- Image source will be handled by script.js for Adaptive Loading, but we set a default for non-JS/SSR -->
+                <img id="hero-img" src="hero.png" alt="Barista pouring latte art" width="1024" height="1024">
+            </div>
+        </section>
+
+        <section class="content-spacer">
+            <h2>Our Process</h2>
+            <p>Scroll down to see the hero image animation in effect.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <!-- Adding filler content to enable scrolling -->
+            <div style="height: 100vh;"></div>
+            <p>Quality requires patience.</p>
+            <div style="height: 50vh;"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Espresso & Vibes. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

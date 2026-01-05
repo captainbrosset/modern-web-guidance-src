@@ -1,0 +1,252 @@
+:root {
+    --color-bg: #121212;
+    --color-surface: #1E1E1E;
+    --color-primary: #D4A373;
+    --color-text: #EAEAEA;
+    --color-text-muted: #A0A0A0;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Outfit', sans-serif;
+    --radius-md: 12px;
+    --radius-lg: 24px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+header {
+    padding: 2rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 300;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--color-primary);
+}
+
+.hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 5%;
+    gap: 4rem;
+    padding-top: 80px; /* Header height */
+}
+
+.hero-content h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, var(--color-text), var(--color-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+}
+
+.cta-group {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.btn {
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: none;
+    font-family: var(--font-body);
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: #000;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(212, 163, 115, 0.2);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-text);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255,255,255,0.05);
+    border-color: var(--color-text);
+}
+
+/* Tooltip / Popover Styles */
+.ingredients-popover {
+    background: var(--color-surface);
+    color: var(--color-text);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    min-width: 250px;
+    
+    /* Anchor Positioning */
+    position-area: top center; /* New syntax if supported, fallbacks handled by polyfill usually */
+    margin-bottom: 1rem;
+    
+    /* Animation */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s allow-discrete, transform 0.3s;
+}
+
+.ingredients-popover:popover-open {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@starting-style {
+    .ingredients-popover:popover-open {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+.ingredients-popover h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+}
+
+.ingredients-popover ul {
+    list-style: none;
+}
+
+.ingredients-popover li {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+}
+
+/* Hero Image & Scroll Animation */
+.hero-image-wrapper {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    
+    /* Initial state for finding it */
+    opacity: 0; 
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 1.5s ease-out; /* For LQIP blur removal */
+}
+
+/* LQIP Blur State */
+.hero-image.blur {
+    filter: blur(20px);
+    transform: scale(1.1); /* Prevent blurred edges showing */
+}
+
+/* Scroll Animation */
+@keyframes fade-in-grow {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@supports (animation-timeline: view()) {
+    .hero-image-wrapper {
+        animation: fade-in-grow linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 40%;
+    }
+}
+
+/* Fallback for no scroll animation support - just fade in */
+@media (prefers-reduced-motion: no-preference) {
+    .hero-image-wrapper:not(:where(@supports (animation-timeline: view()) *)) {
+        animation: fade-in-grow 1s ease-out forwards;
+        animation-play-state: running;
+    }
+}
+
+.content-spacer {
+    height: 100vh; /* Just to create scroll space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
+    .hero {
+        grid-template-columns: 1fr;
+        padding-top: 120px;
+        text-align: center;
+    }
+    
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    
+    .cta-group {
+        justify-content: center;
+    }
+}

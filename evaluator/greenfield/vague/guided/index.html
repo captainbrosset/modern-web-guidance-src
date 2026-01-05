@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisan Brew | Specialty Coffee</title>
+    <meta name="description" content="Experience the finest artisanal coffee in a cozy atmosphere.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Polyfills -->
+    <script src="vendor/interestfor.min.js" type="module"></script>
+    <script src="vendor/popover.min.js" type="module"></script>
+    <script src="vendor/css-anchor-positioning.js" type="module"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Artisan Brew</div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Taste the Craft in Every Cup</h1>
+                <p>Ethically sourced, meticuously roasted, and brewed to perfection.</p>
+                
+                <div class="cta-group">
+                    <button class="btn btn-primary">Order Now</button>
+                    <!-- Detail Button with Tooltip using Interest Invoker -->
+                    <button class="btn btn-secondary" interestfor="ingredients-popover" style="anchor-name: --details-btn">
+                        Details
+                    </button>
+                </div>
+
+                <!-- Popover Content -->
+                <div id="ingredients-popover" class="ingredients-popover" popover="hint" style="position-anchor: --details-btn">
+                    <h3>Signature Blend Ingredients</h3>
+                    <ul>
+                        <li><span class="icon">☕</span> 100% Arabica Beans</li>
+                        <li><span class="icon">🌿</span> Organic Fair Trade</li>
+                        <li><span class="icon">💧</span> Filtered Spring Water</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="hero-image-wrapper">
+                <!-- LQIP: Low Quality Image Placeholder -->
+                <img 
+                    src="images/hero-low.jpg" 
+                    data-src="images/hero-high.png" 
+                    alt="Barista pouring latte art" 
+                    class="hero-image lazy-load"
+                    width="1200" 
+                    height="800"
+                >
+            </div>
+        </section>
+        
+        <section class="content-spacer">
+            <p>Scroll down to see the magic...</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

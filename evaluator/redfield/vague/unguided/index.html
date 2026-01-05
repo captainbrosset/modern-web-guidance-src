@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Tooltip Demo</title>
+    <style>
+        :root {
+            --tooltip-bg: #333;
+            --tooltip-text: #fff;
+            --tooltip-space: 8px; /* space between arrow and trigger */
+            --arrow-size: 6px;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* The Button */
+        #tooltip-trigger {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #007bff;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        #tooltip-trigger:hover,
+        #tooltip-trigger:focus-visible {
+            background-color: #0056b3;
+            outline: 2px solid #0056b3;
+            outline-offset: 2px;
+        }
+
+        /* The Tooltip */
+        #tooltip {
+            /* Positioning logic */
+            position: absolute;
+            bottom: calc(100% + var(--tooltip-space) + var(--arrow-size));
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            
+            /* Box Model */
+            width: max-content;
+            max-width: 200px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            
+            /* Visuals */
+            background-color: var(--tooltip-bg);
+            color: var(--tooltip-text);
+            font-size: 14px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            
+            /* Transitions */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+            pointer-events: none; /* prevents hovering the tooltip itself getting in the way */
+            z-index: 10;
+        }
+
+        /* Visible State */
+        #tooltip[data-visible] {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Tooltip Arrow */
+        #tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: calc(var(--arrow-size) * -1);
+            border-width: var(--arrow-size);
+            border-style: solid;
+            border-color: var(--tooltip-bg) transparent transparent transparent;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button id="tooltip-trigger" aria-describedby="tooltip">Hover or Focus me</button>
+        <div id="tooltip" role="tooltip" aria-hidden="true">I'm a modern, accessible tooltip!</div>
+    </div>
+
+    <script>
+        const trigger = document.getElementById('tooltip-trigger');
+        const tooltip = document.getElementById('tooltip');
+
+        function showTooltip() {
+            tooltip.setAttribute('data-visible', '');
+            tooltip.setAttribute('aria-hidden', 'false');
+        }
+
+        function hideTooltip() {
+            tooltip.removeAttribute('data-visible');
+            tooltip.setAttribute('aria-hidden', 'true');
+        }
+
+        // Mouse Interaction
+        trigger.addEventListener('mouseenter', showTooltip);
+        trigger.addEventListener('mouseleave', hideTooltip);
+
+        // Keyboard Interaction
+        trigger.addEventListener('focus', showTooltip);
+        trigger.addEventListener('blur', hideTooltip);
+
+        // Escape Key Interaction
+        trigger.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                hideTooltip();
+            }
+        });
+    </script>
+
+</body>
+</html>

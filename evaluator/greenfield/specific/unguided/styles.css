@@ -1,0 +1,261 @@
+/* content-spacer class in index.html is just to add scroll height to demonstrate animation */
+:root {
+    --color-bg: #0f0e0e;
+    --color-text-primary: #fdfbf7;
+    --color-text-secondary: #a8a29e;
+    --color-accent: #d4a373; /* Latte color */
+    --color-accent-hover: #faedcd;
+    --color-popover-bg: rgba(255, 255, 255, 0.1);
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Outfit', sans-serif;
+    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Header */
+.main-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(15, 14, 14, 0.9), transparent);
+    backdrop-filter: blur(5px);
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-weight: 300;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--color-accent);
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    gap: 4rem;
+}
+
+.hero-content {
+    z-index: 10;
+}
+
+.hero-content h1 {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-primary);
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 2.5rem;
+    max-width: 50ch;
+}
+
+.cta-container {
+    position: relative;
+}
+
+button {
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    background-color: var(--color-accent);
+    color: #1a1a1a;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: 700;
+    border-radius: 4px; /* Slight rounding but kept reliable */
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+button:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-2px);
+}
+
+/* Popover Styling */
+[popover] {
+    background: rgba(30, 30, 30, 0.7);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text-primary);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    font-family: var(--font-body);
+    min-width: 250px;
+    
+    /* Positioning it near the button manually or letting it center.
+       Default popover is centered. Let's make it more tooltip-like or just nice centered card.
+       For a "non-modal" feel accessed via hover, let's keep it near the button if possible,
+       but standard popover centers. We can use anchor positioning if supported, but let's stick to simple
+       absolute positioning relative to viewport or simple margin for now to be safe.
+       Actually, standard popover centers in the top layer. We'll leave it centered for now for simplicity
+       unless we implement anchor positioning which is bleeding edge.
+    */
+    margin: auto;
+}
+
+[popover]::backdrop {
+    background: transparent; /* Non-modal feel usually implies we can interact with bg or see it clearly */
+}
+
+/* Transitions for Popover entry */
+[popover]:popover-open {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.3s ease-out, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+[popover] {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease-in, transform 0.3s ease-in;
+}
+
+/* Hero Image & Scroll Animation */
+.hero-image-container {
+    perspective: 1000px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#hero-img {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    
+    /* Scroll Driven Animation */
+    /* 
+       "fade into view and scale up as the user scrolls down"
+       This implies it starts invisible/small and becomes visible.
+       
+       We use view() timeline.
+    */
+    animation: fadeScale linear both;
+    animation-timeline: view();
+    /* Range: Start animating when it enters (entry 0%) until it is fully visible (entry 100%) or COVER. 
+       Actually, since it's at the top, it's already in view.
+       Wait, if it's already at the top, "scrolling down" would make it leave view.
+       
+       Maybe the user means: content BELOW the hero triggers animation?
+       OR maybe the hero IS further down?
+       Use case: "Landing page". Hero is usually at top.
+       If it's at the top, it should load Visible.
+       
+       Maybe the prompt implies a Parallax effect or it fades OUT?
+       "show a placeholder... fade into view and scale up as the user scrolls DOWN"
+       
+       INTERPRETATION A: The hero is NOT at the very top, but slightly down?
+       INTERPRETATION B: Detailed Scroll animation: When we scroll down, the image SCALES UP (parallax zoom) and FADES (maybe out?).
+       But prompt says "Fade INTO view".
+       
+       Let's assume the Hero image is the PRIMARY focus and might be slightly sticky or uses a scroll effect that triggers as you scroll.
+       
+       Alternative: The prompt might mean "Reveal effect".
+       But if it is the HERO, it is the first thing you see.
+       
+       Let's implement a "Parallax Scale Up" effect as you scroll down (it grows).
+       And maybe it starts slightly faded and fades in 100% as you scroll just a bit?
+       
+       Actually, let's look at the wording: "fade into view and scale up as the user scrolls down".
+       This STRONGLY suggests the elements appear as you scroll down.
+       So normally this applies to elements BELOW the fold.
+       BUT this is the "main hero image".
+       
+       I'll implement it such that: 
+       It starts slightly smaller and opacity < 1.
+       As you scroll (view progress), it goes to 1.
+       Wait, if it's at the top, `view()` is already active.
+       
+       Let's assume the user wants a "scroll-driven entrance" for elements or a "scroll-driven transformation" for the hero.
+       I will set it to `animation-range: entry 0% cover 40%;` so it finishes animation quickly if it was below fold, 
+       OR if it is at top, it might just stay fully visible.
+       
+       To strictly satisfy "fade into view... as user scrolls down", I might put the image slightly lower or make it 100vh down? No that's weird for a hero.
+       
+       Let's do: It starts with opacity 0.5 Scale 0.9.
+       As we scroll DOWN (y increasing), it goes to Opacity 1 Scale 1?
+       No, that happens when it enters viewport.
+       
+       Let's stick to standard `animation-timeline: view()` which handles "appearing as you scroll into view".
+       If it is already in view, it will be at the end state (visible).
+       
+       If the user wants it to GROW as you scroll down (Parallax Zoom), I should use `scroll()` (scroll progress of container) instead of `view()`.
+       
+       Let's try `animation-timeline: scroll();` driving a grow effect.
+    */
+    animation-name: growOnScroll;
+    animation-timeline: scroll(root block); /* Linked to root scroll */
+    animation-range: 0vh 100vh; /* Animate over the first 100vh of scrolling */
+}
+
+@keyframes growOnScroll {
+    from {
+        opacity: 0.8;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 6rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+}

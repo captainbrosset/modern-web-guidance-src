@@ -1,0 +1,14 @@
+{
+  "name": "spike-test-evaluator",
+  "version": "1.0.0",
+  "description": "Static evaluation suite for web dev scenarios",
+  "main": "evaluate.js",
+  "scripts": {
+    "test": "node evaluate.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "glob": "^10.4.5",
+    "colors": "^1.4.0"
+  }
+}

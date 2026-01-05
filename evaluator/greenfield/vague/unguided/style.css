@@ -1,0 +1,311 @@
+:root {
+    --color-bg: #0f0c0b;
+    --color-text: #e6e0d4;
+    --color-accent: #c6a87c;
+    --color-surface: #1a1614;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Outfit', sans-serif;
+    --transition-standard: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Typography */
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+}
+
+h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, #fff, #c6a87c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    animation: fadeInUp 1s forwards 0.2s;
+}
+
+h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--color-accent);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-standard);
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 2rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(15, 12, 11, 0.9), transparent);
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.nav-links a {
+    margin-left: 2rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+}
+
+.nav-links a:hover {
+    color: var(--color-accent);
+    opacity: 1;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+    z-index: 10;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeInUp 1s forwards 0.4s;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.8rem;
+    border-radius: 50px;
+    opacity: 0;
+    animation: fadeInUp 1s forwards 0.6s;
+    transition: var(--transition-standard);
+}
+
+.cta-button:hover {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+}
+
+.hero-image-container {
+    flex: 1;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    opacity: 0; /* Initial state for script to animate */
+    transform: scale(0.95);
+    transition: opacity 1.5s ease-out, transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.5s ease;
+}
+
+/* Loading Blur Effect */
+.hero-image.blur-load {
+    filter: blur(20px);
+}
+
+.hero-image.loaded {
+    filter: blur(0);
+}
+
+/* About Section */
+.about-section {
+    padding: 8rem 5%;
+    background-color: var(--color-surface);
+    text-align: center;
+}
+
+.about-section p {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    color: rgba(230, 224, 212, 0.8);
+}
+
+/* Details Section */
+.details-section {
+    padding: 8rem 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 4rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    margin-top: 2rem;
+}
+
+.details-btn {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    font-family: var(--font-body);
+    transition: var(--transition-standard);
+}
+
+.details-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(198, 168, 124, 0.2);
+}
+
+/* Tooltip Styling */
+.tooltip {
+    visibility: hidden;
+    width: 250px;
+    background-color: rgba(20, 20, 20, 0.95);
+    color: var(--color-text);
+    text-align: left;
+    border-radius: 8px;
+    padding: 1.5rem;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position above */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.tooltip h4 {
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.tooltip ul {
+    list-style: none;
+    font-size: 0.85rem;
+}
+
+.tooltip li {
+    margin-bottom: 0.3rem;
+}
+
+.tooltip-container:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.tooltip-arrow {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(20, 20, 20, 0.95) transparent transparent transparent;
+}
+
+/* Footer */
+footer {
+    padding: 3rem 5%;
+    text-align: center;
+    font-size: 0.8rem;
+    opacity: 0.5;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Animations using Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding-top: 6rem;
+    }
+    
+    .hero-content {
+        margin-bottom: 3rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-image-container {
+        width: 100%;
+        height: auto;
+    }
+}

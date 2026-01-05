@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Brew | Premium Coffee Experience</title>
+    <meta name="description" content="Experience the finest coffee at Aura Brew. Premium beans, artisanal brewing, and a cozy atmosphere.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Aura Brew</div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#details">Our Coffee</a></li>
+                <li><a href="#visit">Visit Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <h1>Awaken Your Senses</h1>
+                <p>Experience coffee in its purest form.</p>
+            </div>
+            <div class="hero-image-container">
+                <!-- Adaptive Loading: loading-placeholder will be handled by script.js -->
+                <img id="hero-img" 
+                     src="coffee_hero_high_res_1767640592505.png" 
+                     loading-placeholder="coffee_hero_low_res_1767640606033.png"
+                     alt="Aura Brew Coffee Shop Interior"
+                     width="1920" height="1080">
+            </div>
+        </section>
+
+        <section id="details" class="details">
+            <div class="product-card">
+                <h2>Signature Blend</h2>
+                <p>A rich, full-bodied blend with notes of dark chocolate and smoke.</p>
+                
+                <!-- Popover Trigger -->
+                <div class="popover-container">
+                    <button id="details-btn" class="btn-primary" interestfor="ingredients-popover">
+                        View Details
+                    </button>
+                    
+                    <!-- Popover Content -->
+                    <div id="ingredients-popover" popover="auto" class="popover-content">
+                        <h3>Ingredients</h3>
+                        <ul>
+                            <li>100% Arabica Beans</li>
+                            <li>Sourced from Ethiopia & Colombia</li>
+                            <li>Roasted in-house</li>
+                            <li>Natural Cocoa notes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section style="height: 100vh; display: flex; align-items: center; justify-content: center; background-color: var(--color-bg-secondary);">
+            <p style="opacity: 0.6;">More content to allow scrolling...</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Aura Brew. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
