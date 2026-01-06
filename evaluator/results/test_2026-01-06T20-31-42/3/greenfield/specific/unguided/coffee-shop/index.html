@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew & Bean | Premium Coffee</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Brew & Bean</div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Experience the Perfect Brew</h1>
+                <p>Artisan roasted beans, delivered to your door.</p>
+                <div class="product-card">
+                    <h2>Signature Latte</h2>
+                    
+                    <!-- Popover Trigger -->
+                    <button id="details-btn" class="btn primary" popovertarget="ingredients-popover">
+                        Details
+                    </button>
+                    
+                    <!-- Non-modal Popover -->
+                    <div id="ingredients-popover" popover>
+                        <h3>Ingredients</h3>
+                        <ul>
+                            <li>Espresso Shot (100% Arabica)</li>
+                            <li>Steamed Whole Milk</li>
+                            <li>Vanilla Bean Syrup</li>
+                            <li>Dusting of Cinnamon</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-image-container">
+                <!-- Image source will be handled by app.js for adaptive loading -->
+                <img id="hero-img" src="hero.svg" alt="Steaming cup of coffee" class="scroll-animate">
+            </div>
+        </section>
+
+        <section class="content">
+            <p>Scroll down to see the effect...</p>
+            <div class="spacer"></div>
+            <p>More content here.</p>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

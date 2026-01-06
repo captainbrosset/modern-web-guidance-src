@@ -1,0 +1,110 @@
+:root {
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --bg-color: #0f172a;
+    --text-color: #f8fafc;
+    --tooltip-bg: rgba(30, 41, 59, 0.9);
+    --tooltip-text: #e2e8f0;
+    --tooltip-border: rgba(255, 255, 255, 0.1);
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden; /* Prevent scrollbars during animations if any */
+}
+
+.container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Modern Button */
+.trigger-btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    color: white;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+    outline: none;
+    position: relative;
+    z-index: 2;
+}
+
+.trigger-btn:hover, .trigger-btn:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
+}
+
+.trigger-btn:focus-visible {
+    ring: 2px solid white;
+    ring-offset: 2px;
+    ring-offset-color: var(--bg-color);
+}
+
+.trigger-btn:active {
+    transform: translateY(0);
+}
+
+/* Glassmorphism Tooltip */
+.tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px) scale(0.95);
+    margin-bottom: 12px;
+    width: max-content;
+    max-width: 250px;
+    background-color: var(--tooltip-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--tooltip-text);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid var(--tooltip-border);
+    box-shadow: var(--shadow-lg);
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Arrow */
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--tooltip-bg) transparent transparent transparent;
+    transition: border-color 0.3s ease;
+}
+
+/* Active State */
+.tooltip[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1);
+    pointer-events: auto;
+}

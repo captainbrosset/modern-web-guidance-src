@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espresso & Oak | Artisanal Coffee</title>
+    <meta name="description" content="Experience the finest artisanal coffee at Espresso & Oak. Premium beans, cozy atmosphere, and latte art mastery.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Polyfills -->
+    <script>
+        // Interest Invokers Polyfill
+        if (!HTMLButtonElement.prototype.hasOwnProperty("interestForElement")) {
+            const script = document.createElement("script");
+            script.src = "assets/js/interestfor.min.js";
+            document.head.appendChild(script);
+        }
+        
+        // Popover Polyfill
+        if (!HTMLDivElement.prototype.hasOwnProperty("popover")) {
+            const script = document.createElement("script");
+            script.src = "assets/js/popover.min.js";
+            document.head.appendChild(script);
+        }
+        
+        // Anchor Positioning Polyfill
+        if (!("positionAnchor" in document.documentElement.style)) {
+            const script = document.createElement("script");
+            script.src = "assets/js/css-anchor-positioning.js";
+            document.head.appendChild(script);
+        }
+        
+        // Adaptive Loading Polyfill
+        if (!('loadingPlaceholder' in HTMLImageElement.prototype)) {
+            const script = document.createElement("script");
+            script.src = "assets/js/adaptive-loading.min.js";
+            document.head.appendChild(script);
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Espresso & Oak</div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">Story</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h1 class="hero-title">Brewed for Perfection</h1>
+            <p class="hero-subtitle">Taste the difference in every cup. Locally sourced, expertly roasted.</p>
+            
+            <div class="hero-image-container">
+                <img 
+                    src="assets/images/hero.png" 
+                    loading-placeholder="assets/images/hero_low.jpg"
+                    alt="Close-up of a latte with intricate latte art on a wooden table"
+                    class="hero-image"
+                >
+            </div>
+        </section>
+
+        <section class="details-section">
+            <div class="product-card">
+                <h2>Signature Latte</h2>
+                <p>A silky smooth blend of espresso and steamed milk.</p>
+                
+                <button class="details-btn" interestfor="ingredients-popover">
+                    Details
+                </button>
+                
+                <div id="ingredients-popover" class="ingredients-popover" popover="hint">
+                    <h3>Ingredients</h3>
+                    <ul>
+                        <li>Double shot espresso</li>
+                        <li>Steamed oat milk</li>
+                        <li>Vanilla bean extract</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="content-spacer">
+                <p>Scroll down to see the hero animation in effect (if you scroll back up, or if the page was long enough).</p>
+                <!-- Spacer content to allow scrolling -->
+                <div style="height: 100vh; display: flex; align-items: center; justify-content: center; opacity: 0.5;">
+                    More content below...
+                </div>
+                <div style="height: 100vh;"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Espresso & Oak. All rights reserved.</p>
+    </footer>
+</body>
+</html>

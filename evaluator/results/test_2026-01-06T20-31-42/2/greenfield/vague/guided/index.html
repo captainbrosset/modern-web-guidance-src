@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artisan Brew | Coffee Shop</title>
+  <link rel="stylesheet" href="index.css">
+
+  <!-- Polyfills -->
+
+  <script src="js/vendor/popover.min.js" type="module"></script>
+  <script src="js/vendor/css-anchor-positioning.js" type="module"></script>
+  <script src="js/vendor/interestfor.min.js" type="module"></script>
+</head>
+
+<body>
+
+  <header>
+    <h1>But first, Coffee.</h1>
+    <p class="subtitle">Experience the perfect brew.</p>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p>Scroll down to see the magic happen.</p>
+      </div>
+
+      <div class="hero-image-container">
+        <!-- 
+          Adaptive Loading:
+          If the network is slow (3g/2g), 'assets/hero-lq.jpg' might be prioritized 
+          by the polyfill/browser before 'assets/hero.jpg'.
+        -->
+        <img src="assets/hero.jpg" loading-placeholder="assets/hero-lq.jpg" alt="Latte art on a wooden table"
+          class="hero-image" width="800" height="450">
+      </div>
+    </section>
+
+    <section class="product">
+      <h2>Signature Latte</h2>
+      <p>Our signature latte is made with locally roasted beans and creamy oat milk.</p>
+
+      <!-- Tooltip Trigger -->
+      <button class="details-btn" interestfor="ingredients-popover">
+        See Ingredients
+      </button>
+
+      <!-- Tooltip Content -->
+      <div id="ingredients-popover" class="ingredient-tooltip" popover="hint">
+        <ul>
+          <li>Espresso (Double Shot)</li>
+          <li>Steamed Oat Milk</li>
+          <li>Agave Syrup</li>
+          <li>Cinnamon Dusting</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

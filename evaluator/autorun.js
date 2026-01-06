@@ -99,7 +99,7 @@ async function run() {
     console.log(`Waiting for Agent Panel iframe...`);
     let targetFrame = null;
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 20; i++) {
       const iframeElement = await page.$(iframeSelector);
       if (iframeElement) {
         targetFrame = await iframeElement.contentFrame();
@@ -107,7 +107,7 @@ async function run() {
           break;
         }
       }
-      console.log(`... Agent Panel iframe not found or loading, checking again in 3s (Attempt ${i + 1}/5)`);
+      console.log(`... Agent Panel iframe not found or loading, checking again in 3s (Attempt ${i + 1}/20)`);
       targetFrame = null; // Ensure null if check failed
       await sleep(3000);
     }

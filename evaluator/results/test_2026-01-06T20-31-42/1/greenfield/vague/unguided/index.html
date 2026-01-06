@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midnight Rosters | Artisan Coffee</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoaaaANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Midnight Roasters</div>
+            <ul class="nav-links">
+                <li><a href="#">Origins</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Brew Guides</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Scroll-bound Hero Section -->
+        <section class="hero-sticky-container">
+            <div class="hero-image-wrapper">
+                <!-- Low Quality Placeholder (inline base64 for demo speed) -->
+                <!-- Real high-res source is hero.png -->
+                <img 
+                    src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAKAAsDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAf/xAAgEAADAAICAgMAAAAAAAAAAAABAgMEBQABBhESIVFh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABYRAQEBAAAAAAAAAAAAAAAAAAABAf/aAAwDAQACEQMRAD8AqUra1tWdY5B+M88MnI+uufJ6hH//2Q==" 
+                    data-src="hero.png" 
+                    alt="Steaming cup of artisan coffee" 
+                    class="hero-img blur-load" 
+                    id="heroImage"
+                >
+            </div>
+            <div class="hero-content">
+                <h1>Awaken Your Senses</h1>
+                <p>Experience the darkness, embrace the roast.</p>
+                <div class="tooltip-container">
+                    <button class="cta-button">Details</button>
+                    <div class="tooltip">
+                        <strong>Ingredients:</strong><br>
+                        100% Arabica Beans<br>
+                        Notes of Chocolate & Cherry<br>
+                        Roast Level: Dark
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <p>Scroll to Reveal</p>
+                <div class="arrow">↓</div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Our Process</h2>
+            <p>From the highlands of Ethiopia to your morning cup, we ensure every bean is treated with respect. Our slow-roasting technique unlocks flavors hidden deep within the bean, providing a rich, bold experience that is never bitter.</p>
+            <p>Join us in the pursuit of the perfect cup.</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

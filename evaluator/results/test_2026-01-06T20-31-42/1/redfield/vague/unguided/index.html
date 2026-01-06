@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern CSS Tooltip Demo</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --tooltip-bg: #333;
+            --tooltip-text: #fff;
+            --arrow-size: 5px;
+            --tooltip-dist: 10px;
+            --transition-speed: 0.2s;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* The Button */
+        .tooltip-trigger {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid var(--primary-color);
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+        }
+
+        /* The Tooltip */
+        .tooltip {
+            position: absolute;
+            bottom: calc(100% + var(--tooltip-dist));
+            left: 50%;
+            transform: translateX(-50%) translateY(5px);
+            max-width: 200px;
+            width: max-content;
+            background-color: var(--tooltip-bg);
+            color: var(--tooltip-text);
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 10;
+            
+            /* Hidden state */
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity var(--transition-speed) ease, 
+                        transform var(--transition-speed) ease, 
+                        visibility var(--transition-speed);
+        }
+
+        /* Arrow */
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: calc(-1 * var(--arrow-size));
+            border-width: var(--arrow-size);
+            border-style: solid;
+            border-color: var(--tooltip-bg) transparent transparent transparent;
+        }
+
+        /* Show Tooltip on Hover or Focus */
+        .tooltip-trigger:hover + .tooltip,
+        .tooltip-trigger:focus + .tooltip,
+        .tooltip-trigger:focus-visible + .tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button class="tooltip-trigger" aria-describedby="tooltip-content">Hover or Focus me</button>
+        <div id="tooltip-content" class="tooltip" role="tooltip">I'm a modern CSS tooltip!</div>
+    </div>
+
+</body>
+</html>

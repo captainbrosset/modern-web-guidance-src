@@ -1,0 +1,151 @@
+/* Base Styles */
+:root {
+    --primary-color: #3e2723;
+    --accent-color: #d7ccc8;
+    --text-color: #1b0000;
+    --bg-color: #fffaf0;
+}
+
+body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 4rem 2rem;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    color: var(--primary-color);
+}
+
+.product-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-top: 2rem;
+    display: inline-block;
+    position: relative; /* Anchor for positioning if needed, though popover is top-layer */
+}
+
+/* Button */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: var(--primary-color);
+    color: #fff;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background-color: #5d4037;
+}
+
+/* Popover API Styles */
+[popover] {
+    padding: 1.5rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    background: #fff;
+    color: var(--text-color);
+    
+    /* Animation for Popover */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, display 0.3s ease allow-discrete;
+}
+
+[popover]:popover-open {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Starting style for the popover animation */
+@starting-style {
+    [popover]:popover-open {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+/* Hero Image Scroll Animation */
+.hero-image-container img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    
+    /* Native Scroll-Driven Animation */
+    /* Only works in browsers supporting animation-timeline (Chrome 115+) */
+    view-timeline-name: --hero-view;
+    view-timeline-axis: block;
+    
+    animation: fade-scale-up linear both;
+    animation-timeline: --hero-view; /* or just view() */
+    animation-range: entry 10% cover 50%; /* Adjust range as needed */
+}
+
+@keyframes fade-scale-up {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Generic content for scrolling */
+.spacer {
+    height: 150vh;
+}
