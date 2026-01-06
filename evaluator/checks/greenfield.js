@@ -33,13 +33,11 @@ module.exports = function checkGreenfield(dirPath, files) {
     message: 'Found button with interestfor attribute'
   });
 
-  if (buttonInterestTarget.length > 0) {
-    results.push({
-      id: 'no-interesttarget',
-      passed: false,
-      message: 'Found deprecated interesttarget attribute (should be interestfor)'
-    });
-  }
+  results.push({
+    id: 'no-interesttarget',
+    passed: buttonInterestTarget.length === 0,
+    message: 'No deprecated interesttarget attribute found'
+  });
 
   // 4. Check JS Polyfills
   const jsFiles = files.filter(f => f.endsWith('.js'));

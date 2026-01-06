@@ -208,6 +208,19 @@ function generateReport(allResults, numRuns) {
   fs.writeFileSync('evaluation_results.md', md);
   console.log(`\nReport generated: ${path.resolve('evaluation_results.md')}`.green.bold);
   console.log(`Median Pass Rate - Unguided: ${unguidedMedian}%, Guided: ${guidedMedian}%`.cyan);
+
+  const jsonOutput = {
+    summary: {
+      unguidedMedian,
+      guidedMedian,
+      numRuns
+    },
+    results: allResults,
+    stats: testPassRates
+  };
+
+  fs.writeFileSync('evaluation_results.json', JSON.stringify(jsonOutput, null, 2));
+  console.log(`JSON Report generated: ${path.resolve('evaluation_results.json')}`.green.bold);
 }
 
 main().catch(console.error);

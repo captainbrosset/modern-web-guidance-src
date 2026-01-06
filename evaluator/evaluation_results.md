@@ -4,34 +4,35 @@
 | Group | Median Pass Rate | Test Runs |
 |---|---|---|
 | **Unguided** | 33% | 3 |
-| **Guided** | 92% | 3 |
+| **Guided** | 93% | 3 |
 
 ## GREENFIELD - VAGUE - UNGUIDED (Median: 14%)
 
-**Pass rates across runs:** 0%, 14%, 14%
+**Pass rates across runs:** 14%, 14%, 14%
 
-### Run 2 Details (1/7)
+### Run 1 Details (1/7)
 
 | Status | Expectation |
 |---|---|
 | ❌ | Found img with loading-placeholder attribute |
 | ❌ | Found button with interestfor attribute |
-| ❌ | Found deprecated interesttarget attribute (should be interestfor) |
+| ✅ | No deprecated interesttarget attribute found |
 | ❌ | JS contains interestfor feature detection |
 | ❌ | JS contains loading-placeholder feature detection |
-| ✅ | CSS uses animation-timeline: view() |
+| ❌ | CSS uses animation-timeline: view() |
 | ❌ | CSS respects prefers-reduced-motion |
 
 ## GREENFIELD - VAGUE - GUIDED (Median: 100%)
 
-**Pass rates across runs:** 67%, 100%, 100%
+**Pass rates across runs:** 71%, 100%, 100%
 
-### Run 1 Details (6/6)
+### Run 1 Details (7/7)
 
 | Status | Expectation |
 |---|---|
 | ✅ | Found img with loading-placeholder attribute |
 | ✅ | Found button with interestfor attribute |
+| ✅ | No deprecated interesttarget attribute found |
 | ✅ | JS contains interestfor feature detection |
 | ✅ | JS contains loading-placeholder feature detection |
 | ✅ | CSS uses animation-timeline: view() |
@@ -47,22 +48,23 @@
 |---|---|
 | ❌ | Found img with loading-placeholder attribute |
 | ❌ | Found button with interestfor attribute |
-| ❌ | Found deprecated interesttarget attribute (should be interestfor) |
+| ❌ | No deprecated interesttarget attribute found |
 | ❌ | JS contains interestfor feature detection |
 | ❌ | JS contains loading-placeholder feature detection |
 | ✅ | CSS uses animation-timeline: view() |
 | ❌ | CSS respects prefers-reduced-motion |
 
-## GREENFIELD - SPECIFIC - GUIDED (Median: 83%)
+## GREENFIELD - SPECIFIC - GUIDED (Median: 86%)
 
-**Pass rates across runs:** 33%, 83%, 83%
+**Pass rates across runs:** 43%, 86%, 86%
 
-### Run 1 Details (5/6)
+### Run 1 Details (6/7)
 
 | Status | Expectation |
 |---|---|
 | ✅ | Found img with loading-placeholder attribute |
 | ✅ | Found button with interestfor attribute |
+| ✅ | No deprecated interesttarget attribute found |
 | ✅ | JS contains interestfor feature detection |
 | ✅ | JS contains loading-placeholder feature detection |
 | ✅ | CSS uses animation-timeline: view() |
