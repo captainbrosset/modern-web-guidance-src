@@ -96,7 +96,7 @@ async function main() {
           continue;
         }
 
-        const promptContent = fs.readFileSync(promptPath, 'utf8').trim();
+        let promptContent = fs.readFileSync(promptPath, 'utf8').trim();
         console.log(`\n=== Loaded Prompt for verify [${scenario} / ${promptType}] ===`);
 
         promptContent += `\n\nDon't bother validating it in a browser.`;
