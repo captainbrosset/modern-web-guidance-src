@@ -91,6 +91,7 @@ async function run() {
     const inputSelector = '#chat [contenteditable="true"][role="textbox"]';
     const sendButtonSelector = '#chat button[data-tooltip-id="input-send-button-send-tooltip"]';
     const cancelButtonSelector = '[data-tooltip-id="input-send-button-cancel-tooltip"]';
+    const allowOnceButtonSelector = 'button[aria-label="Allow once"]';
 
     const iframeSelector = '#antigravity\\.agentPanel';
 
@@ -142,6 +143,13 @@ async function run() {
         console.log("Agent finished.");
         break;
       }
+
+      const allowOnceButton = await targetFrame.$(allowOnceButtonSelector);
+      if (allowOnceButton) {
+        console.log("Found 'Allow once' button, clicking it...");
+        await allowOnceButton.click();
+      }
+
       await sleep(1000);
     }
 
