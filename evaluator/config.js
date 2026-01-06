@@ -8,11 +8,7 @@ const os = require('os');
  */
 
 // Load .env file if it exists
-try {
-  require('dotenv').config();
-} catch (e) {
-  // dotenv is optional - continue if not installed
-}
+require('dotenv').config();
 
 const config = {
   // Jetski Configuration
