@@ -9,6 +9,62 @@ const PROMPT_TYPES = ['specific', 'vague'];
 const AGENT_TYPES = ['guided', 'unguided'];
 const NUM_RUNS = 3;
 
+// Global log file stream
+let logStream = null;
+
+// Hook into console methods to also write to log file
+function setupLogging(logFilePath) {
+  logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
+  
+  const originalLog = console.log;
+  const originalError = console.error;
+  const originalWarn = console.warn;
+  
+  console.log = function(...args) {
+    const message = args.map(arg => 
+      typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+    ).join(' ');
+    originalLog.apply(console, args);
+    if (logStream) {
+      logStream.write(`[LOG ${new Date().toISOString()}] ${message}\n`);
+    }
+  };
+  
+  console.error = function(...args) {
+    const message = args.map(arg => 
+      typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+    ).join(' ');
+    originalError.apply(console, args);
+    if (logStream) {
+      logStream.write(`[ERROR ${new Date().toISOString()}] ${message}\n`);
+    }
+  };
+  
+  console.warn = function(...args) {
+    const message = args.map(arg => 
+      typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+    ).join(' ');
+    originalWarn.apply(console, args);
+    if (logStream) {
+      logStream.write(`[WARN ${new Date().toISOString()}] ${message}\n`);
+    }
+  };
+  
+  return { originalLog, originalError, originalWarn };
+}
+
+function restoreLogging(originals) {
+  if (originals) {
+    console.log = originals.originalLog;
+    console.error = originals.originalError;
+    console.warn = originals.originalWarn;
+  }
+  if (logStream) {
+    logStream.end();
+    logStream = null;
+  }
+}
+
 async function runCommand(command, args) {
   return new Promise((resolve, reject) => {
     const process = spawn(command, args, {
@@ -88,8 +144,13 @@ async function main() {
   const testDir = path.join(resultsDir, testID);
   fs.mkdirSync(testDir, { recursive: true });
 
+  // Setup logging to file
+  const logFilePath = path.join(testDir, 'test_suite.log');
+  const originalConsoleMethods = setupLogging(logFilePath);
+
   console.log(`\n=== Test Suite Starting with ID: ${testID} ===\n`);
   console.log(`Results will be saved to: ${testDir}\n`);
+  console.log(`Log file: ${logFilePath}\n`);
 
   // Artifact directories to reset
   const ARTIFACT_DIRS = [
@@ -241,6 +302,9 @@ async function main() {
         console.error(`Backup should still be available at: ${backupBaseDir}`);
       }
     }
+    
+    // Restore console methods and close log stream
+    restoreLogging(originalConsoleMethods);
   }
 }
 

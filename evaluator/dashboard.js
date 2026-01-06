@@ -32,24 +32,41 @@ document.addEventListener('DOMContentLoaded', async () => {
     // View Log Handler
     const viewLogBtn = document.getElementById('view-log-btn');
     if (viewLogBtn) {
-        viewLogBtn.onclick = async () => {
-            const modal = document.getElementById('modal');
-            const title = document.getElementById('modal-title');
-            const body = document.getElementById('modal-body');
+        const params = new URLSearchParams(window.location.search);
+        const testID = params.get('testID');
+        const logPath = `results/${testID}/test_suite.log`;
+        
+        // Check if log file exists
+        try {
+            const checkRes = await fetch(logPath, { method: 'HEAD' });
+            if (!checkRes.ok) {
+                // Hide button if log doesn't exist
+                viewLogBtn.style.display = 'none';
+            } else {
+                // Show button and set up click handler
+                viewLogBtn.onclick = async () => {
+                    const modal = document.getElementById('modal');
+                    const title = document.getElementById('modal-title');
+                    const body = document.getElementById('modal-body');
 
-            title.textContent = 'Full Run Log (run.log)';
-            body.innerHTML = '<div style="text-align:center; padding: 20px;">Loading log...</div>';
-            modal.classList.add('show');
+                    title.textContent = 'Test Suite Run Log';
+                    body.innerHTML = '<div style="text-align:center; padding: 20px;">Loading log...</div>';
+                    modal.classList.add('show');
 
-            try {
-                const res = await fetch('run.log');
-                if (!res.ok) throw new Error('Failed to fetch log');
-                const text = await res.text();
-                body.innerHTML = `<div class="log-content">${escapeHtml(text)}</div>`;
-            } catch (e) {
-                body.innerHTML = `<div style="color: var(--accent-failure); padding: 20px;">Error loading log: ${e.message}</div>`;
+                    try {
+                        const res = await fetch(logPath);
+                        if (!res.ok) throw new Error('Failed to fetch log');
+                        const text = await res.text();
+                        body.innerHTML = `<div class="log-content">${escapeHtml(text)}</div>`;
+                    } catch (e) {
+                        body.innerHTML = `<div style="color: var(--accent-failure); padding: 20px;">Error loading log: ${e.message}</div>`;
+                    }
+                };
             }
-        };
+        } catch (e) {
+            // Hide button on error
+            viewLogBtn.style.display = 'none';
+        }
     }
 });
 
