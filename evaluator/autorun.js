@@ -18,27 +18,23 @@ async function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-/**
- * Opens the "About" dialog via the Command Palette and saves the info to a file.
- * @param {import('puppeteer').Page} page - The connected Puppeteer page object.
- * @param {string} outputPath - The path to save the info to.
- */
 async function extractJetskiVersionInfo(page, outputPath) {
   try {
     // 1. Ensure the window is focused to receive keyboard events
     await page.bringToFront();
+    await page.waitForSelector('.antigravity-welcome-container', { visible: true, timeout: 15000 });
 
     // 2. Trigger Command Palette (Cmd + Shift + P)
     // Using individual down/up calls for the 'chord' to ensure Electron registers it
     await page.keyboard.down('Meta');
     await page.keyboard.down('Shift');
-    await page.keyboard.press('KeyP');
+    await page.keyboard.press('p');
     await page.keyboard.up('Shift');
     await page.keyboard.up('Meta');
 
     // 3. Wait for the Quick Input widget to appear
-    const paletteInput = 'input.quick-input-filter';
-    await page.waitForSelector(paletteInput, { visible: true, timeout: 5000 });
+    const paletteInput = '.quick-input-filter input';
+    await page.waitForSelector(paletteInput, { visible: true, timeout: 15000 });
 
     // 4. Type the command with a slight delay to ensure the UI stays in sync
     await page.type(paletteInput, 'Help: About', { delay: 50 });
@@ -46,7 +42,7 @@ async function extractJetskiVersionInfo(page, outputPath) {
 
     // 5. Wait for the Monaco dialog detail to appear in the DOM
     const detailSelector = '#monaco-dialog-message-detail';
-    await page.waitForSelector(detailSelector, { visible: true, timeout: 5000 });
+    await page.waitForSelector(detailSelector, { visible: true, timeout: 10000 });
 
     // 6. Extract the text
     const versionText = await page.$eval(detailSelector, el => el.innerText);
@@ -233,6 +229,19 @@ async function run() {
       }
 
       await sleep(1000);
+    }
+
+    // Attempt to preserve chat log before closing Jetski
+    try {
+      console.log("Saving chat log...");
+      // Ensure #chat exists in the target frame
+      await targetFrame.waitForSelector('#chat #cascade', { timeout: 5000 });
+      const chatText = await targetFrame.$eval('#chat #cascade', el => el.innerText || '');
+      const chatLogPath = path.resolve(absoluteTargetDir, 'chat_log.txt');
+      fs.writeFileSync(chatLogPath, chatText, 'utf8');
+      console.log(`Saved chat log to: ${chatLogPath}`);
+    } catch (e) {
+      console.warn('Could not save chat log:', e.message);
     }
 
     // Close Jetski

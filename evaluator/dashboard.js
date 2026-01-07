@@ -28,6 +28,38 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderTestHeader(testID, jetskiVersion);
         renderSummary(data, testID);
         renderGrid(data, testID);
+
+        // Check for deep link to modal
+        const testName = params.get('testName');
+        const checkId = params.get('checkId');
+
+        if (testName) {
+            const results = data.results;
+            const stats = data.stats;
+            const runData = results[testName];
+            const testStats = stats[testName];
+
+            if (runData && testStats) {
+                // Auto-open modal
+                await showDetails(testName, runData, testStats, testID);
+
+                // If checkId is provided, try to scroll to it
+                if (checkId) {
+                    // Give the modal a moment to render
+                    setTimeout(() => {
+                        const checkItems = document.querySelectorAll('.check-item');
+                        for (const item of checkItems) {
+                            if (item.textContent.includes(checkId)) {
+                                item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                item.style.backgroundColor = 'rgba(255, 255, 0, 0.2)'; // Highlight
+                                item.style.transition = 'background-color 0.5s';
+                                break;
+                            }
+                        }
+                    }, 100);
+                }
+            }
+        }
     } catch (error) {
         console.error('Error:', error);
         document.body.innerHTML = `<div style="text-align:center; padding: 50px; color: red;">Error loading dashboard data: ${error.message}</div>`;
