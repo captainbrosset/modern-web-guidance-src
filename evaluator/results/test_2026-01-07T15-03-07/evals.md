@@ -40,9 +40,9 @@
 
 ## GREENFIELD - SPECIFIC - UNGUIDED (Median: 29%)
 
-**Pass rates across runs:** 14%, 29%, 29%
+**Pass rates across runs:** 29%, 29%, 29%
 
-### Run 2 Details (2/7)
+### Run 1 Details (2/7)
 
 | Status | Expectation |
 |---|---|

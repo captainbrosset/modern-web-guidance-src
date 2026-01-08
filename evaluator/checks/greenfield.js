@@ -100,6 +100,19 @@ module.exports = function checkGreenfield(dirPath, files) {
     }
   });
 
+  // Check inline styles in HTML
+  $('style').each((i, el) => {
+    const content = $(el).html();
+    if (content) {
+      if (content.includes('animation-timeline: view()') || content.includes('animation-timeline:view()')) {
+        viewTimelineFound = true;
+      }
+      if (content.includes('@media (prefers-reduced-motion')) {
+        reducedMotionFound = true;
+      }
+    }
+  });
+
   results.push({
     id: 'css-view-timeline',
     passed: viewTimelineFound,

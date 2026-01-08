@@ -588,7 +588,7 @@
           },
           {
             "id": "css-view-timeline",
-            "passed": false,
+            "passed": true,
             "message": "CSS uses animation-timeline: view()"
           },
           {
@@ -1070,7 +1070,7 @@
     "greenfield - specific - unguided": {
       "median": 29,
       "rates": [
-        14,
+        29,
         29,
         29
       ]
