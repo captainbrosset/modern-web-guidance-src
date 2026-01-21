@@ -1,0 +1,302 @@
+[LOG 2026-01-21T14:16:55.450Z] 
+=== Test Suite Starting with ID: test_2026-01-21T14-16-55 ===
+
+[LOG 2026-01-21T14:16:55.450Z] Results will be saved to: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55
+
+[LOG 2026-01-21T14:16:55.450Z] Log file: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/test_suite.log
+
+[LOG 2026-01-21T14:16:55.450Z] 
+=== Backing up Artifacts ===
+[LOG 2026-01-21T14:16:55.450Z] Source Root: /Users/rviscomi/.gemini/jetski
+[LOG 2026-01-21T14:16:55.450Z] Backup Root: /var/folders/sb/x1_w9yhd31z4r6161c0bnb1h0064w3/T/jetski-artifacts-backup-bbckl9
+[LOG 2026-01-21T14:16:55.450Z] Backing up brain...
+[LOG 2026-01-21T14:16:55.593Z] Backing up browser_recordings...
+[LOG 2026-01-21T14:16:58.527Z] Backing up code_tracker...
+[LOG 2026-01-21T14:16:58.550Z] Backing up conversations...
+[LOG 2026-01-21T14:16:58.582Z] Backing up implicit...
+[LOG 2026-01-21T14:16:58.609Z] Backing up knowledge...
+[LOG 2026-01-21T14:16:58.641Z] ✅ Backup successful
+[LOG 2026-01-21T14:16:58.641Z] 
+Starting execution for 3 runs
+[LOG 2026-01-21T14:16:58.641Z] 
+============================================================
+[LOG 2026-01-21T14:16:58.641Z] >>> STARTING RUN 1 <<<
+[LOG 2026-01-21T14:16:58.641Z] ============================================================
+
+[LOG 2026-01-21T14:16:58.641Z] Copying setup to /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/1...
+[LOG 2026-01-21T14:16:58.678Z] ✅ Setup copied
+[LOG 2026-01-21T14:16:58.678Z] 
+=== Loaded Prompt for verify [greenfield / specific] ===
+[LOG 2026-01-21T14:16:58.678Z] Enabled modern-web MCP server
+[LOG 2026-01-21T14:16:58.678Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T14:16:59.314Z] 
+>>> Running Scenario: greenfield | Prompt: specific | Agent: guided | Run: 1
+[LOG 2026-01-21T14:16:59.314Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/1/greenfield/specific/guided
+[ERROR 2026-01-21T14:16:59.315Z] (node:69312) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[LOG 2026-01-21T14:19:46.203Z] ✅ Completed: greenfield/specific/guided (Run 1)
+[LOG 2026-01-21T14:19:46.204Z] Disabled modern-web MCP server
+[LOG 2026-01-21T14:19:46.204Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T14:19:46.326Z] 
+>>> Running Scenario: greenfield | Prompt: specific | Agent: unguided | Run: 1
+[LOG 2026-01-21T14:19:46.327Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/1/greenfield/specific/unguided
+[LOG 2026-01-21T14:23:06.783Z] ✅ Completed: greenfield/specific/unguided (Run 1)
+[LOG 2026-01-21T14:23:06.784Z] 
+=== Loaded Prompt for verify [greenfield / vague] ===
+[LOG 2026-01-21T14:23:06.784Z] Enabled modern-web MCP server
+[LOG 2026-01-21T14:23:06.784Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T14:23:06.906Z] 
+>>> Running Scenario: greenfield | Prompt: vague | Agent: guided | Run: 1
+[LOG 2026-01-21T14:23:06.906Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/1/greenfield/vague/guided
+[LOG 2026-01-21T14:30:26.077Z] ✅ Completed: greenfield/vague/guided (Run 1)
+[LOG 2026-01-21T14:30:26.077Z] Disabled modern-web MCP server
+[LOG 2026-01-21T14:30:26.077Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T14:30:26.197Z] 
+>>> Running Scenario: greenfield | Prompt: vague | Agent: unguided | Run: 1
+[LOG 2026-01-21T14:30:26.197Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/1/greenfield/vague/unguided
+[ERROR 2026-01-21T14:31:27.650Z] ❌ Failed: greenfield/vague/unguided (Run 1) {}
+[LOG 2026-01-21T14:31:27.650Z] 
+=== Loaded Prompt for verify [brownfield / specific] ===
+[LOG 2026-01-21T14:31:27.651Z] Enabled modern-web MCP server
+[LOG 2026-01-21T14:31:27.651Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T14:31:27.791Z] 
+>>> Running Scenario: brownfield | Prompt: specific | Agent: guided | Run: 1
+[LOG 2026-01-21T14:31:27.791Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/1/brownfield/specific/guided
+[ERROR 2026-01-21T14:32:29.219Z] ❌ Failed: brownfield/specific/guided (Run 1) {}
+[LOG 2026-01-21T14:32:29.220Z] Disabled modern-web MCP server
+[LOG 2026-01-21T14:32:29.220Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T14:32:29.369Z] 
+>>> Running Scenario: brownfield | Prompt: specific | Agent: unguided | Run: 1
+[LOG 2026-01-21T14:32:29.369Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/1/brownfield/specific/unguided
+[ERROR 2026-01-21T14:33:30.825Z] ❌ Failed: brownfield/specific/unguided (Run 1) {}
+[LOG 2026-01-21T14:33:30.827Z] 
+=== Loaded Prompt for verify [brownfield / vague] ===
+[LOG 2026-01-21T14:33:30.827Z] Enabled modern-web MCP server
+[LOG 2026-01-21T14:33:30.828Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T14:33:30.972Z] 
+>>> Running Scenario: brownfield | Prompt: vague | Agent: guided | Run: 1
+[LOG 2026-01-21T14:33:30.972Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/1/brownfield/vague/guided
+[ERROR 2026-01-21T14:34:32.416Z] ❌ Failed: brownfield/vague/guided (Run 1) {}
+[LOG 2026-01-21T14:34:32.416Z] Disabled modern-web MCP server
+[LOG 2026-01-21T14:34:32.417Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T14:34:32.571Z] 
+>>> Running Scenario: brownfield | Prompt: vague | Agent: unguided | Run: 1
+[LOG 2026-01-21T14:34:32.571Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/1/brownfield/vague/unguided
+[LOG 2026-01-21T14:36:22.921Z] ✅ Completed: brownfield/vague/unguided (Run 1)
+[LOG 2026-01-21T14:36:22.921Z] 
+=== Loaded Prompt for verify [redfield / specific] ===
+[LOG 2026-01-21T14:36:22.922Z] Enabled modern-web MCP server
+[LOG 2026-01-21T14:36:22.922Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T14:36:23.003Z] 
+>>> Running Scenario: redfield | Prompt: specific | Agent: guided | Run: 1
+[LOG 2026-01-21T14:36:23.003Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/1/redfield/specific/guided
+[LOG 2026-01-21T14:37:48.465Z] ✅ Completed: redfield/specific/guided (Run 1)
+[LOG 2026-01-21T14:37:48.465Z] Disabled modern-web MCP server
+[LOG 2026-01-21T14:37:48.465Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T14:37:48.572Z] 
+>>> Running Scenario: redfield | Prompt: specific | Agent: unguided | Run: 1
+[LOG 2026-01-21T14:37:48.572Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/1/redfield/specific/unguided
+[LOG 2026-01-21T14:40:30.705Z] ✅ Completed: redfield/specific/unguided (Run 1)
+[LOG 2026-01-21T14:40:30.706Z] 
+=== Loaded Prompt for verify [redfield / vague] ===
+[LOG 2026-01-21T14:40:30.706Z] Enabled modern-web MCP server
+[LOG 2026-01-21T14:40:30.706Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T14:40:30.818Z] 
+>>> Running Scenario: redfield | Prompt: vague | Agent: guided | Run: 1
+[LOG 2026-01-21T14:40:30.818Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/1/redfield/vague/guided
+[LOG 2026-01-21T14:42:48.567Z] ✅ Completed: redfield/vague/guided (Run 1)
+[LOG 2026-01-21T14:42:48.568Z] Disabled modern-web MCP server
+[LOG 2026-01-21T14:42:48.568Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T14:42:48.705Z] 
+>>> Running Scenario: redfield | Prompt: vague | Agent: unguided | Run: 1
+[LOG 2026-01-21T14:42:48.705Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/1/redfield/vague/unguided
+[LOG 2026-01-21T14:46:42.151Z] ✅ Completed: redfield/vague/unguided (Run 1)
+[LOG 2026-01-21T14:46:42.151Z] 
+============================================================
+[LOG 2026-01-21T14:46:42.151Z] >>> STARTING RUN 2 <<<
+[LOG 2026-01-21T14:46:42.151Z] ============================================================
+
+[LOG 2026-01-21T14:46:42.151Z] Copying setup to /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/2...
+[LOG 2026-01-21T14:46:42.195Z] ✅ Setup copied
+[LOG 2026-01-21T14:46:42.195Z] 
+=== Loaded Prompt for verify [greenfield / specific] ===
+[LOG 2026-01-21T14:46:42.195Z] Enabled modern-web MCP server
+[LOG 2026-01-21T14:46:42.195Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T14:46:42.303Z] 
+>>> Running Scenario: greenfield | Prompt: specific | Agent: guided | Run: 2
+[LOG 2026-01-21T14:46:42.303Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/2/greenfield/specific/guided
+[LOG 2026-01-21T15:11:01.069Z] ✅ Completed: greenfield/specific/guided (Run 2)
+[LOG 2026-01-21T15:11:01.069Z] Disabled modern-web MCP server
+[LOG 2026-01-21T15:11:01.070Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:11:01.194Z] 
+>>> Running Scenario: greenfield | Prompt: specific | Agent: unguided | Run: 2
+[LOG 2026-01-21T15:11:01.194Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/2/greenfield/specific/unguided
+[LOG 2026-01-21T15:13:17.153Z] ✅ Completed: greenfield/specific/unguided (Run 2)
+[LOG 2026-01-21T15:13:17.153Z] 
+=== Loaded Prompt for verify [greenfield / vague] ===
+[LOG 2026-01-21T15:13:17.154Z] Enabled modern-web MCP server
+[LOG 2026-01-21T15:13:17.154Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:13:17.278Z] 
+>>> Running Scenario: greenfield | Prompt: vague | Agent: guided | Run: 2
+[LOG 2026-01-21T15:13:17.278Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/2/greenfield/vague/guided
+[LOG 2026-01-21T15:16:26.769Z] ✅ Completed: greenfield/vague/guided (Run 2)
+[LOG 2026-01-21T15:16:26.769Z] Disabled modern-web MCP server
+[LOG 2026-01-21T15:16:26.769Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:16:26.897Z] 
+>>> Running Scenario: greenfield | Prompt: vague | Agent: unguided | Run: 2
+[LOG 2026-01-21T15:16:26.897Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/2/greenfield/vague/unguided
+[LOG 2026-01-21T15:18:59.738Z] ✅ Completed: greenfield/vague/unguided (Run 2)
+[LOG 2026-01-21T15:18:59.738Z] 
+=== Loaded Prompt for verify [brownfield / specific] ===
+[LOG 2026-01-21T15:18:59.739Z] Enabled modern-web MCP server
+[LOG 2026-01-21T15:18:59.739Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:18:59.876Z] 
+>>> Running Scenario: brownfield | Prompt: specific | Agent: guided | Run: 2
+[LOG 2026-01-21T15:18:59.877Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/2/brownfield/specific/guided
+[LOG 2026-01-21T15:20:57.525Z] ✅ Completed: brownfield/specific/guided (Run 2)
+[LOG 2026-01-21T15:20:57.525Z] Disabled modern-web MCP server
+[LOG 2026-01-21T15:20:57.526Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:20:57.637Z] 
+>>> Running Scenario: brownfield | Prompt: specific | Agent: unguided | Run: 2
+[LOG 2026-01-21T15:20:57.637Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/2/brownfield/specific/unguided
+[LOG 2026-01-21T15:22:06.051Z] ✅ Completed: brownfield/specific/unguided (Run 2)
+[LOG 2026-01-21T15:22:06.051Z] 
+=== Loaded Prompt for verify [brownfield / vague] ===
+[LOG 2026-01-21T15:22:06.051Z] Enabled modern-web MCP server
+[LOG 2026-01-21T15:22:06.051Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:22:06.164Z] 
+>>> Running Scenario: brownfield | Prompt: vague | Agent: guided | Run: 2
+[LOG 2026-01-21T15:22:06.164Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/2/brownfield/vague/guided
+[LOG 2026-01-21T15:23:37.503Z] ✅ Completed: brownfield/vague/guided (Run 2)
+[LOG 2026-01-21T15:23:37.504Z] Disabled modern-web MCP server
+[LOG 2026-01-21T15:23:37.504Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:23:37.629Z] 
+>>> Running Scenario: brownfield | Prompt: vague | Agent: unguided | Run: 2
+[LOG 2026-01-21T15:23:37.629Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/2/brownfield/vague/unguided
+[LOG 2026-01-21T15:25:27.998Z] ✅ Completed: brownfield/vague/unguided (Run 2)
+[LOG 2026-01-21T15:25:27.999Z] 
+=== Loaded Prompt for verify [redfield / specific] ===
+[LOG 2026-01-21T15:25:27.999Z] Enabled modern-web MCP server
+[LOG 2026-01-21T15:25:28.000Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:25:28.127Z] 
+>>> Running Scenario: redfield | Prompt: specific | Agent: guided | Run: 2
+[LOG 2026-01-21T15:25:28.128Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/2/redfield/specific/guided
+[LOG 2026-01-21T15:27:12.319Z] ✅ Completed: redfield/specific/guided (Run 2)
+[LOG 2026-01-21T15:27:12.319Z] Disabled modern-web MCP server
+[LOG 2026-01-21T15:27:12.320Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:27:12.447Z] 
+>>> Running Scenario: redfield | Prompt: specific | Agent: unguided | Run: 2
+[LOG 2026-01-21T15:27:12.447Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/2/redfield/specific/unguided
+[LOG 2026-01-21T15:29:08.033Z] ✅ Completed: redfield/specific/unguided (Run 2)
+[LOG 2026-01-21T15:29:08.033Z] 
+=== Loaded Prompt for verify [redfield / vague] ===
+[LOG 2026-01-21T15:29:08.033Z] Enabled modern-web MCP server
+[LOG 2026-01-21T15:29:08.033Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:29:08.163Z] 
+>>> Running Scenario: redfield | Prompt: vague | Agent: guided | Run: 2
+[LOG 2026-01-21T15:29:08.163Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/2/redfield/vague/guided
+[LOG 2026-01-21T15:30:55.679Z] ✅ Completed: redfield/vague/guided (Run 2)
+[LOG 2026-01-21T15:30:55.680Z] Disabled modern-web MCP server
+[LOG 2026-01-21T15:30:55.680Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:30:55.774Z] 
+>>> Running Scenario: redfield | Prompt: vague | Agent: unguided | Run: 2
+[LOG 2026-01-21T15:30:55.774Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/2/redfield/vague/unguided
+[LOG 2026-01-21T15:32:32.311Z] ✅ Completed: redfield/vague/unguided (Run 2)
+[LOG 2026-01-21T15:32:32.311Z] 
+============================================================
+[LOG 2026-01-21T15:32:32.311Z] >>> STARTING RUN 3 <<<
+[LOG 2026-01-21T15:32:32.311Z] ============================================================
+
+[LOG 2026-01-21T15:32:32.311Z] Copying setup to /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/3...
+[LOG 2026-01-21T15:32:32.353Z] ✅ Setup copied
+[LOG 2026-01-21T15:32:32.353Z] 
+=== Loaded Prompt for verify [greenfield / specific] ===
+[LOG 2026-01-21T15:32:32.353Z] Enabled modern-web MCP server
+[LOG 2026-01-21T15:32:32.353Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:32:32.466Z] 
+>>> Running Scenario: greenfield | Prompt: specific | Agent: guided | Run: 3
+[LOG 2026-01-21T15:32:32.466Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/3/greenfield/specific/guided
+[LOG 2026-01-21T15:34:29.622Z] ✅ Completed: greenfield/specific/guided (Run 3)
+[LOG 2026-01-21T15:34:29.622Z] Disabled modern-web MCP server
+[LOG 2026-01-21T15:34:29.622Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:34:29.754Z] 
+>>> Running Scenario: greenfield | Prompt: specific | Agent: unguided | Run: 3
+[LOG 2026-01-21T15:34:29.754Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/3/greenfield/specific/unguided
+[LOG 2026-01-21T15:36:57.851Z] ✅ Completed: greenfield/specific/unguided (Run 3)
+[LOG 2026-01-21T15:36:57.851Z] 
+=== Loaded Prompt for verify [greenfield / vague] ===
+[LOG 2026-01-21T15:36:57.851Z] Enabled modern-web MCP server
+[LOG 2026-01-21T15:36:57.852Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:36:57.956Z] 
+>>> Running Scenario: greenfield | Prompt: vague | Agent: guided | Run: 3
+[LOG 2026-01-21T15:36:57.956Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/3/greenfield/vague/guided
+[LOG 2026-01-21T15:40:43.477Z] ✅ Completed: greenfield/vague/guided (Run 3)
+[LOG 2026-01-21T15:40:43.477Z] Disabled modern-web MCP server
+[LOG 2026-01-21T15:40:43.477Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:40:43.606Z] 
+>>> Running Scenario: greenfield | Prompt: vague | Agent: unguided | Run: 3
+[LOG 2026-01-21T15:40:43.606Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/3/greenfield/vague/unguided
+[LOG 2026-01-21T15:43:45.650Z] ✅ Completed: greenfield/vague/unguided (Run 3)
+[LOG 2026-01-21T15:43:45.650Z] 
+=== Loaded Prompt for verify [brownfield / specific] ===
+[LOG 2026-01-21T15:43:45.650Z] Enabled modern-web MCP server
+[LOG 2026-01-21T15:43:45.651Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:43:45.765Z] 
+>>> Running Scenario: brownfield | Prompt: specific | Agent: guided | Run: 3
+[LOG 2026-01-21T15:43:45.765Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/3/brownfield/specific/guided
+[LOG 2026-01-21T15:45:33.250Z] ✅ Completed: brownfield/specific/guided (Run 3)
+[LOG 2026-01-21T15:45:33.251Z] Disabled modern-web MCP server
+[LOG 2026-01-21T15:45:33.251Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:45:33.371Z] 
+>>> Running Scenario: brownfield | Prompt: specific | Agent: unguided | Run: 3
+[LOG 2026-01-21T15:45:33.371Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/3/brownfield/specific/unguided
+[LOG 2026-01-21T15:46:59.747Z] ✅ Completed: brownfield/specific/unguided (Run 3)
+[LOG 2026-01-21T15:46:59.748Z] 
+=== Loaded Prompt for verify [brownfield / vague] ===
+[LOG 2026-01-21T15:46:59.748Z] Enabled modern-web MCP server
+[LOG 2026-01-21T15:46:59.748Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:46:59.840Z] 
+>>> Running Scenario: brownfield | Prompt: vague | Agent: guided | Run: 3
+[LOG 2026-01-21T15:46:59.840Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/3/brownfield/vague/guided
+[LOG 2026-01-21T15:48:43.199Z] ✅ Completed: brownfield/vague/guided (Run 3)
+[LOG 2026-01-21T15:48:43.200Z] Disabled modern-web MCP server
+[LOG 2026-01-21T15:48:43.200Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:48:43.312Z] 
+>>> Running Scenario: brownfield | Prompt: vague | Agent: unguided | Run: 3
+[LOG 2026-01-21T15:48:43.312Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/3/brownfield/vague/unguided
+[LOG 2026-01-21T15:50:20.819Z] ✅ Completed: brownfield/vague/unguided (Run 3)
+[LOG 2026-01-21T15:50:20.821Z] 
+=== Loaded Prompt for verify [redfield / specific] ===
+[LOG 2026-01-21T15:50:20.821Z] Enabled modern-web MCP server
+[LOG 2026-01-21T15:50:20.821Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:50:20.936Z] 
+>>> Running Scenario: redfield | Prompt: specific | Agent: guided | Run: 3
+[LOG 2026-01-21T15:50:20.936Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/3/redfield/specific/guided
+[LOG 2026-01-21T15:51:58.236Z] ✅ Completed: redfield/specific/guided (Run 3)
+[LOG 2026-01-21T15:51:58.236Z] Disabled modern-web MCP server
+[LOG 2026-01-21T15:51:58.236Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:51:58.356Z] 
+>>> Running Scenario: redfield | Prompt: specific | Agent: unguided | Run: 3
+[LOG 2026-01-21T15:51:58.356Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/3/redfield/specific/unguided
+[LOG 2026-01-21T15:53:53.846Z] ✅ Completed: redfield/specific/unguided (Run 3)
+[LOG 2026-01-21T15:53:53.847Z] 
+=== Loaded Prompt for verify [redfield / vague] ===
+[LOG 2026-01-21T15:53:53.847Z] Enabled modern-web MCP server
+[LOG 2026-01-21T15:53:53.847Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:53:53.971Z] 
+>>> Running Scenario: redfield | Prompt: vague | Agent: guided | Run: 3
+[LOG 2026-01-21T15:53:53.971Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/3/redfield/vague/guided
+[LOG 2026-01-21T15:55:43.412Z] ✅ Completed: redfield/vague/guided (Run 3)
+[LOG 2026-01-21T15:55:43.412Z] Disabled modern-web MCP server
+[LOG 2026-01-21T15:55:43.413Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-21T15:55:43.534Z] 
+>>> Running Scenario: redfield | Prompt: vague | Agent: unguided | Run: 3
+[LOG 2026-01-21T15:55:43.534Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-21T14-16-55/3/redfield/vague/unguided
+[LOG 2026-01-21T15:57:50.175Z] ✅ Completed: redfield/vague/unguided (Run 3)
+[LOG 2026-01-21T15:57:50.175Z] 
+✅ Manifest updated: /Users/rviscomi/git/spike-test/results/tests.json
+[LOG 2026-01-21T15:57:50.175Z] 
+✅ Test suite complete! Results saved to: results/test_2026-01-21T14-16-55
+[LOG 2026-01-21T15:57:50.175Z] 
+=== Restoring Artifacts ===
+[LOG 2026-01-21T15:57:52.805Z] ✅ Restore successful

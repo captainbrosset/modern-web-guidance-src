@@ -210,7 +210,7 @@ async function main() {
           let promptContent = fs.readFileSync(promptPath, 'utf8').trim();
           console.log(`\n=== Loaded Prompt for verify [${scenario} / ${promptType}] ===`);
 
-          promptContent += ` Don't bother doing any manual verification in a browser.`;
+          promptContent += ` Don't bother doing any manual verification in a browser. If images are needed, prefer using some stock photos from the web rather than generating them with Nano Banana.`;
 
           for (const agentType of AGENT_TYPES) {
             updateMcpConfig(agentType);
