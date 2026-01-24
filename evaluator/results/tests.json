@@ -16,6 +16,11 @@
       "runCount": 3
     },
     {
+      "id": "skills",
+      "timestamp": "2026-01-16T14:36:47.531Z",
+      "runCount": 3
+    },
+    {
       "id": "smoke-test-fast-mode",
       "timestamp": "2026-01-21T15:57:50.175Z",
       "runCount": 3
