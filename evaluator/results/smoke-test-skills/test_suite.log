@@ -1,0 +1,320 @@
+[LOG 2026-01-23T23:00:29.413Z] 
+=== Test Suite Starting with ID: test_2026-01-23T23-00-29 ===
+
+[LOG 2026-01-23T23:00:29.413Z] Results will be saved to: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29
+
+[LOG 2026-01-23T23:00:29.413Z] Log file: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/test_suite.log
+
+[LOG 2026-01-23T23:00:29.414Z] 
+=== Backing up Artifacts ===
+[LOG 2026-01-23T23:00:29.414Z] Source Root: /Users/rviscomi/.gemini/jetski
+[LOG 2026-01-23T23:00:29.414Z] Backup Root: /var/folders/sb/x1_w9yhd31z4r6161c0bnb1h0064w3/T/jetski-artifacts-backup-iLrHMm
+[LOG 2026-01-23T23:00:29.414Z] Backing up brain...
+[LOG 2026-01-23T23:00:29.437Z] Backing up browser_recordings...
+[LOG 2026-01-23T23:00:29.457Z] Backing up code_tracker...
+[LOG 2026-01-23T23:00:29.477Z] Backing up conversations...
+[LOG 2026-01-23T23:00:29.496Z] Backing up implicit...
+[LOG 2026-01-23T23:00:29.515Z] Backing up knowledge...
+[LOG 2026-01-23T23:00:29.533Z] ✅ Backup successful
+[LOG 2026-01-23T23:00:29.533Z] 
+Starting execution for 3 runs
+[LOG 2026-01-23T23:00:29.533Z] 
+============================================================
+[LOG 2026-01-23T23:00:29.533Z] >>> STARTING RUN 1 <<<
+[LOG 2026-01-23T23:00:29.533Z] ============================================================
+
+[LOG 2026-01-23T23:00:29.533Z] Copying setup to /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/1...
+[LOG 2026-01-23T23:00:29.568Z] ✅ Setup copied
+[LOG 2026-01-23T23:00:29.569Z] 
+=== Loaded Prompt for verify [greenfield / specific] ===
+[LOG 2026-01-23T23:00:29.581Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-23T23:00:29.818Z] ✅ Skills populated from source
+[LOG 2026-01-23T23:00:29.818Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:00:29.895Z] 
+>>> Running Scenario: greenfield | Prompt: specific | Agent: guided | Run: 1
+[LOG 2026-01-23T23:00:29.895Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/1/greenfield/specific/guided
+[ERROR 2026-01-23T23:00:29.897Z] (node:73110) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[LOG 2026-01-23T23:02:37.554Z] ✅ Completed: greenfield/specific/guided (Run 1)
+[LOG 2026-01-23T23:02:37.649Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-23T23:02:37.649Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:02:37.742Z] 
+>>> Running Scenario: greenfield | Prompt: specific | Agent: unguided | Run: 1
+[LOG 2026-01-23T23:02:37.742Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/1/greenfield/specific/unguided
+[LOG 2026-01-23T23:04:26.647Z] ✅ Completed: greenfield/specific/unguided (Run 1)
+[LOG 2026-01-23T23:04:26.648Z] 
+=== Loaded Prompt for verify [greenfield / vague] ===
+[LOG 2026-01-23T23:04:26.668Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-23T23:04:26.905Z] ✅ Skills populated from source
+[LOG 2026-01-23T23:04:26.905Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:04:26.982Z] 
+>>> Running Scenario: greenfield | Prompt: vague | Agent: guided | Run: 1
+[LOG 2026-01-23T23:04:26.982Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/1/greenfield/vague/guided
+[LOG 2026-01-23T23:06:17.640Z] ✅ Completed: greenfield/vague/guided (Run 1)
+[LOG 2026-01-23T23:06:17.733Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-23T23:06:17.733Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:06:17.840Z] 
+>>> Running Scenario: greenfield | Prompt: vague | Agent: unguided | Run: 1
+[LOG 2026-01-23T23:06:17.840Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/1/greenfield/vague/unguided
+[LOG 2026-01-23T23:08:01.508Z] ✅ Completed: greenfield/vague/unguided (Run 1)
+[LOG 2026-01-23T23:08:01.509Z] 
+=== Loaded Prompt for verify [brownfield / specific] ===
+[LOG 2026-01-23T23:08:01.532Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-23T23:08:01.828Z] ✅ Skills populated from source
+[LOG 2026-01-23T23:08:01.828Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:08:01.907Z] 
+>>> Running Scenario: brownfield | Prompt: specific | Agent: guided | Run: 1
+[LOG 2026-01-23T23:08:01.907Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/1/brownfield/specific/guided
+[LOG 2026-01-23T23:09:27.597Z] ✅ Completed: brownfield/specific/guided (Run 1)
+[LOG 2026-01-23T23:09:27.698Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-23T23:09:27.698Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:09:27.805Z] 
+>>> Running Scenario: brownfield | Prompt: specific | Agent: unguided | Run: 1
+[LOG 2026-01-23T23:09:27.805Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/1/brownfield/specific/unguided
+[LOG 2026-01-23T23:10:35.269Z] ✅ Completed: brownfield/specific/unguided (Run 1)
+[LOG 2026-01-23T23:10:35.269Z] 
+=== Loaded Prompt for verify [brownfield / vague] ===
+[LOG 2026-01-23T23:10:35.292Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-23T23:10:35.571Z] ✅ Skills populated from source
+[LOG 2026-01-23T23:10:35.571Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:10:35.653Z] 
+>>> Running Scenario: brownfield | Prompt: vague | Agent: guided | Run: 1
+[LOG 2026-01-23T23:10:35.653Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/1/brownfield/vague/guided
+[LOG 2026-01-23T23:12:05.115Z] ✅ Completed: brownfield/vague/guided (Run 1)
+[LOG 2026-01-23T23:12:05.212Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-23T23:12:05.212Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:12:05.321Z] 
+>>> Running Scenario: brownfield | Prompt: vague | Agent: unguided | Run: 1
+[LOG 2026-01-23T23:12:05.321Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/1/brownfield/vague/unguided
+[LOG 2026-01-23T23:14:59.464Z] ✅ Completed: brownfield/vague/unguided (Run 1)
+[LOG 2026-01-23T23:14:59.464Z] 
+=== Loaded Prompt for verify [redfield / specific] ===
+[LOG 2026-01-23T23:14:59.480Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-23T23:14:59.733Z] ✅ Skills populated from source
+[LOG 2026-01-23T23:14:59.733Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:14:59.806Z] 
+>>> Running Scenario: redfield | Prompt: specific | Agent: guided | Run: 1
+[LOG 2026-01-23T23:14:59.806Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/1/redfield/specific/guided
+[LOG 2026-01-23T23:17:06.698Z] ✅ Completed: redfield/specific/guided (Run 1)
+[LOG 2026-01-23T23:17:06.796Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-23T23:17:06.796Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:17:06.890Z] 
+>>> Running Scenario: redfield | Prompt: specific | Agent: unguided | Run: 1
+[LOG 2026-01-23T23:17:06.890Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/1/redfield/specific/unguided
+[LOG 2026-01-23T23:19:04.736Z] ✅ Completed: redfield/specific/unguided (Run 1)
+[LOG 2026-01-23T23:19:04.737Z] 
+=== Loaded Prompt for verify [redfield / vague] ===
+[LOG 2026-01-23T23:19:04.753Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-23T23:19:04.998Z] ✅ Skills populated from source
+[LOG 2026-01-23T23:19:04.998Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:19:05.077Z] 
+>>> Running Scenario: redfield | Prompt: vague | Agent: guided | Run: 1
+[LOG 2026-01-23T23:19:05.077Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/1/redfield/vague/guided
+[LOG 2026-01-23T23:24:00.026Z] ✅ Completed: redfield/vague/guided (Run 1)
+[LOG 2026-01-23T23:24:00.119Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-23T23:24:00.119Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:24:00.213Z] 
+>>> Running Scenario: redfield | Prompt: vague | Agent: unguided | Run: 1
+[LOG 2026-01-23T23:24:00.213Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/1/redfield/vague/unguided
+[LOG 2026-01-23T23:41:44.519Z] ✅ Completed: redfield/vague/unguided (Run 1)
+[LOG 2026-01-23T23:41:44.519Z] 
+============================================================
+[LOG 2026-01-23T23:41:44.519Z] >>> STARTING RUN 2 <<<
+[LOG 2026-01-23T23:41:44.519Z] ============================================================
+
+[LOG 2026-01-23T23:41:44.520Z] Copying setup to /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/2...
+[LOG 2026-01-23T23:41:44.558Z] ✅ Setup copied
+[LOG 2026-01-23T23:41:44.558Z] 
+=== Loaded Prompt for verify [greenfield / specific] ===
+[LOG 2026-01-23T23:41:44.574Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-23T23:41:44.841Z] ✅ Skills populated from source
+[LOG 2026-01-23T23:41:44.841Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:41:44.913Z] 
+>>> Running Scenario: greenfield | Prompt: specific | Agent: guided | Run: 2
+[LOG 2026-01-23T23:41:44.913Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/2/greenfield/specific/guided
+[LOG 2026-01-23T23:43:25.158Z] ✅ Completed: greenfield/specific/guided (Run 2)
+[LOG 2026-01-23T23:43:25.248Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-23T23:43:25.248Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:43:25.343Z] 
+>>> Running Scenario: greenfield | Prompt: specific | Agent: unguided | Run: 2
+[LOG 2026-01-23T23:43:25.343Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/2/greenfield/specific/unguided
+[LOG 2026-01-23T23:45:30.530Z] ✅ Completed: greenfield/specific/unguided (Run 2)
+[LOG 2026-01-23T23:45:30.531Z] 
+=== Loaded Prompt for verify [greenfield / vague] ===
+[LOG 2026-01-23T23:45:30.567Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-23T23:45:30.865Z] ✅ Skills populated from source
+[LOG 2026-01-23T23:45:30.865Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:45:30.948Z] 
+>>> Running Scenario: greenfield | Prompt: vague | Agent: guided | Run: 2
+[LOG 2026-01-23T23:45:30.948Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/2/greenfield/vague/guided
+[LOG 2026-01-23T23:47:36.779Z] ✅ Completed: greenfield/vague/guided (Run 2)
+[LOG 2026-01-23T23:47:36.873Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-23T23:47:36.873Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:47:36.965Z] 
+>>> Running Scenario: greenfield | Prompt: vague | Agent: unguided | Run: 2
+[LOG 2026-01-23T23:47:36.965Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/2/greenfield/vague/unguided
+[LOG 2026-01-23T23:49:19.655Z] ✅ Completed: greenfield/vague/unguided (Run 2)
+[LOG 2026-01-23T23:49:19.655Z] 
+=== Loaded Prompt for verify [brownfield / specific] ===
+[LOG 2026-01-23T23:49:19.674Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-23T23:49:19.923Z] ✅ Skills populated from source
+[LOG 2026-01-23T23:49:19.923Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-23T23:49:19.997Z] 
+>>> Running Scenario: brownfield | Prompt: specific | Agent: guided | Run: 2
+[LOG 2026-01-23T23:49:19.997Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/2/brownfield/specific/guided
+[LOG 2026-01-24T00:07:52.630Z] ✅ Completed: brownfield/specific/guided (Run 2)
+[LOG 2026-01-24T00:07:52.723Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-24T00:07:52.723Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:07:52.820Z] 
+>>> Running Scenario: brownfield | Prompt: specific | Agent: unguided | Run: 2
+[LOG 2026-01-24T00:07:52.820Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/2/brownfield/specific/unguided
+[LOG 2026-01-24T00:23:44.063Z] ✅ Completed: brownfield/specific/unguided (Run 2)
+[LOG 2026-01-24T00:23:44.063Z] 
+=== Loaded Prompt for verify [brownfield / vague] ===
+[LOG 2026-01-24T00:23:44.089Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-24T00:23:44.348Z] ✅ Skills populated from source
+[LOG 2026-01-24T00:23:44.348Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:23:44.428Z] 
+>>> Running Scenario: brownfield | Prompt: vague | Agent: guided | Run: 2
+[LOG 2026-01-24T00:23:44.428Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/2/brownfield/vague/guided
+[LOG 2026-01-24T00:40:26.597Z] ✅ Completed: brownfield/vague/guided (Run 2)
+[LOG 2026-01-24T00:40:26.693Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-24T00:40:26.693Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:40:26.791Z] 
+>>> Running Scenario: brownfield | Prompt: vague | Agent: unguided | Run: 2
+[LOG 2026-01-24T00:40:26.791Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/2/brownfield/vague/unguided
+[ERROR 2026-01-24T00:41:28.182Z] ❌ Failed: brownfield/vague/unguided (Run 2) {}
+[LOG 2026-01-24T00:41:28.184Z] 
+=== Loaded Prompt for verify [redfield / specific] ===
+[LOG 2026-01-24T00:41:28.200Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-24T00:41:28.430Z] ✅ Skills populated from source
+[LOG 2026-01-24T00:41:28.430Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:41:28.495Z] 
+>>> Running Scenario: redfield | Prompt: specific | Agent: guided | Run: 2
+[LOG 2026-01-24T00:41:28.495Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/2/redfield/specific/guided
+[LOG 2026-01-24T00:43:12.093Z] ✅ Completed: redfield/specific/guided (Run 2)
+[LOG 2026-01-24T00:43:12.180Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-24T00:43:12.180Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:43:12.275Z] 
+>>> Running Scenario: redfield | Prompt: specific | Agent: unguided | Run: 2
+[LOG 2026-01-24T00:43:12.275Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/2/redfield/specific/unguided
+[LOG 2026-01-24T00:44:40.733Z] ✅ Completed: redfield/specific/unguided (Run 2)
+[LOG 2026-01-24T00:44:40.733Z] 
+=== Loaded Prompt for verify [redfield / vague] ===
+[LOG 2026-01-24T00:44:40.752Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-24T00:44:41.006Z] ✅ Skills populated from source
+[LOG 2026-01-24T00:44:41.006Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:44:41.088Z] 
+>>> Running Scenario: redfield | Prompt: vague | Agent: guided | Run: 2
+[LOG 2026-01-24T00:44:41.088Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/2/redfield/vague/guided
+[LOG 2026-01-24T00:46:32.684Z] ✅ Completed: redfield/vague/guided (Run 2)
+[LOG 2026-01-24T00:46:32.781Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-24T00:46:32.781Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:46:32.880Z] 
+>>> Running Scenario: redfield | Prompt: vague | Agent: unguided | Run: 2
+[LOG 2026-01-24T00:46:32.880Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/2/redfield/vague/unguided
+[LOG 2026-01-24T00:48:07.327Z] ✅ Completed: redfield/vague/unguided (Run 2)
+[LOG 2026-01-24T00:48:07.327Z] 
+============================================================
+[LOG 2026-01-24T00:48:07.327Z] >>> STARTING RUN 3 <<<
+[LOG 2026-01-24T00:48:07.327Z] ============================================================
+
+[LOG 2026-01-24T00:48:07.327Z] Copying setup to /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/3...
+[LOG 2026-01-24T00:48:07.365Z] ✅ Setup copied
+[LOG 2026-01-24T00:48:07.365Z] 
+=== Loaded Prompt for verify [greenfield / specific] ===
+[LOG 2026-01-24T00:48:07.381Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-24T00:48:07.633Z] ✅ Skills populated from source
+[LOG 2026-01-24T00:48:07.633Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:48:07.698Z] 
+>>> Running Scenario: greenfield | Prompt: specific | Agent: guided | Run: 3
+[LOG 2026-01-24T00:48:07.698Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/3/greenfield/specific/guided
+[LOG 2026-01-24T00:50:04.552Z] ✅ Completed: greenfield/specific/guided (Run 3)
+[LOG 2026-01-24T00:50:04.643Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-24T00:50:04.643Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:50:04.739Z] 
+>>> Running Scenario: greenfield | Prompt: specific | Agent: unguided | Run: 3
+[LOG 2026-01-24T00:50:04.739Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/3/greenfield/specific/unguided
+[LOG 2026-01-24T00:52:18.917Z] ✅ Completed: greenfield/specific/unguided (Run 3)
+[LOG 2026-01-24T00:52:18.917Z] 
+=== Loaded Prompt for verify [greenfield / vague] ===
+[LOG 2026-01-24T00:52:18.940Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-24T00:52:19.213Z] ✅ Skills populated from source
+[LOG 2026-01-24T00:52:19.213Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:52:19.291Z] 
+>>> Running Scenario: greenfield | Prompt: vague | Agent: guided | Run: 3
+[LOG 2026-01-24T00:52:19.291Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/3/greenfield/vague/guided
+[LOG 2026-01-24T00:53:49.950Z] ✅ Completed: greenfield/vague/guided (Run 3)
+[LOG 2026-01-24T00:53:50.068Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-24T00:53:50.068Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:53:50.167Z] 
+>>> Running Scenario: greenfield | Prompt: vague | Agent: unguided | Run: 3
+[LOG 2026-01-24T00:53:50.167Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/3/greenfield/vague/unguided
+[LOG 2026-01-24T00:55:48.048Z] ✅ Completed: greenfield/vague/unguided (Run 3)
+[LOG 2026-01-24T00:55:48.048Z] 
+=== Loaded Prompt for verify [brownfield / specific] ===
+[LOG 2026-01-24T00:55:48.064Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-24T00:55:48.318Z] ✅ Skills populated from source
+[LOG 2026-01-24T00:55:48.318Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:55:48.410Z] 
+>>> Running Scenario: brownfield | Prompt: specific | Agent: guided | Run: 3
+[LOG 2026-01-24T00:55:48.410Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/3/brownfield/specific/guided
+[LOG 2026-01-24T00:57:05.922Z] ✅ Completed: brownfield/specific/guided (Run 3)
+[LOG 2026-01-24T00:57:06.019Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-24T00:57:06.019Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:57:06.124Z] 
+>>> Running Scenario: brownfield | Prompt: specific | Agent: unguided | Run: 3
+[LOG 2026-01-24T00:57:06.124Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/3/brownfield/specific/unguided
+[LOG 2026-01-24T00:58:37.799Z] ✅ Completed: brownfield/specific/unguided (Run 3)
+[LOG 2026-01-24T00:58:37.799Z] 
+=== Loaded Prompt for verify [brownfield / vague] ===
+[LOG 2026-01-24T00:58:37.812Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-24T00:58:38.054Z] ✅ Skills populated from source
+[LOG 2026-01-24T00:58:38.054Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T00:58:38.131Z] 
+>>> Running Scenario: brownfield | Prompt: vague | Agent: guided | Run: 3
+[LOG 2026-01-24T00:58:38.131Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/3/brownfield/vague/guided
+[LOG 2026-01-24T01:00:08.531Z] ✅ Completed: brownfield/vague/guided (Run 3)
+[LOG 2026-01-24T01:00:08.628Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-24T01:00:08.628Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T01:00:08.725Z] 
+>>> Running Scenario: brownfield | Prompt: vague | Agent: unguided | Run: 3
+[LOG 2026-01-24T01:00:08.725Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/3/brownfield/vague/unguided
+[LOG 2026-01-24T01:01:21.035Z] ✅ Completed: brownfield/vague/unguided (Run 3)
+[LOG 2026-01-24T01:01:21.036Z] 
+=== Loaded Prompt for verify [redfield / specific] ===
+[LOG 2026-01-24T01:01:21.051Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-24T01:01:21.305Z] ✅ Skills populated from source
+[LOG 2026-01-24T01:01:21.305Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T01:01:21.380Z] 
+>>> Running Scenario: redfield | Prompt: specific | Agent: guided | Run: 3
+[LOG 2026-01-24T01:01:21.380Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/3/redfield/specific/guided
+[LOG 2026-01-24T01:02:43.885Z] ✅ Completed: redfield/specific/guided (Run 3)
+[LOG 2026-01-24T01:02:43.986Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-24T01:02:43.986Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T01:02:44.084Z] 
+>>> Running Scenario: redfield | Prompt: specific | Agent: unguided | Run: 3
+[LOG 2026-01-24T01:02:44.084Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/3/redfield/specific/unguided
+[LOG 2026-01-24T01:04:08.581Z] ✅ Completed: redfield/specific/unguided (Run 3)
+[LOG 2026-01-24T01:04:08.581Z] 
+=== Loaded Prompt for verify [redfield / vague] ===
+[LOG 2026-01-24T01:04:08.600Z] Syncing skills from /Users/rviscomi/git/modern-web-mcp/build/skills to /Users/rviscomi/.gemini/jetski/skills
+[LOG 2026-01-24T01:04:08.855Z] ✅ Skills populated from source
+[LOG 2026-01-24T01:04:08.855Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T01:04:08.940Z] 
+>>> Running Scenario: redfield | Prompt: vague | Agent: guided | Run: 3
+[LOG 2026-01-24T01:04:08.940Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/3/redfield/vague/guided
+[LOG 2026-01-24T01:05:42.390Z] ✅ Completed: redfield/vague/guided (Run 3)
+[LOG 2026-01-24T01:05:42.509Z] Agent is unguided; ensuring skills are empty
+[LOG 2026-01-24T01:05:42.509Z] 🧹 Clearing Artifacts for new run...
+[LOG 2026-01-24T01:05:42.609Z] 
+>>> Running Scenario: redfield | Prompt: vague | Agent: unguided | Run: 3
+[LOG 2026-01-24T01:05:42.609Z] Target Dir: /Users/rviscomi/git/spike-test/results/test_2026-01-23T23-00-29/3/redfield/vague/unguided
+[LOG 2026-01-24T01:08:07.390Z] ✅ Completed: redfield/vague/unguided (Run 3)
+[LOG 2026-01-24T01:08:07.391Z] 
+✅ Manifest updated: /Users/rviscomi/git/spike-test/results/tests.json
+[LOG 2026-01-24T01:08:07.391Z] 
+✅ Test suite complete! Results saved to: results/test_2026-01-23T23-00-29
+[LOG 2026-01-24T01:08:07.391Z] 
+=== Restoring Artifacts ===
+[LOG 2026-01-24T01:08:07.618Z] ✅ Restore successful
