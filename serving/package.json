@@ -17,8 +17,8 @@
   "scripts": {
     "prepublishOnly": "npm run build",
     "build": "tsx scripts/build-guides.ts && tsc && cp AGENTS.md build/",
-    "start": "node build/mcp-server/src/index.js",
-    "dev": "tsx scripts/build-guides.ts && tsx mcp-server/src/index.ts",
+    "start": "node build/mcp-server/index.js",
+    "dev": "tsx scripts/build-guides.ts && tsx mcp-server/index.ts",
     "test": "tsx scripts/build-guides.ts && vitest run mcp-server/"
   },
   "keywords": [],

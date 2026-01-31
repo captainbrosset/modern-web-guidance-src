@@ -3,8 +3,8 @@
 
 | Group | Pass Rate | Test Runs |
 |---|---|---|
-| **Unguided** | 27% (23/84) | 3 |
-| **Guided** | 67% (56/84) | 3 |
+| **Unguided** | 31% (26/84) | 3 |
+| **Guided** | 48% (40/84) | 3 |
 
 ## GREENFIELD - VAGUE - UNGUIDED (Median: 14%)
 
@@ -14,26 +14,26 @@
 
 | Status | Expectation |
 |---|---|
-| ❌ | Found component with loading-placeholder prop |
-| ❌ | Found component with interestfor prop |
-| ✅ | No deprecated interesttarget prop found |
+| ❌ | Found img with loading-placeholder attribute |
+| ❌ | Found button with interestfor attribute |
+| ✅ | No deprecated interesttarget attribute found |
 | ❌ | JS contains interestfor feature detection |
 | ❌ | JS contains loading-placeholder feature detection |
 | ❌ | CSS uses animation-timeline: view() |
 | ❌ | CSS respects prefers-reduced-motion |
 
-## GREENFIELD - VAGUE - GUIDED (Median: 86%)
+## GREENFIELD - VAGUE - GUIDED (Median: 43%)
 
-**Pass rates across runs:** 14%, 86%, 100%
+**Pass rates across runs:** 14%, 43%, 43%
 
-### Run 2 Details (6/7)
+### Run 2 Details (3/7)
 
 | Status | Expectation |
 |---|---|
-| ✅ | Found component with loading-placeholder prop |
-| ✅ | Found component with interestfor prop |
-| ✅ | No deprecated interesttarget prop found |
-| ✅ | JS contains interestfor feature detection |
+| ❌ | Found img with loading-placeholder attribute |
+| ❌ | Found button with interestfor attribute |
+| ✅ | No deprecated interesttarget attribute found |
+| ❌ | JS contains interestfor feature detection |
 | ❌ | JS contains loading-placeholder feature detection |
 | ✅ | CSS uses animation-timeline: view() |
 | ✅ | CSS respects prefers-reduced-motion |
@@ -46,28 +46,28 @@
 
 | Status | Expectation |
 |---|---|
-| ❌ | Found component with loading-placeholder prop |
-| ❌ | Found component with interestfor prop |
-| ✅ | No deprecated interesttarget prop found |
+| ❌ | Found img with loading-placeholder attribute |
+| ❌ | Found button with interestfor attribute |
+| ✅ | No deprecated interesttarget attribute found |
 | ❌ | JS contains interestfor feature detection |
 | ❌ | JS contains loading-placeholder feature detection |
 | ✅ | CSS uses animation-timeline: view() |
 | ❌ | CSS respects prefers-reduced-motion |
 
-## GREENFIELD - SPECIFIC - GUIDED (Median: 86%)
+## GREENFIELD - SPECIFIC - GUIDED (Median: 29%)
 
-**Pass rates across runs:** 43%, 86%, 100%
+**Pass rates across runs:** 29%, 29%, 57%
 
-### Run 3 Details (6/7)
+### Run 1 Details (2/7)
 
 | Status | Expectation |
 |---|---|
-| ✅ | Found component with loading-placeholder prop |
-| ✅ | Found component with interestfor prop |
-| ✅ | No deprecated interesttarget prop found |
-| ✅ | JS contains interestfor feature detection |
+| ❌ | Found img with loading-placeholder attribute |
+| ❌ | Found button with interestfor attribute |
+| ✅ | No deprecated interesttarget attribute found |
+| ❌ | JS contains interestfor feature detection |
 | ❌ | JS contains loading-placeholder feature detection |
-| ✅ | CSS uses animation-timeline: view() |
+| ❌ | CSS uses animation-timeline: view() |
 | ✅ | CSS respects prefers-reduced-motion |
 
 ## BROWNFIELD - VAGUE - UNGUIDED (Median: 33%)
@@ -126,47 +126,47 @@
 
 | Status | Expectation |
 |---|---|
-| ❌ | Refactored to use declarative interestfor prop |
+| ❌ | Refactored to use declarative interestfor attribute |
 | ✅ | No interesttarget attribute detected |
-| ✅ | No onMouseOver/imperative listeners detected |
 | ❌ | Check for interestfor feature detection |
+| ✅ | No addEventListener(&quot;mouseover&quot;) detected |
 
 ## REDFIELD - VAGUE - GUIDED (Median: 75%)
 
-**Pass rates across runs:** 75%, 75%, 75%
+**Pass rates across runs:** 50%, 75%, 75%
 
-### Run 1 Details (3/4)
+### Run 2 Details (3/4)
 
 | Status | Expectation |
 |---|---|
-| ✅ | Refactored to use declarative interestfor prop |
+| ❌ | Refactored to use declarative interestfor attribute |
 | ✅ | No interesttarget attribute detected |
-| ✅ | No onMouseOver/imperative listeners detected |
-| ❌ | Check for interestfor feature detection |
+| ✅ | Check for interestfor feature detection |
+| ✅ | No addEventListener(&quot;mouseover&quot;) detected |
 
-## REDFIELD - SPECIFIC - UNGUIDED (Median: 25%)
+## REDFIELD - SPECIFIC - UNGUIDED (Median: 50%)
 
-**Pass rates across runs:** 25%, 25%, 25%
+**Pass rates across runs:** 50%, 50%, 50%
 
-### Run 1 Details (1/4)
-
-| Status | Expectation |
-|---|---|
-| ❌ | Refactored to use declarative interestfor prop |
-| ❌ | No interesttarget attribute detected |
-| ✅ | No onMouseOver/imperative listeners detected |
-| ❌ | Check for interestfor feature detection |
-
-## REDFIELD - SPECIFIC - GUIDED (Median: 75%)
-
-**Pass rates across runs:** 25%, 75%, 75%
-
-### Run 1 Details (3/4)
+### Run 1 Details (2/4)
 
 | Status | Expectation |
 |---|---|
-| ✅ | Refactored to use declarative interestfor prop |
+| ❌ | Refactored to use declarative interestfor attribute |
 | ✅ | No interesttarget attribute detected |
-| ✅ | No onMouseOver/imperative listeners detected |
 | ❌ | Check for interestfor feature detection |
+| ✅ | No addEventListener(&quot;mouseover&quot;) detected |
+
+## REDFIELD - SPECIFIC - GUIDED (Median: 50%)
+
+**Pass rates across runs:** 50%, 50%, 75%
+
+### Run 2 Details (2/4)
+
+| Status | Expectation |
+|---|---|
+| ❌ | Refactored to use declarative interestfor attribute |
+| ✅ | No interesttarget attribute detected |
+| ❌ | Check for interestfor feature detection |
+| ✅ | No addEventListener(&quot;mouseover&quot;) detected |
 

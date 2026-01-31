@@ -1,9 +1,9 @@
 {
   "summary": {
-    "unguidedMedian": 31,
-    "guidedMedian": 81,
-    "unguidedPassRate": 27,
-    "guidedPassRate": 67,
+    "unguidedMedian": 33,
+    "guidedMedian": 47,
+    "unguidedPassRate": 31,
+    "guidedPassRate": 48,
     "numRuns": 3
   },
   "results": {
@@ -14,7 +14,7 @@
           {
             "id": "redfield-declarative-interestfor",
             "passed": false,
-            "message": "Refactored to use declarative interestfor prop"
+            "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
@@ -22,14 +22,14 @@
             "message": "No interesttarget attribute detected"
           },
           {
-            "id": "redfield-imperative-reduced",
-            "passed": true,
-            "message": "No onMouseOver/imperative listeners detected"
-          },
-          {
             "id": "redfield-polyfill-present",
             "passed": false,
             "message": "Check for interestfor feature detection"
+          },
+          {
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
           }
         ]
       },
@@ -39,7 +39,7 @@
           {
             "id": "redfield-declarative-interestfor",
             "passed": false,
-            "message": "Refactored to use declarative interestfor prop"
+            "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
@@ -47,14 +47,14 @@
             "message": "No interesttarget attribute detected"
           },
           {
-            "id": "redfield-imperative-reduced",
-            "passed": true,
-            "message": "No onMouseOver/imperative listeners detected"
-          },
-          {
             "id": "redfield-polyfill-present",
             "passed": false,
             "message": "Check for interestfor feature detection"
+          },
+          {
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
           }
         ]
       },
@@ -64,7 +64,7 @@
           {
             "id": "redfield-declarative-interestfor",
             "passed": false,
-            "message": "Refactored to use declarative interestfor prop"
+            "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
@@ -72,14 +72,14 @@
             "message": "No interesttarget attribute detected"
           },
           {
-            "id": "redfield-imperative-reduced",
-            "passed": true,
-            "message": "No onMouseOver/imperative listeners detected"
-          },
-          {
             "id": "redfield-polyfill-present",
             "passed": false,
             "message": "Check for interestfor feature detection"
+          },
+          {
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
           }
         ]
       }
@@ -90,8 +90,8 @@
         "results": [
           {
             "id": "redfield-declarative-interestfor",
-            "passed": true,
-            "message": "Refactored to use declarative interestfor prop"
+            "passed": false,
+            "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
@@ -99,14 +99,14 @@
             "message": "No interesttarget attribute detected"
           },
           {
-            "id": "redfield-imperative-reduced",
-            "passed": true,
-            "message": "No onMouseOver/imperative listeners detected"
-          },
-          {
             "id": "redfield-polyfill-present",
             "passed": false,
             "message": "Check for interestfor feature detection"
+          },
+          {
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
           }
         ]
       },
@@ -115,8 +115,8 @@
         "results": [
           {
             "id": "redfield-declarative-interestfor",
-            "passed": true,
-            "message": "Refactored to use declarative interestfor prop"
+            "passed": false,
+            "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
@@ -124,14 +124,14 @@
             "message": "No interesttarget attribute detected"
           },
           {
-            "id": "redfield-imperative-reduced",
+            "id": "redfield-polyfill-present",
             "passed": true,
-            "message": "No onMouseOver/imperative listeners detected"
+            "message": "Check for interestfor feature detection"
           },
           {
-            "id": "redfield-polyfill-present",
-            "passed": false,
-            "message": "Check for interestfor feature detection"
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
           }
         ]
       },
@@ -140,8 +140,8 @@
         "results": [
           {
             "id": "redfield-declarative-interestfor",
-            "passed": true,
-            "message": "Refactored to use declarative interestfor prop"
+            "passed": false,
+            "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
@@ -149,14 +149,14 @@
             "message": "No interesttarget attribute detected"
           },
           {
-            "id": "redfield-imperative-reduced",
+            "id": "redfield-polyfill-present",
             "passed": true,
-            "message": "No onMouseOver/imperative listeners detected"
+            "message": "Check for interestfor feature detection"
           },
           {
-            "id": "redfield-polyfill-present",
-            "passed": false,
-            "message": "Check for interestfor feature detection"
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
           }
         ]
       }
@@ -168,22 +168,22 @@
           {
             "id": "redfield-declarative-interestfor",
             "passed": false,
-            "message": "Refactored to use declarative interestfor prop"
+            "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
-            "passed": false,
-            "message": "No interesttarget attribute detected"
-          },
-          {
-            "id": "redfield-imperative-reduced",
             "passed": true,
-            "message": "No onMouseOver/imperative listeners detected"
+            "message": "No interesttarget attribute detected"
           },
           {
             "id": "redfield-polyfill-present",
             "passed": false,
             "message": "Check for interestfor feature detection"
+          },
+          {
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
           }
         ]
       },
@@ -193,22 +193,22 @@
           {
             "id": "redfield-declarative-interestfor",
             "passed": false,
-            "message": "Refactored to use declarative interestfor prop"
+            "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
-            "passed": false,
-            "message": "No interesttarget attribute detected"
-          },
-          {
-            "id": "redfield-imperative-reduced",
             "passed": true,
-            "message": "No onMouseOver/imperative listeners detected"
+            "message": "No interesttarget attribute detected"
           },
           {
             "id": "redfield-polyfill-present",
             "passed": false,
             "message": "Check for interestfor feature detection"
+          },
+          {
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
           }
         ]
       },
@@ -218,7 +218,7 @@
           {
             "id": "redfield-declarative-interestfor",
             "passed": false,
-            "message": "Refactored to use declarative interestfor prop"
+            "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
@@ -226,14 +226,14 @@
             "message": "No interesttarget attribute detected"
           },
           {
-            "id": "redfield-imperative-reduced",
-            "passed": false,
-            "message": "No onMouseOver/imperative listeners detected"
-          },
-          {
             "id": "redfield-polyfill-present",
             "passed": false,
             "message": "Check for interestfor feature detection"
+          },
+          {
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
           }
         ]
       }
@@ -244,8 +244,8 @@
         "results": [
           {
             "id": "redfield-declarative-interestfor",
-            "passed": true,
-            "message": "Refactored to use declarative interestfor prop"
+            "passed": false,
+            "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
@@ -253,14 +253,14 @@
             "message": "No interesttarget attribute detected"
           },
           {
-            "id": "redfield-imperative-reduced",
+            "id": "redfield-polyfill-present",
             "passed": true,
-            "message": "No onMouseOver/imperative listeners detected"
+            "message": "Check for interestfor feature detection"
           },
           {
-            "id": "redfield-polyfill-present",
-            "passed": false,
-            "message": "Check for interestfor feature detection"
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
           }
         ]
       },
@@ -269,8 +269,8 @@
         "results": [
           {
             "id": "redfield-declarative-interestfor",
-            "passed": true,
-            "message": "Refactored to use declarative interestfor prop"
+            "passed": false,
+            "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
@@ -278,14 +278,14 @@
             "message": "No interesttarget attribute detected"
           },
           {
-            "id": "redfield-imperative-reduced",
-            "passed": true,
-            "message": "No onMouseOver/imperative listeners detected"
-          },
-          {
             "id": "redfield-polyfill-present",
             "passed": false,
             "message": "Check for interestfor feature detection"
+          },
+          {
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
           }
         ]
       },
@@ -295,7 +295,7 @@
           {
             "id": "redfield-declarative-interestfor",
             "passed": false,
-            "message": "Refactored to use declarative interestfor prop"
+            "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
@@ -303,14 +303,14 @@
             "message": "No interesttarget attribute detected"
           },
           {
-            "id": "redfield-imperative-reduced",
-            "passed": false,
-            "message": "No onMouseOver/imperative listeners detected"
-          },
-          {
             "id": "redfield-polyfill-present",
             "passed": false,
             "message": "Check for interestfor feature detection"
+          },
+          {
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
           }
         ]
       }
@@ -322,17 +322,17 @@
           {
             "id": "img-loading-placeholder",
             "passed": false,
-            "message": "Found component with loading-placeholder prop"
+            "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
             "passed": false,
-            "message": "Found component with interestfor prop"
+            "message": "Found button with interestfor attribute"
           },
           {
             "id": "no-interesttarget",
             "passed": true,
-            "message": "No deprecated interesttarget prop found"
+            "message": "No deprecated interesttarget attribute found"
           },
           {
             "id": "js-interestfor-polyfill",
@@ -362,17 +362,17 @@
           {
             "id": "img-loading-placeholder",
             "passed": false,
-            "message": "Found component with loading-placeholder prop"
+            "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
             "passed": false,
-            "message": "Found component with interestfor prop"
+            "message": "Found button with interestfor attribute"
           },
           {
             "id": "no-interesttarget",
             "passed": true,
-            "message": "No deprecated interesttarget prop found"
+            "message": "No deprecated interesttarget attribute found"
           },
           {
             "id": "js-interestfor-polyfill",
@@ -402,17 +402,17 @@
           {
             "id": "img-loading-placeholder",
             "passed": false,
-            "message": "Found component with loading-placeholder prop"
+            "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
             "passed": false,
-            "message": "Found component with interestfor prop"
+            "message": "Found button with interestfor attribute"
           },
           {
             "id": "no-interesttarget",
             "passed": true,
-            "message": "No deprecated interesttarget prop found"
+            "message": "No deprecated interesttarget attribute found"
           },
           {
             "id": "js-interestfor-polyfill",
@@ -444,17 +444,17 @@
           {
             "id": "img-loading-placeholder",
             "passed": false,
-            "message": "Found component with loading-placeholder prop"
+            "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
             "passed": false,
-            "message": "Found component with interestfor prop"
+            "message": "Found button with interestfor attribute"
           },
           {
             "id": "no-interesttarget",
             "passed": true,
-            "message": "No deprecated interesttarget prop found"
+            "message": "No deprecated interesttarget attribute found"
           },
           {
             "id": "js-interestfor-polyfill",
@@ -483,22 +483,22 @@
         "results": [
           {
             "id": "img-loading-placeholder",
-            "passed": true,
-            "message": "Found component with loading-placeholder prop"
+            "passed": false,
+            "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
-            "passed": true,
-            "message": "Found component with interestfor prop"
+            "passed": false,
+            "message": "Found button with interestfor attribute"
           },
           {
             "id": "no-interesttarget",
             "passed": true,
-            "message": "No deprecated interesttarget prop found"
+            "message": "No deprecated interesttarget attribute found"
           },
           {
             "id": "js-interestfor-polyfill",
-            "passed": true,
+            "passed": false,
             "message": "JS contains interestfor feature detection"
           },
           {
@@ -523,27 +523,27 @@
         "results": [
           {
             "id": "img-loading-placeholder",
-            "passed": true,
-            "message": "Found component with loading-placeholder prop"
+            "passed": false,
+            "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
-            "passed": true,
-            "message": "Found component with interestfor prop"
+            "passed": false,
+            "message": "Found button with interestfor attribute"
           },
           {
             "id": "no-interesttarget",
             "passed": true,
-            "message": "No deprecated interesttarget prop found"
+            "message": "No deprecated interesttarget attribute found"
           },
           {
             "id": "js-interestfor-polyfill",
-            "passed": true,
+            "passed": false,
             "message": "JS contains interestfor feature detection"
           },
           {
             "id": "js-loading-placeholder-support",
-            "passed": true,
+            "passed": false,
             "message": "JS contains loading-placeholder feature detection"
           },
           {
@@ -566,17 +566,17 @@
           {
             "id": "img-loading-placeholder",
             "passed": false,
-            "message": "Found component with loading-placeholder prop"
+            "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
             "passed": false,
-            "message": "Found component with interestfor prop"
+            "message": "Found button with interestfor attribute"
           },
           {
             "id": "no-interesttarget",
             "passed": true,
-            "message": "No deprecated interesttarget prop found"
+            "message": "No deprecated interesttarget attribute found"
           },
           {
             "id": "js-interestfor-polyfill",
@@ -606,17 +606,17 @@
           {
             "id": "img-loading-placeholder",
             "passed": false,
-            "message": "Found component with loading-placeholder prop"
+            "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
             "passed": false,
-            "message": "Found component with interestfor prop"
+            "message": "Found button with interestfor attribute"
           },
           {
             "id": "no-interesttarget",
             "passed": true,
-            "message": "No deprecated interesttarget prop found"
+            "message": "No deprecated interesttarget attribute found"
           },
           {
             "id": "js-interestfor-polyfill",
@@ -646,17 +646,17 @@
           {
             "id": "img-loading-placeholder",
             "passed": false,
-            "message": "Found component with loading-placeholder prop"
+            "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
             "passed": false,
-            "message": "Found component with interestfor prop"
+            "message": "Found button with interestfor attribute"
           },
           {
             "id": "no-interesttarget",
             "passed": true,
-            "message": "No deprecated interesttarget prop found"
+            "message": "No deprecated interesttarget attribute found"
           },
           {
             "id": "js-interestfor-polyfill",
@@ -687,32 +687,32 @@
         "results": [
           {
             "id": "img-loading-placeholder",
-            "passed": true,
-            "message": "Found component with loading-placeholder prop"
+            "passed": false,
+            "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
-            "passed": true,
-            "message": "Found component with interestfor prop"
+            "passed": false,
+            "message": "Found button with interestfor attribute"
           },
           {
             "id": "no-interesttarget",
             "passed": true,
-            "message": "No deprecated interesttarget prop found"
+            "message": "No deprecated interesttarget attribute found"
           },
           {
             "id": "js-interestfor-polyfill",
-            "passed": true,
+            "passed": false,
             "message": "JS contains interestfor feature detection"
           },
           {
             "id": "js-loading-placeholder-support",
-            "passed": true,
+            "passed": false,
             "message": "JS contains loading-placeholder feature detection"
           },
           {
             "id": "css-view-timeline",
-            "passed": true,
+            "passed": false,
             "message": "CSS uses animation-timeline: view()"
           },
           {
@@ -728,17 +728,17 @@
           {
             "id": "img-loading-placeholder",
             "passed": false,
-            "message": "Found component with loading-placeholder prop"
+            "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
             "passed": false,
-            "message": "Found component with interestfor prop"
+            "message": "Found button with interestfor attribute"
           },
           {
             "id": "no-interesttarget",
             "passed": true,
-            "message": "No deprecated interesttarget prop found"
+            "message": "No deprecated interesttarget attribute found"
           },
           {
             "id": "js-interestfor-polyfill",
@@ -752,7 +752,7 @@
           },
           {
             "id": "css-view-timeline",
-            "passed": true,
+            "passed": false,
             "message": "CSS uses animation-timeline: view()"
           },
           {
@@ -767,18 +767,18 @@
         "results": [
           {
             "id": "img-loading-placeholder",
-            "passed": true,
-            "message": "Found component with loading-placeholder prop"
+            "passed": false,
+            "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
-            "passed": true,
-            "message": "Found component with interestfor prop"
+            "passed": false,
+            "message": "Found button with interestfor attribute"
           },
           {
             "id": "no-interesttarget",
             "passed": true,
-            "message": "No deprecated interesttarget prop found"
+            "message": "No deprecated interesttarget attribute found"
           },
           {
             "id": "js-interestfor-polyfill",
@@ -1062,11 +1062,11 @@
       ]
     },
     "greenfield - vague - guided": {
-      "median": 86,
+      "median": 43,
       "rates": [
         14,
-        86,
-        100
+        43,
+        43
       ]
     },
     "greenfield - specific - unguided": {
@@ -1078,11 +1078,11 @@
       ]
     },
     "greenfield - specific - guided": {
-      "median": 86,
+      "median": 29,
       "rates": [
-        43,
-        86,
-        100
+        29,
+        29,
+        57
       ]
     },
     "brownfield - vague - unguided": {
@@ -1128,24 +1128,24 @@
     "redfield - vague - guided": {
       "median": 75,
       "rates": [
-        75,
+        50,
         75,
         75
       ]
     },
     "redfield - specific - unguided": {
-      "median": 25,
+      "median": 50,
       "rates": [
-        25,
-        25,
-        25
+        50,
+        50,
+        50
       ]
     },
     "redfield - specific - guided": {
-      "median": 75,
+      "median": 50,
       "rates": [
-        25,
-        75,
+        50,
+        50,
         75
       ]
     }
