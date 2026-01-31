@@ -19,7 +19,8 @@
     "build": "tsx scripts/build-guides.ts && tsc && cp AGENTS.md build/",
     "start": "node build/mcp-server/index.js",
     "dev": "tsx scripts/build-guides.ts && tsx mcp-server/index.ts",
-    "test": "tsx scripts/build-guides.ts && vitest run mcp-server/"
+    "test": "tsx scripts/build-guides.ts && vitest run mcp-server/",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
