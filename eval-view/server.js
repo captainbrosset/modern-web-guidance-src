@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
 
-const PORT = 8081;
+const PORT = process.env.PORT || 8081;
 const MIME_TYPES = {
   '.html': 'text/html',
   '.js': 'text/javascript',
@@ -27,6 +27,13 @@ const server = http.createServer((req, res) => {
   // Default to index.html for root
   if (filePath === './') {
     filePath = './index.html';
+  }
+
+  // Map results and setup to the harness directory
+  if (req.url.startsWith('/results/')) {
+    filePath = path.join('../harness/results', req.url.substring(9));
+  } else if (req.url.startsWith('/setup/')) {
+    filePath = path.join('../harness/setup', req.url.substring(7));
   }
 
   // Remove query string if present
