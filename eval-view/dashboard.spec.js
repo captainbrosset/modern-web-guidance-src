@@ -57,12 +57,43 @@ test.describe('Eval View Dashboard', () => {
     expect(count).toBeGreaterThan(0);
   });
 
+  test('should show details and toggle diff view', async ({ page }) => {
+    await page.goto('/dashboard.html?testID=react');
+
+    // Wait for cards and click the first one
+    const firstCard = page.locator('.test-card').first();
+    await firstCard.click();
+
+    // Verify modal is shown
+    const modal = page.locator('#modal');
+    await expect(modal).toHaveClass(/show/);
+
+    // Verify "View Diff" button exists and click it
+    const diffButton = page.locator('button:has-text("View Diff")').first();
+    await expect(diffButton).toBeVisible();
+    await diffButton.click();
+
+    // Verify diff content is displayed
+    // The title changes to "Diff View"
+    await expect(page.locator('#modal-title')).toContainText('Diff View');
+    
+    // Check for diff-container and some expected diff classes
+    const diffContainer = page.locator('.diff-container');
+    await expect(diffContainer).toBeVisible();
+    
+    // Since we're using real data (react test), we should see some diff parts
+    // We expect either added or unchanged lines
+    const diffParts = page.locator('.diff-added, .diff-removed, .diff-unchanged');
+    const partsCount = await diffParts.count();
+    expect(partsCount).toBeGreaterThan(0);
+  });
+
   test('should block access to hidden files', async ({ page }) => {
     const response = await page.request.get('/.gitignore');
     expect(response.status()).toBe(403);
   });
 
-  test('should block directory traversal attempts', async ({ _page }) => {
+  test('should block directory traversal attempts', async () => {
     // Try to access a file that is definitely outside the project root
     const res = await fetch(`http://localhost:11432/../../../../../../../../../../etc/passwd`);
     // Both 403 and 404 are acceptable as they block access to the host system

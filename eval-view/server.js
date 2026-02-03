@@ -30,8 +30,9 @@ const server = http.createServer((req, res) => {
   // Normalize the URL and decode components for security checks
   const urlPath = req.url.split('?')[0];
   const decodedPath = decodeURIComponent(urlPath);
-  console.log(`Incoming request: ${req.method} ${req.url} (path: ${urlPath}, decoded: ${decodedPath})`);
-  
+  // Debug logging. Do not keep enabled.
+  // console.log(`Incoming request: ${req.method} ${req.url} (path: ${urlPath}, decoded: ${decodedPath})`);
+
   // Block directory traversal attempts
   if (decodedPath.includes('..')) {
     console.log(`403 Forbidden: Traversal attempt - ${req.method} ${req.url}`);
@@ -68,7 +69,7 @@ const server = http.createServer((req, res) => {
   const absolutePath = path.resolve(filePath);
   const evalViewRoot = path.resolve('.');
   const harnessRoot = path.resolve('../harness');
-  
+
   // Use path.sep to ensure we match whole directory names
   const isInsideEvalView = absolutePath === evalViewRoot || absolutePath.startsWith(evalViewRoot + path.sep);
   const isInsideHarness = absolutePath === harnessRoot || absolutePath.startsWith(harnessRoot + path.sep);
