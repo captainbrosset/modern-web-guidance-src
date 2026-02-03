@@ -6,6 +6,9 @@ serving/build/
 serving/mcp-server/data/use-cases.gen.ts
 serving/mcp-server/.mcp-data/
 
+# Test artifacts
+eval-view/test-results/
+
 # Environment and Logs
 .env
 *.log
