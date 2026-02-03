@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             selectedTestIds = new Set(
                 [...requestedIds].filter(id => allTestData[id])
             );
-            // If none of the requested IDs exist, fallback to all? 
+            // If none of the requested IDs exist, fallback to all?
             // Better to show none or empty state if user requested specific ones that don't exist?
             // Let's stick to what we found.
         } else {
@@ -258,7 +258,7 @@ async function loadAllTests() {
                         data: await response.json()
                     };
                 }
-            } catch {
+            } catch (e) {
                 console.warn(`Failed to load test ${testEntry.id}:`, e);
             }
         }
@@ -425,7 +425,7 @@ function renderGridRow(testName) {
             cellsHtml.push(`
                 <a class="test-grid-cell"
                      href="dashboard.html?testID=${testID}"
-                     style="background-color: ${getColor(avgRate)}" 
+                     style="background-color: ${getColor(avgRate)}"
                      title="${testID} - ${new Date(allTestData[testID].timestamp).toLocaleDateString()}: ${avgRate}% (${totalPassed}/${totalChecks})">
                     ${avgRate}%
                 </a>
@@ -526,9 +526,9 @@ function renderComparisonHistory(scenario, prompt) {
                             const encodedCheckId = encodeURIComponent(checkId);
 
                             sparklinesHtml += `
-                                <a href="dashboard.html?testID=${testID}&testName=${encodedTestName}&checkId=${encodedCheckId}" 
-                                   class="sparkline-dot" 
-                                   style="background-color: ${color}; border: ${border};" 
+                                <a href="dashboard.html?testID=${testID}&testName=${encodedTestName}&checkId=${encodedCheckId}"
+                                   class="sparkline-dot"
+                                   style="background-color: ${color}; border: ${border};"
                                    title="${escapeHtml(tooltip)}"></a>
                             `;
                         });
@@ -546,9 +546,9 @@ function renderComparisonHistory(scenario, prompt) {
                     const encodedCheckId = encodeURIComponent(checkId);
 
                     sparklinesHtml += `
-                        <a href="dashboard.html?testID=${testID}&testName=${encodedTestName}&checkId=${encodedCheckId}" 
-                           class="sparkline-dot" 
-                           style="background-color: ${color}; border: ${border};" 
+                        <a href="dashboard.html?testID=${testID}&testName=${encodedTestName}&checkId=${encodedCheckId}"
+                           class="sparkline-dot"
+                           style="background-color: ${color}; border: ${border};"
                            title="${escapeHtml(tooltip)}"></a>
                     `;
                 }
