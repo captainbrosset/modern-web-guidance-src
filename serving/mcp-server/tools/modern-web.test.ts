@@ -1,13 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { registerModernWebTools } from './modern-web.js';
-import * as modernPractices from '../data/modern-practices.js';
+import { registerModernWebTools } from './modern-web.ts';
+import * as modernPractices from '../data/modern-practices.ts';
 
 // Mock mocks
 const mockEmbed = vi.fn();
 const mockSearch = vi.fn();
 
-// Mock dependencies
-vi.mock('../lib/embedder.js', () => ({
+// Mock dependencies - We mock with .ts extension to match actual code
+vi.mock('../lib/embedder.ts', () => ({
   Embedder: {
     getInstance: () => ({
       embed: mockEmbed,
@@ -15,13 +15,13 @@ vi.mock('../lib/embedder.js', () => ({
   },
 }));
 
-vi.mock('../lib/store.js', () => ({
+vi.mock('../lib/store.ts', () => ({
   Store: class {
     search = mockSearch;
   },
 }));
 
-vi.mock('../data/modern-practices.js');
+vi.mock('../data/modern-practices.ts');
 
 // Mock McpServer
 const mockTool = vi.fn();
@@ -84,7 +84,7 @@ describe('modern-web tools', () => {
       expect(modernPractices.getGuide).toHaveBeenCalledWith('test-id');
     });
 
-    it('should return error if guide not found', async () => {
+    it("should return error if guide not found", async () => {
       vi.mocked(modernPractices.getGuide).mockResolvedValue(null);
 
       registerModernWebTools(mockServer);
@@ -93,7 +93,7 @@ describe('modern-web tools', () => {
       const result = await handler({ use_case_id: 'unknown-id' });
 
       expect(result.isError).toBe(true);
-      expect(result.content[0].text).toContain('No guide found');
+      expect(result.content[0].text).toContain("No guide found");
     });
   });
 });

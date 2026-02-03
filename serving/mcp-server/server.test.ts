@@ -16,7 +16,7 @@ vi.mock("@modelcontextprotocol/sdk/server/mcp.js", async () => {
 
 describe("Server Registration", () => {
   it("should register search_use_cases and get_best_practices tools", async () => {
-    const { createServer } = await import("./server.js");
+    const { createServer } = await import("./server.ts");
     const server = createServer();
 
     // Verify search_use_cases is registered
@@ -40,7 +40,7 @@ describe("Server Registration", () => {
 
   describe("Tool Handlers Functional Tests", () => {
     it("search_use_cases should return results", async () => {
-      const { createServer } = await import("./server.js");
+      const { createServer } = await import("./server.ts");
       const server = createServer();
 
       const searchCall = (server.registerTool as any).mock.calls.find(
@@ -55,7 +55,7 @@ describe("Server Registration", () => {
     });
 
     it("get_best_practices should return guide content", async () => {
-      const { createServer } = await import("./server.js");
+      const { createServer } = await import("./server.ts");
       const server = createServer();
 
       const getPracticesCall = (server.registerTool as any).mock.calls.find(
