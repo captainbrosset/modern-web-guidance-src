@@ -12,8 +12,8 @@ export function registerModernWebTools(server: McpServer) {
       },
     },
     async ({ query }) => {
-      const { Store } = await import("../lib/store.js");
-      const { Embedder } = await import("../lib/embedder.js");
+      const { Store } = await import("../lib/store.ts");
+      const { Embedder } = await import("../lib/embedder.ts");
 
       const store = new Store();
       const embedder = Embedder.getInstance();
