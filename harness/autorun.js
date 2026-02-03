@@ -158,8 +158,8 @@ async function run() {
       console.log(`Extracting Jetski info to: ${jetskiInfoPath}`);
       try {
         await extractJetskiVersionInfo(page, jetskiInfoPath);
-      } catch {
-        console.error("Failed to extract Jetski info:", _e);
+      } catch (e) {
+        console.error("Failed to extract Jetski info:", e);
         // Don't crash the run for this, just continue
       }
     } else {

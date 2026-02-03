@@ -275,7 +275,7 @@ async function main() {
     }
 
     console.log(`\n✅ Test suite complete! Results saved to: results/${testID}`);
-  } catch {
+  } catch (e) {
     console.error('❌ Error during suite execution:', e);
   } finally {
     console.log(`\n=== Restoring Artifacts ===`);
