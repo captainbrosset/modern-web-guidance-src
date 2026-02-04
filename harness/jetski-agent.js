@@ -1,18 +1,121 @@
 import fs from 'fs';
-import puppeteer from 'puppeteer-core';
-
-import { spawn, execSync } from 'child_process';
+import os from 'os';
 import path from 'path';
+import puppeteer from 'puppeteer-core';
+import { spawn, execSync } from 'child_process';
 import config from './config.js';
 
 // Parse arguments
+// Usage: node jetski-agent.js <directory> <prompt> [agentType]
 const args = process.argv.slice(2);
 if (args.length < 2) {
-  console.error("Usage: node autorun.js <directory> <prompt>");
+  console.error("Usage: node jetski-agent.js <directory> <prompt> [agentType]");
   process.exit(1);
 }
-const [targetDirectory, userPrompt] = args;
+const [targetDirectory, userPrompt, agentType = 'guided'] = args;
 const absoluteTargetDir = path.resolve(targetDirectory);
+
+/**
+ * Sets up an isolated HOME directory to ensure test isolation while preserving authentication.
+ * @returns {string} The path to the temporary HOME directory.
+ */
+function setupIsolatedHome() {
+  const tempHome = `/tmp/ghh-${Math.random().toString(36).substring(7)}`;
+  fs.mkdirSync(tempHome, { recursive: true });
+
+  console.log(`Setting up isolated HOME at ${tempHome}...`);
+
+  const appSupportSource = path.join(os.homedir(), 'Library/Application Support/Jetski');
+  const appSupportDest = path.join(tempHome, 'Library/Application Support/Jetski');
+  const geminiSource = path.join(os.homedir(), '.gemini/jetski');
+  const geminiDest = path.join(tempHome, '.gemini/jetski');
+
+  fs.mkdirSync(appSupportDest, { recursive: true });
+  fs.mkdirSync(geminiDest, { recursive: true });
+
+  // Copy minimal authentication state
+  const filesToCopy = [
+    'Cookies',
+    'Preferences',
+    'machineid',
+    'Network Persistent State'
+  ];
+
+  for (const file of filesToCopy) {
+    const src = path.join(appSupportSource, file);
+    if (fs.existsSync(src)) {
+      fs.copyFileSync(src, path.join(appSupportDest, file));
+    }
+  }
+
+  // Copy Local Storage and User (excluding workspaceStorage)
+  try {
+    execSync(`rsync -a "${appSupportSource}/Local Storage/" "${appSupportDest}/Local Storage/"`);
+    execSync(`rsync -a --exclude='workspaceStorage' "${appSupportSource}/User/" "${appSupportDest}/User/"`);
+  } catch (err) {
+    console.warn('Warning: Failed to copy some Application Support directories:', err.message);
+  }
+
+  // Copy essential .gemini state
+  const geminiFiles = ['installation_id', 'user_settings.pb'];
+  for (const file of geminiFiles) {
+    const src = path.join(geminiSource, file);
+    if (fs.existsSync(src)) {
+      fs.copyFileSync(src, path.join(geminiDest, file));
+    }
+  }
+
+  // Set environment variables for the child process and the current process
+  process.env.HOME = tempHome;
+  process.env.JETSKI_DIR = geminiDest;
+
+  // Re-sync config's jetskiDir now that environment variables are set
+  config.jetskiDir = geminiDest;
+
+  return tempHome;
+}
+
+/**
+ * Updates the MCP configuration in the current isolated home.
+ * @param {string} type - 'guided' or 'unguided'
+ */
+function updateMcpConfig(type) {
+  const configPath = path.join(config.jetskiDir, 'mcp_config.json');
+  let mcpConfig = { mcpServers: {} };
+
+  try {
+    if (fs.existsSync(configPath)) {
+      const content = fs.readFileSync(configPath, 'utf8');
+      if (content.trim()) {
+        mcpConfig = JSON.parse(content);
+      }
+    }
+  } catch (e) {
+    console.error('Failed to read MCP config:', e);
+  }
+
+  if (!mcpConfig.mcpServers) mcpConfig.mcpServers = {};
+
+  const serverName = 'modern-web';
+  if (type === 'guided') {
+    mcpConfig.mcpServers[serverName] = {
+      "command": "node",
+      "args": [config.mcpServerPath]
+    };
+    console.log('Enabled modern-web MCP server');
+  } else {
+    if (mcpConfig.mcpServers[serverName]) {
+      delete mcpConfig.mcpServers[serverName];
+      console.log('Disabled modern-web MCP server');
+    }
+  }
+
+  try {
+    fs.writeFileSync(configPath, JSON.stringify(mcpConfig, null, 2));
+  } catch (e) {
+    console.error('Failed to write MCP config:', e);
+  }
+}
 
 async function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -144,11 +247,15 @@ async function startJetski(directory) {
 }
 
 async function run() {
+  let testHomeDir = null;
   try {
+    // Setup isolated environment and MCP config
+    testHomeDir = setupIsolatedHome();
+    updateMcpConfig(agentType);
+
     await startJetski(absoluteTargetDir);
 
     const browserURL = `http://127.0.0.1:${config.jetskiDebugPort}`;
-
     const browser = await puppeteer.connect({
       browserURL,
       defaultViewport: null
@@ -165,9 +272,7 @@ async function run() {
     }
 
     if (!page) {
-      console.error("Could not find the Jetski workbench window.");
-      await browser.disconnect();
-      return;
+      throw new Error("Could not find the Jetski workbench window.");
     }
 
     // Attempt to save Jetski info (only once per Test ID, effectively)
@@ -175,7 +280,6 @@ async function run() {
     // We want: results/<testID>/jetski_info.txt
     // Go up 4 levels: agentType -> promptType -> scenario -> runNumber -> testID
     const jetskiInfoPath = path.resolve(absoluteTargetDir, '../../../../jetski_info.json');
-
     if (!fs.existsSync(jetskiInfoPath)) {
       console.log(`Extracting Jetski info to: ${jetskiInfoPath}`);
       try {
@@ -197,7 +301,6 @@ async function run() {
 
     console.log(`Waiting for Agent Panel iframe...`);
     let targetFrame = null;
-
     for (let i = 0; i < 20; i++) {
       const iframeElement = await page.$(iframeSelector);
       if (iframeElement) {
@@ -207,29 +310,24 @@ async function run() {
         }
       }
       console.log(`... Agent Panel iframe not found or loading, checking again in 3s (Attempt ${i + 1}/20)`);
-      targetFrame = null; // Ensure null if check failed
+      targetFrame = null;
       await sleep(3000);
     }
 
     if (!targetFrame) {
-      console.error("Could not find Agent Panel iframe after 15 seconds.");
-      await browser.disconnect();
-      process.exit(1);
+      throw new Error("Could not find Agent Panel iframe after 60 seconds.");
     }
 
     // Focus and type
     console.log(`Typing prompt: "${userPrompt}"`);
     await targetFrame.type(inputSelector, userPrompt);
-
-    // Click send
     console.log("Submitting...");
     await targetFrame.click(sendButtonSelector);
 
     // Wait for completion (cancel button to disappear)
     // First, wait for the cancel button to APPEAR (meaning it started)
     try {
-      // WaitForSelector on frame
-      await targetFrame.waitForSelector(cancelButtonSelector, { timeout: 5000 });
+      await targetFrame.waitForSelector(cancelButtonSelector, { timeout: 10000 });
       console.log("Agent started working...");
     } catch {
       console.log("Warning: Cancel button didn't appear quickly. Agent might have finished very fast or failed to start.");
@@ -243,13 +341,11 @@ async function run() {
         console.log("Agent finished.");
         break;
       }
-
       const allowOnceButton = await targetFrame.$(allowOnceButtonSelector);
       if (allowOnceButton) {
         console.log("Found 'Allow once' button, clicking it...");
         await allowOnceButton.click();
       }
-
       await sleep(1000);
     }
 
@@ -283,6 +379,17 @@ async function run() {
   } catch (err) {
     console.error("Error during execution:", err);
     process.exit(1);
+  } finally {
+    killProcessOnPort(config.jetskiDebugPort);
+    if (testHomeDir && fs.existsSync(testHomeDir)) {
+      console.log(`\n=== Cleaning up isolated HOME ===`);
+      try {
+        fs.rmSync(testHomeDir, { recursive: true, force: true });
+        console.log('✅ Cleanup successful');
+      } catch (cleanupErr) {
+        console.error('Failed to cleanup isolated HOME:', cleanupErr);
+      }
+    }
   }
 }
 
