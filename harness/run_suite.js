@@ -5,7 +5,6 @@ const __dirname = dirname(__filename);
 import fs from 'fs';
 import path from 'path';
 import { spawn } from 'child_process';
-import config from './config.js';
 
 const SCENARIOS = ['greenfield', 'brownfield', 'redfield'];
 const PROMPT_TYPES = ['specific', 'vague'];
@@ -14,80 +13,6 @@ const NUM_RUNS = 3;
 
 // Global log file stream
 let logStream = null;
-
-// Hook into console methods to also write to log file
-function setupLogging(logFilePath) {
-  logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
-
-  const originalLog = console.log;
-  const originalError = console.error;
-  const originalWarn = console.warn;
-
-  console.log = function(...args) {
-    const message = args.map(arg =>
-      typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
-    ).join(' ');
-    originalLog.apply(console, args);
-    if (logStream) {
-      logStream.write(`[LOG ${new Date().toISOString()}] ${message}\n`);
-    }
-  };
-
-  console.error = function(...args) {
-    const message = args.map(arg =>
-      typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
-    ).join(' ');
-    originalError.apply(console, args);
-    if (logStream) {
-      logStream.write(`[ERROR ${new Date().toISOString()}] ${message}\n`);
-    }
-  };
-
-  console.warn = function(...args) {
-    const message = args.map(arg =>
-      typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
-    ).join(' ');
-    originalWarn.apply(console, args);
-    if (logStream) {
-      logStream.write(`[WARN ${new Date().toISOString()}] ${message}\n`);
-    }
-  };
-
-  return { originalLog, originalError, originalWarn };
-}
-
-function restoreLogging(originals) {
-  if (originals) {
-    console.log = originals.originalLog;
-    console.error = originals.originalError;
-    console.warn = originals.originalWarn;
-  }
-  if (logStream) {
-    logStream.end();
-    logStream = null;
-  }
-}
-
-async function runCommand(command, args) {
-  return new Promise((resolve, reject) => {
-    const process = spawn(command, args, {
-      stdio: 'inherit',
-      shell: true
-    });
-
-    process.on('close', (code) => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(new Error(`Command failed with code ${code}`));
-      }
-    });
-
-    process.on('error', (err) => {
-      reject(err);
-    });
-  });
-}
 
 async function main() {
   const baseDir = __dirname;
@@ -119,7 +44,7 @@ async function main() {
     console.log(`\n=== Running Single Task ===`);
     console.log(`Directory: ${argDir}`);
     console.log(`Prompt: ${argPrompt}\n`);
-    
+
     try {
       // Default to guided for single tasks
       await runCommand('node', ['jetski-agent.js', path.resolve(argDir), JSON.stringify(argPrompt), 'guided']);
@@ -201,5 +126,80 @@ async function main() {
     restoreLogging(originalConsoleMethods);
   }
 }
+
+// Hook into console methods to also write to log file
+function setupLogging(logFilePath) {
+  logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
+
+  const originalLog = console.log;
+  const originalError = console.error;
+  const originalWarn = console.warn;
+
+  console.log = function(...args) {
+    const message = args.map(arg =>
+      typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+    ).join(' ');
+    originalLog.apply(console, args);
+    if (logStream) {
+      logStream.write(`[LOG ${new Date().toISOString()}] ${message}\n`);
+    }
+  };
+
+  console.error = function(...args) {
+    const message = args.map(arg =>
+      typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+    ).join(' ');
+    originalError.apply(console, args);
+    if (logStream) {
+      logStream.write(`[ERROR ${new Date().toISOString()}] ${message}\n`);
+    }
+  };
+
+  console.warn = function(...args) {
+    const message = args.map(arg =>
+      typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+    ).join(' ');
+    originalWarn.apply(console, args);
+    if (logStream) {
+      logStream.write(`[WARN ${new Date().toISOString()}] ${message}\n`);
+    }
+  };
+
+  return { originalLog, originalError, originalWarn };
+}
+
+function restoreLogging(originals) {
+  if (originals) {
+    console.log = originals.originalLog;
+    console.error = originals.originalError;
+    console.warn = originals.originalWarn;
+  }
+  if (logStream) {
+    logStream.end();
+    logStream = null;
+  }
+}
+
+async function runCommand(command, args) {
+  return new Promise((resolve, reject) => {
+    const process = spawn(command, args, {
+      stdio: 'inherit',
+      shell: true
+    });
+
+    process.on('close', (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(`Command failed with code ${code}`));
+      }
+    });
+
+    process.on('error', (err) => {
+      reject(err);
+    });
+  });
+}
+
 
 main().catch(console.error);
