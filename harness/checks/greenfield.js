@@ -2,11 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import * as cheerio from "cheerio";
 
+/**
+ * @param {string} dirPath
+ * @param {string[]} files
+ */
 export default function checkGreenfield(dirPath, files) {
   const results = [];
 
   // 1. Load HTML
-  const htmlFile = files.find(f => f.endsWith('.html'));
+  const htmlFile = files.find((f) => f.endsWith('.html'));
   if (!htmlFile) {
     results.push({ id: 'html-exists', passed: false, message: 'No HTML file found' });
     return results;
@@ -40,10 +44,11 @@ export default function checkGreenfield(dirPath, files) {
   });
 
   // 4. Check JS Polyfills
-  const jsFiles = files.filter(f => f.endsWith('.js'));
+  const jsFiles = files.filter((f) => f.endsWith('.js'));
   let interestForFeatureDetected = false;
   let loadingPlaceholderFeatureDetected = false;
 
+  /** @param {string} content */
   const checkContent = (content) => {
     // Check for interestfor feature detection
     // Match: .hasOwnProperty('interestForElement') or "interestForElement" with flexible quotes/spacing
@@ -58,7 +63,7 @@ export default function checkGreenfield(dirPath, files) {
     }
   };
 
-  jsFiles.forEach(file => {
+  jsFiles.forEach((file) => {
     const content = fs.readFileSync(path.join(dirPath, file), 'utf8');
     checkContent(content);
   });
@@ -84,11 +89,11 @@ export default function checkGreenfield(dirPath, files) {
   });
 
   // 5. Check CSS Features
-  const cssFiles = files.filter(f => f.endsWith('.css'));
+  const cssFiles = files.filter((f) => f.endsWith('.css'));
   let viewTimelineFound = false;
   let reducedMotionFound = false;
 
-  cssFiles.forEach(file => {
+  cssFiles.forEach((file) => {
     const content = fs.readFileSync(path.join(dirPath, file), 'utf8');
 
     if (content.includes('animation-timeline: view()') || content.includes('animation-timeline:view()')) {

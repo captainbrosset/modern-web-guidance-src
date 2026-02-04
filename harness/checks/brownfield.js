@@ -2,6 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import * as cheerio from "cheerio";
 
+/**
+ * @param {string} dirPath
+ * @param {string[]} files
+ */
 export default function checkBrownfield(dirPath, files) {
   const results = [];
 
@@ -27,40 +31,38 @@ export default function checkBrownfield(dirPath, files) {
   if (speculationRulesScript.length > 0) {
     try {
       const content = speculationRulesScript.html();
-      const json = JSON.parse(content);
+      if (content) {
+        const json = JSON.parse(content);
 
-      // Helper to recursively search for "not" -> "href_matches": "/logout"
-      const hasLogoutExclusion = (obj) => {
-        if (!obj || typeof obj !== 'object') return false;
+        // Helper to recursively search for "not" -> "href_matches": "/logout"
+        /** @param {any} obj */
+        const hasLogoutExclusion = (obj) => {
+          if (!obj || typeof obj !== 'object') return false;
 
-        // Check if this object is a "not" clause targeting logout
-        // The structure inside "not" should be a condition object
-        if (obj.href_matches === '/logout') {
-          // We need to know if we are inside a "not". 
-          // This recursive function doesn't easily track parent key.
-          // Let's change approach: iterate keys.
-          return false;
-        }
-
-        for (const key in obj) {
-          const value = obj[key];
-
-          if (key === 'not') {
-            // Check if the value (condition) matches /logout
-            if (value && typeof value === 'object') {
-              const matches = value.href_matches;
-              if (matches === '/logout') return true;
-              if (Array.isArray(matches) && matches.includes('/logout')) return true;
-            }
+          // Check if this object is a "not" clause targeting logout
+          if (obj.href_matches === '/logout') {
+            return false;
           }
 
-          if (hasLogoutExclusion(value)) return true;
-        }
-        return false;
-      };
+          for (const key in obj) {
+            const value = obj[key];
 
-      excludesLogout = hasLogoutExclusion(json);
+            if (key === 'not') {
+              // Check if the value (condition) matches /logout
+              if (value && typeof value === 'object') {
+                const matches = value.href_matches;
+                if (matches === '/logout') return true;
+                if (Array.isArray(matches) && matches.includes('/logout')) return true;
+              }
+            }
 
+            if (hasLogoutExclusion(value)) return true;
+          }
+          return false;
+        };
+
+        excludesLogout = hasLogoutExclusion(json);
+      }
     } catch {
       // Failed to parse or process
       excludesLogout = false;

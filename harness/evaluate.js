@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import 'colors';
 import { collectResults } from './lib/collection.js';
 import { calculateMetrics } from './lib/metrics.js';
 import { generateMarkdownReport, generateJsonReport, saveReports } from './lib/reporting.js';
@@ -56,7 +57,8 @@ Report generated: ${path.resolve(path.join(resultsDir, 'evals.md'))}`.green.bold
     console.log(`Pass Rate - Unguided: ${metrics.summary.unguidedPassRate}%, Guided: ${metrics.summary.guidedPassRate}%`.cyan);
 
   } catch (error) {
-    console.error(`Evaluation failed: ${error.message}`.red);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`Evaluation failed: ${message}`.red);
   }
 }
 

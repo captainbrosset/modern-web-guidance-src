@@ -2,10 +2,14 @@ import fs from 'fs';
 import path from 'path';
 import * as cheerio from "cheerio";
 
+/**
+ * @param {string} dirPath
+ * @param {string[]} files
+ */
 export default function checkRedfield(dirPath, files) {
   const results = [];
 
-  const htmlFile = files.find(f => f.endsWith('.html'));
+  const htmlFile = files.find((f) => f.endsWith('.html'));
   if (!htmlFile) {
     results.push({ id: 'html-exists', passed: false, message: 'No HTML file found' });
     return results;
@@ -35,10 +39,11 @@ export default function checkRedfield(dirPath, files) {
   // We can check if script tags are empty or if specific old functions are missing.
   // For now, let's verify that we DON'T see manual event listeners for mouseover/focus if interestfor is used.
   // But searching for 'addEventListener' might be too broad.
-  // Let's rely on the positive presence of the new API as likely indicator of success, 
+  // Let's rely on the positive presence of the new API as likely indicator of success,
   // plus maybe checking for the POLYFILL only.
 
-  const jsFiles = files.filter(f => f.endsWith('.js'));
+  const jsFiles = files.filter((f) => f.endsWith('.js'));
+  /** @type {string[]} */
   const inlineScripts = [];
   $('script').each((i, el) => {
     const content = $(el).html();
@@ -50,6 +55,7 @@ export default function checkRedfield(dirPath, files) {
   let interestForFeatureDetected = false;
   let imperativePatternFound = false;
 
+  /** @param {string} content */
   const checkContent = (content) => {
     // Check for interestfor polyfill / feature detection
     if (/\.hasOwnProperty\(\s*["']interestForElement["']\s*\)/.test(content)) {
@@ -63,7 +69,7 @@ export default function checkRedfield(dirPath, files) {
     }
   };
 
-  jsFiles.forEach(file => {
+  jsFiles.forEach((file) => {
     const content = fs.readFileSync(path.join(dirPath, file), 'utf8');
     checkContent(content);
   });
@@ -78,7 +84,7 @@ export default function checkRedfield(dirPath, files) {
     message: 'Check for interestfor feature detection'
   });
 
-  // This is a "soft" check - having imperative code might be necessary for other things, 
+  // This is a "soft" check - having imperative code might be necessary for other things,
   // but we warn if it looks like the old mousover handlers are still there.
   results.push({
     id: 'redfield-imperative-reduced',

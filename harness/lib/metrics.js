@@ -1,6 +1,43 @@
+/**
+ * @typedef {Object} ScenarioCheck
+ * @property {string} id
+ * @property {boolean} passed
+ * @property {string} message
+ */
+
+/**
+ * @typedef {Object} RunResult
+ * @property {number} runNumber
+ * @property {ScenarioCheck[]} results
+ */
+
+/**
+ * @typedef {Object} Metrics
+ * @property {Object} summary
+ * @property {number} summary.unguidedMedian
+ * @property {number} summary.guidedMedian
+ * @property {number} summary.unguidedPassRate
+ * @property {number} summary.guidedPassRate
+ * @property {number} summary.unguidedPassed
+ * @property {number} summary.unguidedTotal
+ * @property {number} summary.guidedPassed
+ * @property {number} summary.guidedTotal
+ * @property {number} summary.numRuns
+ * @property {Record<string, { median: number, rates: number[] }>} testPassRates
+ * @property {string[]} sortedKeys
+ */
+
+/**
+ * @param {Record<string, RunResult[]>} allResults
+ * @param {number} numRuns
+ * @returns {Metrics}
+ */
 export function calculateMetrics(allResults, numRuns) {
+  /** @type {Record<string, number>} */
   const scenarioOrder = { 'greenfield': 1, 'brownfield': 2, 'redfield': 3 };
+  /** @type {Record<string, number>} */
   const promptOrder = { 'vague': 1, 'specific': 2 };
+  /** @type {Record<string, number>} */
   const agentOrder = { 'unguided': 1, 'guided': 2 };
 
   const sortedKeys = Object.keys(allResults).sort((a, b) => {
@@ -16,16 +53,16 @@ export function calculateMetrics(allResults, numRuns) {
     return (agentOrder[agentA] || 99) - (agentOrder[agentB] || 99);
   });
 
-  // Calculate pass rates for each test across all runs
+  /** @type {Record<string, any>} */
   const testPassRates = {};
   for (const name of sortedKeys) {
     const runs = allResults[name];
-    const passRates = runs.map(run => {
+    const passRates = runs.map((/** @type {any} */ run) => {
       const checks = run.results;
-      const passCount = checks.filter(c => c.passed).length;
+      const passCount = checks.filter((/** @type {any} */ c) => c.passed).length;
       const totalCount = checks.length;
       return totalCount > 0 ? (passCount / totalCount) * 100 : 0;
-    }).sort((a, b) => a - b);
+    }).sort((/** @type {number} */ a, /** @type {number} */ b) => a - b);
     
     // Calculate median
     const mid = Math.floor(passRates.length / 2);
@@ -35,7 +72,7 @@ export function calculateMetrics(allResults, numRuns) {
     
     testPassRates[name] = {
       median: Math.round(median),
-      rates: passRates.map(r => Math.round(r))
+      rates: passRates.map((/** @type {number} */ r) => Math.round(r))
     };
   }
 
@@ -52,6 +89,7 @@ export function calculateMetrics(allResults, numRuns) {
     }
   }
 
+  /** @param {number[]} arr */
   const calculateMedianFunc = (arr) => {
     if (arr.length === 0) return 0;
     const sorted = [...arr].sort((a, b) => a - b);
@@ -72,9 +110,9 @@ export function calculateMetrics(allResults, numRuns) {
 
   for (const name of sortedKeys) {
     const runs = allResults[name];
-    runs.forEach(run => {
+    runs.forEach((/** @type {any} */ run) => {
       const checks = run.results;
-      const passCount = checks.filter(c => c.passed).length;
+      const passCount = checks.filter((/** @type {any} */ c) => c.passed).length;
       const totalCount = checks.length;
 
       if (name.includes(' - unguided')) {

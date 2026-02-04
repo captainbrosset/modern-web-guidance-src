@@ -5,6 +5,9 @@ import checkGreenfield from '../checks/greenfield.js';
 import checkBrownfield from '../checks/brownfield.js';
 import checkRedfield from '../checks/redfield.js';
 
+/**
+ * @param {string} resultsDir
+ */
 export async function collectResults(resultsDir) {
   const runDirs = fs.readdirSync(resultsDir)
     .filter(name => {
@@ -17,6 +20,7 @@ export async function collectResults(resultsDir) {
     throw new Error('No test runs found!');
   }
 
+  /** @type {Record<string, any[]>} */
   const allResults = {};
 
   for (const runDir of runDirs) {

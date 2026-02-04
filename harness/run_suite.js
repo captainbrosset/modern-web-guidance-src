@@ -12,6 +12,7 @@ const AGENT_TYPES = ['guided', 'unguided'];
 const NUM_RUNS = 3;
 
 // Global log file stream
+/** @type {fs.WriteStream | null} */
 let logStream = null;
 
 async function main() {
@@ -107,6 +108,7 @@ async function main() {
     }
 
     const manifestPath = path.join(resultsDir, 'tests.json');
+    /** @type {{ tests: any[] }} */
     let manifest = { tests: [] };
     if (fs.existsSync(manifestPath)) {
       try {
@@ -127,7 +129,7 @@ async function main() {
   }
 }
 
-// Hook into console methods to also write to log file
+/** @param {string} logFilePath */
 function setupLogging(logFilePath) {
   logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
 
@@ -168,6 +170,7 @@ function setupLogging(logFilePath) {
   return { originalLog, originalError, originalWarn };
 }
 
+/** @param {any} originals */
 function restoreLogging(originals) {
   if (originals) {
     console.log = originals.originalLog;
@@ -180,8 +183,12 @@ function restoreLogging(originals) {
   }
 }
 
-async function runCommand(command, args) {
-  return new Promise((resolve, reject) => {
+/**
+ * @param {string} command
+ * @param {string[]} [args]
+ */
+async function runCommand(command, args = []) {
+  return new Promise((/** @type {(value?: any) => void} */ resolve, reject) => {
     const process = spawn(command, args, {
       stdio: 'inherit',
       shell: true

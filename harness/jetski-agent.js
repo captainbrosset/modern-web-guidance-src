@@ -53,7 +53,8 @@ function setupIsolatedHome() {
     execSync(`rsync -a "${appSupportSource}/Local Storage/" "${appSupportDest}/Local Storage/"`);
     execSync(`rsync -a --exclude='workspaceStorage' "${appSupportSource}/User/" "${appSupportDest}/User/"`);
   } catch (err) {
-    console.warn('Warning: Failed to copy some Application Support directories:', err.message);
+    const message = err instanceof Error ? err.message : String(err);
+    console.warn('Warning: Failed to copy some Application Support directories:', message);
   }
 
   // Copy essential .gemini state
@@ -81,6 +82,7 @@ function setupIsolatedHome() {
  */
 function updateMcpConfig(type) {
   const configPath = path.join(config.jetskiDir, 'mcp_config.json');
+  /** @type {{ mcpServers?: Record<string, any> }} */
   let mcpConfig = { mcpServers: {} };
 
   try {
@@ -117,10 +119,15 @@ function updateMcpConfig(type) {
   }
 }
 
+/** @param {number} ms */
 async function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/**
+ * @param {import('puppeteer-core').Page} page
+ * @param {string} outputPath
+ */
 async function extractJetskiVersionInfo(page, outputPath) {
   try {
     // 1. Ensure the window is focused to receive keyboard events
@@ -148,10 +155,11 @@ async function extractJetskiVersionInfo(page, outputPath) {
     await page.waitForSelector(detailSelector, { visible: true, timeout: 10000 });
 
     // 6. Extract the text
-    const versionText = await page.$eval(detailSelector, el => el.innerText);
+    const versionText = await page.$eval(detailSelector, (/** @type {any} */ el) => el.innerText);
 
     // 7. Parse to JSON
     const lines = versionText.split('\n');
+    /** @type {Record<string, string>} */
     const info = {};
     for (const line of lines) {
       // Split by first occurrence of ': '
@@ -173,11 +181,13 @@ async function extractJetskiVersionInfo(page, outputPath) {
     return info;
 
   } catch (error) {
-    console.error('Failed to extract version info:', error.message);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('Failed to extract version info:', message);
     throw error;
   }
 }
 
+/** @param {number | string} port */
 function killProcessOnPort(port) {
   try {
     const pid = execSync(`lsof -t -i :${port}`).toString().trim();
@@ -190,6 +200,7 @@ function killProcessOnPort(port) {
   }
 }
 
+/** @param {string} directory */
 async function startJetski(directory) {
   // Kill anything on the debug port first
   killProcessOnPort(config.jetskiDebugPort);
@@ -239,7 +250,8 @@ async function startJetski(directory) {
       console.log("Jetski is ready.");
       return;
     } catch (e) {
-      console.log(`Connection attempt ${i + 1} failed: ${e.message}`);
+      const message = e instanceof Error ? e.message : String(e);
+      console.log(`Connection attempt ${i + 1} failed: ${message}`);
       await sleep(1000);
     }
   }
@@ -354,12 +366,13 @@ async function run() {
       console.log("Saving chat log...");
       // Ensure #chat exists in the target frame
       await targetFrame.waitForSelector('#chat', { timeout: 5000 });
-      const chatText = await targetFrame.$eval('#chat', el => el.innerText || '');
+      const chatText = await targetFrame.$eval('#chat', (/** @type {any} */ el) => el.innerText || '');
       const chatLogPath = path.resolve(absoluteTargetDir, 'chat_log.txt');
       fs.writeFileSync(chatLogPath, chatText, 'utf8');
       console.log(`Saved chat log to: ${chatLogPath}`);
     } catch (e) {
-      console.warn('Could not save chat log:', e.message);
+      const message = e instanceof Error ? e.message : String(e);
+      console.warn('Could not save chat log:', message);
     }
 
     // Close Jetski
