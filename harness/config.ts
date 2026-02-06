@@ -17,6 +17,7 @@ interface Config {
   jetskiBin: string;
   jetskiDebugPort: number;
   mcpServerPath: string;
+  mcpApiKey: string;
   numRuns: number;
   scenarios: string[];
   types: string[];
@@ -30,6 +31,7 @@ const config: Config = {
 
   // MCP Server Configuration
   mcpServerPath: path.join(__dirname, '../../serving/mcp-server/index.ts'),
+  mcpApiKey: process.env.MCP_API_KEY || '',
 
   // Suite Configuration
   numRuns: 3,

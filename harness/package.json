@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "test": "node --test lib/*.test.js",
-    "report": "node evaluate.js",
-    "suite": "node run_suite.js",
-    "task": "node run_suite.js",
+    "test": "node --test lib/*.test.ts",
+    "report": "node evaluate.ts",
+    "suite": "node run_suite.ts",
+    "task": "node run_suite.ts",
     "typecheck": "tsc --noEmit",
     "full-run": "npm run suite && npm run report"
   },

@@ -100,17 +100,19 @@ function updateMcpConfig(type: string): void {
 
   if (!mcpConfig.mcpServers) mcpConfig.mcpServers = {};
 
-  const serverName = 'modern-web';
+  const serverName = 'google-developer-knowledge-mcp';
   if (type === 'guided') {
     mcpConfig.mcpServers[serverName] = {
-      "command": "node",
-      "args": [config.mcpServerPath]
+      "serverUrl": "https://developerknowledge.googleapis.com/mcp",
+      "headers": {
+        "X-Goog-Api-Key": config.mcpApiKey
+      }
     };
-    console.log('Enabled modern-web MCP server');
+    console.log('Enabled google-developer-knowledge-mcp MCP server');
   } else {
     if (mcpConfig.mcpServers[serverName]) {
       delete mcpConfig.mcpServers[serverName];
-      console.log('Disabled modern-web MCP server');
+      console.log('Disabled google-developer-knowledge-mcp MCP server');
     }
   }
 
