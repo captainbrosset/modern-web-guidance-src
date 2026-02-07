@@ -22,6 +22,14 @@
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.28.1",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "onnxruntime-node",
+      "protobufjs",
+      "sharp"
+    ]
+  },
   "devDependencies": {
     "oxlint": "^1.42.0"
   }
