@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Popover Tooltip</title>
+    <title>Modern Popover Tooltip Demo</title>
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -17,52 +17,39 @@
 
         /* The Button */
         #tooltip-trigger {
-            padding: 12px 24px;
+            padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            border: none;
+            border: 1px solid #007bff;
             background-color: #007bff;
             color: white;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: background-color 0.2s;
-            /* Anchor name for the tooltip to reference */
-            anchor-name: --trigger;
+            border-radius: 4px;
+            anchor-name: --tooltip-trigger;
         }
 
-        #tooltip-trigger:hover {
-            background-color: #0056b3;
-        }
-
-        /* The Tooltip (Popover) */
+        /* The Tooltip (using Popover API) */
         #tooltip {
-            /* Reset default popover styles */
-            margin: 0;
+            /* Popover defaults to display: none when not shown */
+            position: absolute;
+            position-anchor: --tooltip-trigger;
+            bottom: anchor(top);
+            margin-bottom: 10px;
+            left: anchor(center);
+            transform: translateX(-50%);
+            
+            width: 200px;
+            background-color: #ffffff;
+            color: #333;
+            text-align: center;
             padding: 12px;
-            border: none;
             border-radius: 8px;
-            background-color: #333;
-            color: #fff;
             font-size: 14px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            max-width: 200px;
             
-            /* CSS Anchor Positioning */
-            position-anchor: --trigger;
-            position-area: top;
-            position-try-fallbacks: flip-block;
-        }
-
-        /* Little arrow using a pseudo-element */
-        #tooltip::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -6px;
-            border-width: 6px;
-            border-style: solid;
-            border-color: #333 transparent transparent transparent;
+            /* Remove default popover styles */
+            border: 1px solid #e5e7eb;
+            margin: 0;
+            overflow: visible;
         }
 
         #tooltip img {
@@ -72,38 +59,33 @@
             margin-bottom: 8px;
             display: block;
         }
+
+        /* Little arrow at the bottom of the tooltip */
+        #tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -8px;
+            border-width: 8px;
+            border-style: solid;
+            border-color: #ffffff transparent transparent transparent;
+        }
+
+        /* Show tooltip only when popover is open */
+        #tooltip:popover-open {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
     </style>
-    <!-- Polyfill detection and loading -->
-    <script>
-        (function() {
-            if (!HTMLButtonElement.prototype.hasOwnProperty("interestForElement")) {
-                const s = document.createElement("script");
-                s.src = "https://unpkg.com/interestfor@1.0.7/src/interestfor.min.js";
-                document.head.appendChild(s);
-            }
-            if (!HTMLElement.prototype.hasOwnProperty("popover")) {
-                const s = document.createElement("script");
-                s.src = "https://unpkg.com/@oddbird/popover-polyfill@0.6.1/dist/popover.min.js";
-                document.head.appendChild(s);
-            }
-            if (!("positionAnchor" in document.documentElement.style)) {
-                const s = document.createElement("script");
-                s.src = "https://unpkg.com/@oddbird/css-anchor-positioning@0.8.0/dist/css-anchor-positioning.js";
-                document.head.appendChild(s);
-            }
-        })();
-    </script>
 </head>
 <body>
 
-    <button id="tooltip-trigger" interestfor="tooltip">
-        Hover over me
-    </button>
-
-    <div id="tooltip" popover="hint">
-        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" alt="Modern Web Development">
-        <strong>Modern Tooltip</strong>
-        <p style="margin: 4px 0 0 0;">I'm powered by the Popover API and Interest Invokers!</p>
+    <button id="tooltip-trigger" interesttarget="tooltip">Hover over me</button>
+    <div id="tooltip" popover>
+        <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=400&auto=format&fit=crop&q=60" alt="Gradient Background">
+        <span>I'm a modern popover tooltip with an image!</span>
     </div>
 
 </body>

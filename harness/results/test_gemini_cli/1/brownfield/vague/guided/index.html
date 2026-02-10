@@ -5,11 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Daily Grind | Artisanal Coffee</title>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1350&q=80" fetchpriority="high">
   <style>
-    @view-transition {
-      navigation: auto;
-    }
-
     :root {
       --primary: #4e342e;
       --secondary: #d7ccc8;
@@ -119,14 +117,6 @@
       text-align: center;
     }
 
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 4px;
-      margin-bottom: 15px;
-    }
-
     .card h3 {
       margin-bottom: 10px;
       color: var(--primary);
@@ -164,8 +154,11 @@
       text-decoration: none;
       font-size: 0.85rem;
     }
-  </style>
 
+    @view-transition {
+      navigation: auto;
+    }
+  </style>
   <script type="speculationrules">
     {
       "prerender": [
@@ -182,7 +175,6 @@
       ]
     }
   </script>
-  <link rel="preload" fetchpriority="high" as="image" href="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1350&q=80">
 </head>
 
 <body>
@@ -209,19 +201,16 @@
       <h2 style="text-align: center;">Seasonal Favorites</h2>
       <div class="grid">
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1599398054066-846f28917f38?auto=format&fit=crop&w=600&q=80" alt="Maple Oat Latte" loading="lazy">
           <h3>Maple Oat Latte</h3>
           <p>Creamy oat milk with a hint of Vermont maple syrup.</p>
           <a href="/menu/seasonal" class="btn">View Details</a>
         </div>
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80" alt="Dark Roast Espresso" loading="lazy">
           <h3>Dark Roast Espresso</h3>
           <p>Bold, smokey, and perfect for a morning boost.</p>
           <a href="/menu/espresso" class="btn">View Details</a>
         </div>
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=600&q=80" alt="Cold Brew" loading="lazy">
           <h3>Cold Brew</h3>
           <p>Steeped for 18 hours for maximum smoothness.</p>
           <a href="/menu/cold-brew" class="btn">View Details</a>

@@ -153,7 +153,6 @@
       font-size: 0.85rem;
     }
   </style>
-
   <script type="speculationrules">
     {
       "prerender": [
@@ -161,8 +160,15 @@
           "source": "document",
           "where": {
             "and": [
-              { "href_matches": ["/menu", "/locations", "/rewards", "/account"] },
-              { "not": { "href_matches": "/logout" }}
+              {
+                "or": [
+                  { "href_matches": "/menu" },
+                  { "href_matches": "/locations" },
+                  { "href_matches": "/rewards" },
+                  { "href_matches": "/account" }
+                ]
+              },
+              { "not": { "href_matches": "/logout" } }
             ]
           },
           "eagerness": "moderate"

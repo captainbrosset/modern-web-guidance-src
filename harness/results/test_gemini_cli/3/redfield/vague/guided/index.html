@@ -17,6 +17,7 @@
 
         /* The Button */
         #tooltip-trigger {
+            anchor-name: --tooltip-trigger;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
@@ -24,37 +25,27 @@
             background-color: #007bff;
             color: white;
             border-radius: 4px;
-            anchor-name: --tooltip-trigger;
         }
 
-        /* The Tooltip (using Popover API and Anchor Positioning) */
+        /* The Tooltip */
         #tooltip {
-            margin: 0;
-            padding: 0; /* Remove padding to let image be flush if desired, or keep it for content */
-            border: none;
-            border-radius: 8px;
-            background-color: #fff;
-            color: #333;
-            font-size: 14px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            width: 200px;
-            overflow: hidden;
-            
-            /* Positioning */
             position-anchor: --tooltip-trigger;
             position-area: top;
             position-try-fallbacks: flip-block;
-        }
-
-        #tooltip img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            display: block;
-        }
-
-        #tooltip .content {
-            padding: 12px;
+            margin: 8px 0; /* Add some spacing from the anchor */
+            
+            width: max-content;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: none;
+            
+            /* Popover defaults often include a border or background we might want to override */
+            inset: auto;
         }
 
         /* Little arrow at the bottom of the tooltip */
@@ -64,54 +55,25 @@
             top: 100%;
             left: 50%;
             transform: translateX(-50%);
-            border-width: 8px;
+            border-width: 5px;
             border-style: solid;
-            border-color: #fff transparent transparent transparent;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        /* Adjust arrow if it flips to the bottom */
+        @supports (position-area: bottom) {
+            #tooltip:position-area(bottom)::after {
+                top: auto;
+                bottom: 100%;
+                border-color: transparent transparent #333 transparent;
+            }
         }
     </style>
 </head>
 <body>
 
     <button id="tooltip-trigger" interestfor="tooltip">Hover over me</button>
-    
-    <div id="tooltip" popover="hint">
-        <img src="https://picsum.photos/id/237/200/120" alt="Cute dog">
-        <div class="content">
-            <strong>Modern Hovercard</strong>
-            <p style="margin: 4px 0 0; font-size: 12px; color: #666;">
-                Using Popover API, Interest Invokers, and CSS Anchor Positioning.
-            </p>
-        </div>
-    </div>
-
-    <script>
-        // Feature detection and conditional polyfill loading
-        (async () => {
-            const loadScript = (src) => new Promise((resolve, reject) => {
-                const script = document.createElement('script');
-                script.src = src;
-                script.onload = resolve;
-                script.onerror = reject;
-                document.head.appendChild(script);
-            });
-
-            const polyfills = [];
-
-            if (!HTMLButtonElement.prototype.hasOwnProperty("interestForElement")) {
-                polyfills.push('./lib/interestfor.min.js');
-            }
-            if (!HTMLElement.prototype.hasOwnProperty("popover")) {
-                polyfills.push('./lib/popover.min.js');
-            }
-            if (!("positionAnchor" in document.documentElement.style)) {
-                polyfills.push('./lib/css-anchor-positioning.js');
-            }
-
-            for (const src of polyfills) {
-                await loadScript(src);
-            }
-        })();
-    </script>
+    <div id="tooltip" popover="hint">I'm a modern tooltip!</div>
 
 </body>
 </html>

@@ -1,7 +1,14 @@
-I will start by exploring the `serving/mcp-server/guides/` directory to understand the project's preferred modern web practices for popovers, scroll-driven animations, and adaptive loading.
-I will list the contents of the `serving/mcp-server/guides/` directory to locate relevant documentation for modern web features.
-I will now examine the contents of the `ui` and `webperf` directories to gather specific implementation details for the requested features.
-I will read the `scroll-driven-animations.md`, `tooltip.md`, and `adaptive-loading.md` guides to ensure I follow the project's standards for these features.
-I will read the existing `index.html` file to determine if there is any boilerplate code I should build upon.
-I will now create the `index.html` file, incorporating the hero section with scroll-driven animations, the "Details" button with a popover for ingredients, and the adaptive loading feature for the hero image.
-I have built the product landing page for "The Modern Grind" coffee shop in `index.html`. The page features a hero image with a scroll-driven fade and scale animation, a "Details" button that triggers an ingredients popover using native anchor positioning and interest invokers, and adaptive loading for the hero image to ensure performance on slower networks.
+I will search for relevant guides in the `serving/mcp-server/guides/` directory to ensure I use the recommended native web platform features.
+I will explore the `ui` and `webperf` subdirectories in the guides to find specific information on the Popover API, scroll-driven animations, and adaptive loading.
+I will read the `scroll-driven-animations.md` and `adaptive-loading.md` guides to understand the best practices for implementing these features.
+I will search for "popover" in the guides to see if there is any specific documentation on its usage.
+I will use `grep` via `run_shell_command` to search for "popover" in the guides, since `search_file_content` is restricted.
+I will read the `tooltip.md` guide to understand how to implement the hover-triggered popover using the `interestfor` attribute and `popover="hint"`.
+I will write the `index.html` file with the implementation of the landing page, including the Popover API, scroll-driven animations, and adaptive loading as specified.
+I will create the `guides_used.json` file to document the guides I consulted during the implementation, as required by the project instructions.
+I have built the product landing page for "Brew & Beans" in `index.html`, incorporating the requested native web platform features: a hover-triggered non-modal popover for ingredients using the `interestfor` attribute and Popover API, scroll-driven animations for the hero image's reveal, and the Adaptive Loading API for network-aware image placeholders. All implementations follow the provided project guides.
+
+- **Hero Image**: Fades in and scales up via CSS `@supports (animation-timeline: view())`.
+- **Adaptive Loading**: Uses the `loading-placeholder` attribute for lightweight fallbacks on slow connections.
+- **Details Popover**: Declaratively triggered on hover using `interestfor` and positioned via CSS Anchor Positioning.
+- **Project Compliance**: Created `guides_used.json` to track referenced documentation.

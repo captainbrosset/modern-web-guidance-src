@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Tooltip Demo</title>
+    <title>Modern Popover Tooltip Demo</title>
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -31,32 +31,53 @@
             anchor-name: --tooltip-trigger;
         }
 
-        /* The Tooltip */
+        /* The Tooltip using Popover API */
         #tooltip {
-            margin: 0;
+            /* Reset default popover styles */
+            border: none;
+            padding: 0;
+            overflow: visible;
+            background: transparent;
+
+            /* Positioning */
             position-anchor: --tooltip-trigger;
             position-area: top;
             position-try-fallbacks: flip-block;
-            width: max-content;
-            margin-inline: auto;
+            margin-bottom: 8px; /* Gap between trigger and tooltip */
+        }
+
+        .tooltip-card {
+            width: 200px;
             background-color: #333;
             color: #fff;
-            text-align: center;
-            padding: 8px;
-            border-radius: 6px;
+            padding: 12px;
+            border-radius: 8px;
             font-size: 14px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tooltip-card img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .tooltip-card .content {
+            flex: 1;
         }
 
         /* Little arrow at the bottom of the tooltip */
-        #tooltip::after {
+        .tooltip-card::after {
             content: "";
             position: absolute;
             top: 100%;
             left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
+            transform: translateX(-50%);
+            border-width: 6px;
             border-style: solid;
             border-color: #333 transparent transparent transparent;
         }
@@ -65,8 +86,19 @@
 <body>
 
     <div class="container">
-        <button id="tooltip-trigger" interestfor="tooltip">Hover over me</button>
-        <div id="tooltip" popover="hint">I'm a modern tooltip!</div>
+        <button id="tooltip-trigger" interestfor="tooltip">
+            Hover over me
+        </button>
+
+        <div id="tooltip" popover="hint">
+            <div class="tooltip-card">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&h=80&q=80" alt="User Avatar">
+                <div class="content">
+                    <strong>Modern Tooltip</strong>
+                    <p style="margin: 4px 0 0; font-size: 12px; color: #ccc;">Built with Popover API & Interest Invokers</p>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>

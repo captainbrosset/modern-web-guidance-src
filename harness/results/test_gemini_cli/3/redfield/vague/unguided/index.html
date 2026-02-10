@@ -3,154 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Tooltip Demo</title>
+    <title>Modernized Tooltip</title>
     <style>
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
-            color: #1a1a1a;
+        :root {
+            --bg-color: #f8fafc;
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --tooltip-bg: #1e293b;
+            --tooltip-text: #f8fafc;
+            --radius: 0.5rem;
         }
 
-        /* The Button */
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: var(--bg-color);
+        }
+
         #tooltip-trigger {
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 0.625rem 1.25rem;
+            font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
             border: none;
-            background-color: #007bff;
+            background-color: var(--primary-color);
             color: white;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: background-color 0.2s;
+            border-radius: var(--radius);
+            transition: background-color 0.2s, transform 0.1s;
+            
+            /* Define anchor name */
             anchor-name: --tooltip-trigger;
         }
 
         #tooltip-trigger:hover {
-            background-color: #0056b3;
+            background-color: var(--primary-hover);
         }
 
-        /* The Tooltip (Modernized with Popover and Anchor Positioning) */
+        #tooltip-trigger:active {
+            transform: scale(0.98);
+        }
+
         #tooltip {
-            /* Reset default popover styles */
-            margin: 0;
+            /* Remove default popover styling */
             border: none;
             padding: 0;
+            margin: 0;
             overflow: visible;
             background: transparent;
-            
-            /* Anchor Positioning */
+            color: inherit;
+
+            /* Positioning via Anchor API */
+            position: fixed;
             position-anchor: --tooltip-trigger;
-            position-area: top;
-            position-try-fallbacks: flip-block;
-            width: 240px;
-            margin-inline: auto;
+            bottom: anchor(top);
+            left: anchor(center);
+            transform: translateX(-50%) translateY(-10px);
 
-            /* Visuals */
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+            /* Visual Design */
+            background-color: var(--tooltip-bg);
+            color: var(--tooltip-text);
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            white-space: nowrap;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            pointer-events: none;
+
+            /* Modern Transition using entry/exit effects */
+            opacity: 0;
+            transition: 
+                opacity 0.15s ease-out,
+                transform 0.15s ease-out,
+                display 0.15s ease-out allow-discrete,
+                overlay 0.15s ease-out allow-discrete;
         }
 
-        .tooltip-card {
-            background: white;
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            align-items: center;
-            text-align: center;
-            position: relative;
+        #tooltip:popover-open {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-6px);
         }
 
-        .tooltip-card img {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            object-fit: cover;
-            background-color: #eee;
+        /* Set the starting state for the entry transition */
+        @starting-style {
+            #tooltip:popover-open {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-10px);
+            }
         }
 
-        .tooltip-info h3 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .tooltip-info p {
-            margin: 4px 0 0;
-            font-size: 14px;
-            color: #666;
-        }
-
-        /* Little arrow at the bottom of the tooltip */
-        .tooltip-card::after {
+        /* Tooltip Arrow */
+        #tooltip::after {
             content: "";
             position: absolute;
             top: 100%;
             left: 50%;
             transform: translateX(-50%);
-            border-width: 8px;
-            border-style: solid;
-            border-color: white transparent transparent transparent;
-        }
-
-        /* Popover transition */
-        #tooltip:popover-open {
-            animation: fade-in 0.2s ease-out;
-        }
-
-        @keyframes fade-in {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
+            border: 6px solid transparent;
+            border-top-color: var(--tooltip-bg);
         }
     </style>
 </head>
 <body>
 
-    <button id="tooltip-trigger" interestfor="tooltip">View Profile</button>
-    
-    <div id="tooltip" popover="hint">
-        <div class="tooltip-card">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=128&h=128" alt="User avatar">
-            <div class="tooltip-info">
-                <h3>John Doe</h3>
-                <p>Senior Software Engineer</p>
-            </div>
-        </div>
-    </div>
+    <button id="tooltip-trigger">Hover over me</button>
+    <div id="tooltip" popover="manual">Modern CSS Anchor positioning!</div>
 
-    <script type="module">
-        // Conditionally load polyfills based on feature detection
-        const polyfills = [];
+    <script>
+        const trigger = document.getElementById('tooltip-trigger');
+        const tooltip = document.getElementById('tooltip');
 
-        if (!HTMLElement.prototype.hasOwnProperty("popover")) {
-            polyfills.push("https://unpkg.com/@oddbird/popover-polyfill@0.6.1/dist/popover.min.js");
-        }
-
-        if (!("positionAnchor" in document.documentElement.style)) {
-            polyfills.push("https://unpkg.com/@oddbird/css-anchor-positioning@0.8.0/dist/css-anchor-positioning.js");
-        }
-
-        if (!HTMLButtonElement.prototype.hasOwnProperty("interestForElement")) {
-            polyfills.push("https://unpkg.com/interestfor@1.0.7/src/interestfor.min.js");
-        }
-
-        if (polyfills.length > 0) {
-            await Promise.all(polyfills.map(url => import(url).catch(() => {
-                // Fallback for non-module scripts or loading errors
-                return new Promise((resolve) => {
-                    const script = document.createElement("script");
-                    script.src = url;
-                    script.onload = resolve;
-                    script.onerror = resolve;
-                    document.head.appendChild(script);
-                });
-            })));
-        }
+        // Use modern Popover methods
+        trigger.addEventListener('mouseenter', () => tooltip.showPopover());
+        trigger.addEventListener('mouseleave', () => tooltip.hidePopover());
     </script>
+
 </body>
 </html>

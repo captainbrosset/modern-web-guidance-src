@@ -1,17 +1,94 @@
 {
   "summary": {
-    "unguidedMedian": 100,
-    "guidedMedian": 100,
-    "unguidedPassRate": 86,
-    "guidedPassRate": 96,
-    "unguidedPassed": 72,
+    "unguidedMedian": 40,
+    "guidedMedian": 93,
+    "unguidedPassRate": 55,
+    "guidedPassRate": 88,
+    "unguidedPassed": 46,
     "unguidedTotal": 84,
-    "guidedPassed": 81,
+    "guidedPassed": 74,
     "guidedTotal": 84,
     "numRuns": 3
   },
   "results": {
     "redfield - vague - unguided": [
+      {
+        "runNumber": 1,
+        "results": [
+          {
+            "id": "redfield-declarative-interestfor",
+            "passed": false,
+            "message": "Refactored to use declarative interestfor attribute"
+          },
+          {
+            "id": "redfield-no-interesttarget",
+            "passed": true,
+            "message": "No interesttarget attribute detected"
+          },
+          {
+            "id": "redfield-polyfill-present",
+            "passed": false,
+            "message": "Check for interestfor feature detection"
+          },
+          {
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
+          }
+        ]
+      },
+      {
+        "runNumber": 2,
+        "results": [
+          {
+            "id": "redfield-declarative-interestfor",
+            "passed": false,
+            "message": "Refactored to use declarative interestfor attribute"
+          },
+          {
+            "id": "redfield-no-interesttarget",
+            "passed": true,
+            "message": "No interesttarget attribute detected"
+          },
+          {
+            "id": "redfield-polyfill-present",
+            "passed": false,
+            "message": "Check for interestfor feature detection"
+          },
+          {
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
+          }
+        ]
+      },
+      {
+        "runNumber": 3,
+        "results": [
+          {
+            "id": "redfield-declarative-interestfor",
+            "passed": false,
+            "message": "Refactored to use declarative interestfor attribute"
+          },
+          {
+            "id": "redfield-no-interesttarget",
+            "passed": true,
+            "message": "No interesttarget attribute detected"
+          },
+          {
+            "id": "redfield-polyfill-present",
+            "passed": false,
+            "message": "Check for interestfor feature detection"
+          },
+          {
+            "id": "redfield-imperative-reduced",
+            "passed": true,
+            "message": "No addEventListener(\"mouseover\") detected"
+          }
+        ]
+      }
+    ],
+    "redfield - vague - guided": [
       {
         "runNumber": 1,
         "results": [
@@ -27,7 +104,7 @@
           },
           {
             "id": "redfield-polyfill-present",
-            "passed": true,
+            "passed": false,
             "message": "Check for interestfor feature detection"
           },
           {
@@ -77,7 +154,7 @@
           },
           {
             "id": "redfield-polyfill-present",
-            "passed": true,
+            "passed": false,
             "message": "Check for interestfor feature detection"
           },
           {
@@ -88,23 +165,23 @@
         ]
       }
     ],
-    "redfield - vague - guided": [
+    "redfield - specific - unguided": [
       {
         "runNumber": 1,
         "results": [
           {
             "id": "redfield-declarative-interestfor",
-            "passed": true,
+            "passed": false,
             "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
-            "passed": true,
+            "passed": false,
             "message": "No interesttarget attribute detected"
           },
           {
             "id": "redfield-polyfill-present",
-            "passed": true,
+            "passed": false,
             "message": "Check for interestfor feature detection"
           },
           {
@@ -144,94 +221,17 @@
         "results": [
           {
             "id": "redfield-declarative-interestfor",
-            "passed": true,
+            "passed": false,
             "message": "Refactored to use declarative interestfor attribute"
           },
           {
             "id": "redfield-no-interesttarget",
-            "passed": true,
+            "passed": false,
             "message": "No interesttarget attribute detected"
           },
           {
             "id": "redfield-polyfill-present",
-            "passed": true,
-            "message": "Check for interestfor feature detection"
-          },
-          {
-            "id": "redfield-imperative-reduced",
-            "passed": true,
-            "message": "No addEventListener(\"mouseover\") detected"
-          }
-        ]
-      }
-    ],
-    "redfield - specific - unguided": [
-      {
-        "runNumber": 1,
-        "results": [
-          {
-            "id": "redfield-declarative-interestfor",
-            "passed": true,
-            "message": "Refactored to use declarative interestfor attribute"
-          },
-          {
-            "id": "redfield-no-interesttarget",
-            "passed": true,
-            "message": "No interesttarget attribute detected"
-          },
-          {
-            "id": "redfield-polyfill-present",
-            "passed": true,
-            "message": "Check for interestfor feature detection"
-          },
-          {
-            "id": "redfield-imperative-reduced",
-            "passed": true,
-            "message": "No addEventListener(\"mouseover\") detected"
-          }
-        ]
-      },
-      {
-        "runNumber": 2,
-        "results": [
-          {
-            "id": "redfield-declarative-interestfor",
-            "passed": true,
-            "message": "Refactored to use declarative interestfor attribute"
-          },
-          {
-            "id": "redfield-no-interesttarget",
-            "passed": true,
-            "message": "No interesttarget attribute detected"
-          },
-          {
-            "id": "redfield-polyfill-present",
-            "passed": true,
-            "message": "Check for interestfor feature detection"
-          },
-          {
-            "id": "redfield-imperative-reduced",
-            "passed": true,
-            "message": "No addEventListener(\"mouseover\") detected"
-          }
-        ]
-      },
-      {
-        "runNumber": 3,
-        "results": [
-          {
-            "id": "redfield-declarative-interestfor",
-            "passed": true,
-            "message": "Refactored to use declarative interestfor attribute"
-          },
-          {
-            "id": "redfield-no-interesttarget",
-            "passed": true,
-            "message": "No interesttarget attribute detected"
-          },
-          {
-            "id": "redfield-polyfill-present",
-            "passed": true,
+            "passed": false,
             "message": "Check for interestfor feature detection"
           },
           {
@@ -308,7 +308,7 @@
           },
           {
             "id": "redfield-polyfill-present",
-            "passed": true,
+            "passed": false,
             "message": "Check for interestfor feature detection"
           },
           {
@@ -350,7 +350,7 @@
           },
           {
             "id": "css-view-timeline",
-            "passed": false,
+            "passed": true,
             "message": "CSS uses animation-timeline: view()"
           },
           {
@@ -365,12 +365,12 @@
         "results": [
           {
             "id": "img-loading-placeholder",
-            "passed": true,
+            "passed": false,
             "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
-            "passed": true,
+            "passed": false,
             "message": "Found button with interestfor attribute"
           },
           {
@@ -380,52 +380,12 @@
           },
           {
             "id": "js-interestfor-polyfill",
-            "passed": true,
+            "passed": false,
             "message": "JS contains interestfor feature detection"
           },
           {
             "id": "js-loading-placeholder-support",
-            "passed": true,
-            "message": "JS contains loading-placeholder feature detection"
-          },
-          {
-            "id": "css-view-timeline",
-            "passed": true,
-            "message": "CSS uses animation-timeline: view()"
-          },
-          {
-            "id": "css-reduced-motion",
-            "passed": true,
-            "message": "CSS respects prefers-reduced-motion"
-          }
-        ]
-      },
-      {
-        "runNumber": 3,
-        "results": [
-          {
-            "id": "img-loading-placeholder",
-            "passed": true,
-            "message": "Found img with loading-placeholder attribute"
-          },
-          {
-            "id": "button-interestfor",
-            "passed": true,
-            "message": "Found button with interestfor attribute"
-          },
-          {
-            "id": "no-interesttarget",
-            "passed": true,
-            "message": "No deprecated interesttarget attribute found"
-          },
-          {
-            "id": "js-interestfor-polyfill",
-            "passed": true,
-            "message": "JS contains interestfor feature detection"
-          },
-          {
-            "id": "js-loading-placeholder-support",
-            "passed": true,
+            "passed": false,
             "message": "JS contains loading-placeholder feature detection"
           },
           {
@@ -435,7 +395,47 @@
           },
           {
             "id": "css-reduced-motion",
+            "passed": false,
+            "message": "CSS respects prefers-reduced-motion"
+          }
+        ]
+      },
+      {
+        "runNumber": 3,
+        "results": [
+          {
+            "id": "img-loading-placeholder",
+            "passed": false,
+            "message": "Found img with loading-placeholder attribute"
+          },
+          {
+            "id": "button-interestfor",
+            "passed": false,
+            "message": "Found button with interestfor attribute"
+          },
+          {
+            "id": "no-interesttarget",
             "passed": true,
+            "message": "No deprecated interesttarget attribute found"
+          },
+          {
+            "id": "js-interestfor-polyfill",
+            "passed": false,
+            "message": "JS contains interestfor feature detection"
+          },
+          {
+            "id": "js-loading-placeholder-support",
+            "passed": false,
+            "message": "JS contains loading-placeholder feature detection"
+          },
+          {
+            "id": "css-view-timeline",
+            "passed": true,
+            "message": "CSS uses animation-timeline: view()"
+          },
+          {
+            "id": "css-reduced-motion",
+            "passed": false,
             "message": "CSS respects prefers-reduced-motion"
           }
         ]
@@ -467,7 +467,7 @@
           },
           {
             "id": "js-loading-placeholder-support",
-            "passed": true,
+            "passed": false,
             "message": "JS contains loading-placeholder feature detection"
           },
           {
@@ -542,17 +542,17 @@
           },
           {
             "id": "js-interestfor-polyfill",
-            "passed": true,
+            "passed": false,
             "message": "JS contains interestfor feature detection"
           },
           {
             "id": "js-loading-placeholder-support",
-            "passed": true,
+            "passed": false,
             "message": "JS contains loading-placeholder feature detection"
           },
           {
             "id": "css-view-timeline",
-            "passed": true,
+            "passed": false,
             "message": "CSS uses animation-timeline: view()"
           },
           {
@@ -569,12 +569,12 @@
         "results": [
           {
             "id": "img-loading-placeholder",
-            "passed": true,
+            "passed": false,
             "message": "Found img with loading-placeholder attribute"
           },
           {
             "id": "button-interestfor",
-            "passed": true,
+            "passed": false,
             "message": "Found button with interestfor attribute"
           },
           {
@@ -594,12 +594,12 @@
           },
           {
             "id": "css-view-timeline",
-            "passed": true,
+            "passed": false,
             "message": "CSS uses animation-timeline: view()"
           },
           {
             "id": "css-reduced-motion",
-            "passed": true,
+            "passed": false,
             "message": "CSS respects prefers-reduced-motion"
           }
         ]
@@ -858,7 +858,7 @@
           },
           {
             "id": "speculationrules-exclude-logout",
-            "passed": false,
+            "passed": true,
             "message": "Speculation rules exclude /logout"
           },
           {
@@ -920,7 +920,7 @@
           },
           {
             "id": "speculationrules-exclude-logout",
-            "passed": true,
+            "passed": false,
             "message": "Speculation rules exclude /logout"
           },
           {
@@ -942,7 +942,7 @@
           },
           {
             "id": "speculationrules-exclude-logout",
-            "passed": true,
+            "passed": false,
             "message": "Speculation rules exclude /logout"
           },
           {
@@ -1058,26 +1058,26 @@
   },
   "stats": {
     "greenfield - vague - unguided": {
-      "median": 86,
+      "median": 29,
       "rates": [
-        86,
-        86,
+        14,
+        29,
         100
       ]
     },
     "greenfield - vague - guided": {
-      "median": 100,
+      "median": 86,
       "rates": [
-        100,
-        100,
+        57,
+        86,
         100
       ]
     },
     "greenfield - specific - unguided": {
-      "median": 71,
+      "median": 14,
       "rates": [
         14,
-        71,
+        14,
         100
       ]
     },
@@ -1092,7 +1092,7 @@
     "brownfield - vague - unguided": {
       "median": 100,
       "rates": [
-        67,
+        100,
         100,
         100
       ]
@@ -1100,16 +1100,16 @@
     "brownfield - vague - guided": {
       "median": 100,
       "rates": [
-        100,
+        67,
         100,
         100
       ]
     },
     "brownfield - specific - unguided": {
-      "median": 100,
+      "median": 67,
       "rates": [
         67,
-        100,
+        67,
         100
       ]
     },
@@ -1122,27 +1122,27 @@
       ]
     },
     "redfield - vague - unguided": {
-      "median": 100,
+      "median": 50,
       "rates": [
-        100,
-        100,
-        100
+        50,
+        50,
+        50
       ]
     },
     "redfield - vague - guided": {
-      "median": 100,
+      "median": 75,
       "rates": [
         75,
-        100,
+        75,
         100
       ]
     },
     "redfield - specific - unguided": {
-      "median": 100,
+      "median": 25,
       "rates": [
-        100,
-        100,
-        100
+        25,
+        25,
+        75
       ]
     },
     "redfield - specific - guided": {
@@ -1150,7 +1150,7 @@
       "rates": [
         75,
         75,
-        100
+        75
       ]
     }
   }

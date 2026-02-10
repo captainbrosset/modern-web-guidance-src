@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Daily Grind | Artisanal Coffee</title>
-  <link rel="preload" href="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1350&q=80" as="image" fetchpriority="high">
   <style>
     :root {
       --primary: #4e342e;
@@ -13,10 +12,6 @@
       --accent: #ffab40;
       --text: #3e2723;
       --light: #fafafa;
-    }
-
-    @view-transition {
-      navigation: auto;
     }
 
     * {
@@ -114,10 +109,27 @@
 
     .card {
       background: white;
-      padding: 20px;
+      padding: 0;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       text-align: center;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .card h3 {
@@ -158,7 +170,7 @@
       font-size: 0.85rem;
     }
   </style>
-
+  <meta name="view-transition" content="same-origin">
   <script type="speculationrules">
     {
       "prerender": [
@@ -167,7 +179,7 @@
           "where": {
             "and": [
               { "href_matches": "/*" },
-              { "not": { "href_matches": ["/logout", "/add-to-cart", "/checkout/*"] }}
+              { "not": { "href_matches": ["/logout"] }}
             ]
           },
           "eagerness": "moderate"
@@ -201,19 +213,28 @@
       <h2 style="text-align: center;">Seasonal Favorites</h2>
       <div class="grid">
         <div class="card">
-          <h3>Maple Oat Latte</h3>
-          <p>Creamy oat milk with a hint of Vermont maple syrup.</p>
-          <a href="/menu/seasonal" class="btn">View Details</a>
+          <img src="https://images.unsplash.com/photo-1541167760496-162955ed8a9f?auto=format&fit=crop&w=600&q=80" alt="Maple Oat Latte">
+          <div class="card-content">
+            <h3>Maple Oat Latte</h3>
+            <p>Creamy oat milk with a hint of Vermont maple syrup.</p>
+            <a href="/menu/seasonal" class="btn">View Details</a>
+          </div>
         </div>
         <div class="card">
-          <h3>Dark Roast Espresso</h3>
-          <p>Bold, smokey, and perfect for a morning boost.</p>
-          <a href="/menu/espresso" class="btn">View Details</a>
+          <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80" alt="Dark Roast Espresso">
+          <div class="card-content">
+            <h3>Dark Roast Espresso</h3>
+            <p>Bold, smokey, and perfect for a morning boost.</p>
+            <a href="/menu/espresso" class="btn">View Details</a>
+          </div>
         </div>
         <div class="card">
-          <h3>Cold Brew</h3>
-          <p>Steeped for 18 hours for maximum smoothness.</p>
-          <a href="/menu/cold-brew" class="btn">View Details</a>
+          <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=80" alt="Cold Brew">
+          <div class="card-content">
+            <h3>Cold Brew</h3>
+            <p>Steeped for 18 hours for maximum smoothness.</p>
+            <a href="/menu/cold-brew" class="btn">View Details</a>
+          </div>
         </div>
       </div>
     </section>

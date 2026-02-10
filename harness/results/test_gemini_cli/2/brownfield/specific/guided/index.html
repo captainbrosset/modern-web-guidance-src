@@ -5,33 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Daily Grind | Artisanal Coffee</title>
-  <script type="speculationrules">
-    {
-      "prerender": [
-        {
-          "source": "document",
-          "where": {
-            "and": [
-              {
-                "href_matches": [
-                  "/menu",
-                  "/locations",
-                  "/rewards",
-                  "/account"
-                ]
-              },
-              {
-                "not": {
-                  "href_matches": "/logout"
-                }
-              }
-            ]
-          },
-          "eagerness": "moderate"
-        }
-      ]
-    }
-  </script>
   <style>
     :root {
       --primary: #4e342e;
@@ -140,7 +113,8 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       text-align: center;
       overflow: hidden;
-      padding-bottom: 20px;
+      display: flex;
+      flex-direction: column;
     }
 
     .card img {
@@ -151,6 +125,10 @@
 
     .card-content {
       padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .card h3 {
@@ -191,6 +169,34 @@
       font-size: 0.85rem;
     }
   </style>
+
+  <script type="speculationrules">
+    {
+      "prerender": [
+        {
+          "source": "document",
+          "where": {
+            "and": [
+              {
+                "href_matches": [
+                  "/menu",
+                  "/locations",
+                  "/rewards",
+                  "/account"
+                ]
+              },
+              {
+                "not": {
+                  "href_matches": "/logout"
+                }
+              }
+            ]
+          },
+          "eagerness": "moderate"
+        }
+      ]
+    }
+  </script>
 </head>
 
 <body>
@@ -217,7 +223,7 @@
       <h2 style="text-align: center;">Seasonal Favorites</h2>
       <div class="grid">
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1572286258217-40142c1c6a70?auto=format&fit=crop&w=500&q=80" alt="Maple Oat Latte">
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=600&q=80" alt="Maple Oat Latte">
           <div class="card-content">
             <h3>Maple Oat Latte</h3>
             <p>Creamy oat milk with a hint of Vermont maple syrup.</p>
@@ -225,7 +231,7 @@
           </div>
         </div>
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1510707577719-af7c183f1e59?auto=format&fit=crop&w=500&q=80" alt="Dark Roast Espresso">
+          <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80" alt="Dark Roast Espresso">
           <div class="card-content">
             <h3>Dark Roast Espresso</h3>
             <p>Bold, smokey, and perfect for a morning boost.</p>
@@ -233,7 +239,7 @@
           </div>
         </div>
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1461023058943-07fcaf183547?auto=format&fit=crop&w=500&q=80" alt="Cold Brew">
+          <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=600&q=80" alt="Cold Brew">
           <div class="card-content">
             <h3>Cold Brew</h3>
             <p>Steeped for 18 hours for maximum smoothness.</p>

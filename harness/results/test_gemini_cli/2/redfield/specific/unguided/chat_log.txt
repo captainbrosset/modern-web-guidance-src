@@ -1,7 +1,33 @@
-I will search for the existing tooltip implementation in `index.html` and look for guidance on the Popover API and Interest Invokers in the project's guides.
-I will read the `index.html` file to find the existing tooltip implementation and the `tooltip.md` guide for modern implementation details.
-I will read the `tooltip.md` guide using its absolute path to get the correct guidance on modern tooltip implementations.
-I will read the `index.html` file again to ensure I have the exact content before applying the modern tooltip implementation using the Popover API and Interest Invokers.
-I will replace the contents of `index.html` with the modernized version, utilizing the Popover API and Interest Invokers while removing the manual JavaScript event listeners.
-I will enhance the `index.html` by adding the recommended polyfills for the Popover API and Interest Invokers to ensure cross-browser compatibility, and I'll include a stock photo in the tooltip to give it a more modern, hovercard-like appearance.
-I have modernized the tooltip implementation by replacing the manual JavaScript event listeners and DOM manipulation with the native HTML Popover API and Interest Invokers. The solution uses declarative `interestfor` and `popover="hint"` attributes, leverages CSS Anchor Positioning for tethering, and includes the recommended polyfills for broad compatibility, along with a refreshed visual style featuring a stock photo.
+I will read the `index.html` file to understand the current tooltip implementation.
+I will search for any guides in the monorepo that might provide instructions on the Popover API or Interest Invokers.
+I will try to locate the guides directory from the project root.
+I will search for the `guides` directory to find the implementation guidance.
+I will list the files in the `guides` directory to see what information is available.
+I will search for "interesttarget" in the project to find relevant implementation details or examples.
+I will read the `tooltip.md` guide to get the correct and up-to-date implementation details for tooltips.
+I will now modernize the tooltip implementation in `index.html` by using the Popover API and Interest Invokers, as well as CSS Anchor Positioning, while removing the manual JavaScript and CSS positioning.
+I will attempt to locate the project root by listing the parent directories.
+I will create the `guides_used.json` file in the current directory, documenting the guide I used for this task.
+I have modernized the tooltip implementation by replacing the imperative JavaScript logic with the declarative HTML Popover API and Interest Invokers. The solution now utilizes the `popover="hint"` attribute for the tooltip and the `interestfor` attribute on the trigger button to handle hover and focus states automatically. Additionally, I've implemented CSS Anchor Positioning to reliably tether the tooltip to the trigger button without manual coordinate calculations.
+
+```html
+<!-- Modern Tooltip Implementation -->
+<button id="tooltip-trigger" interestfor="tooltip">Hover over me</button>
+<div id="tooltip" popover="hint">I'm a modern tooltip!</div>
+```
+
+```css
+/* Modern Tooltip Styling with Anchor Positioning */
+#tooltip-trigger {
+    anchor-name: --tooltip-trigger;
+}
+
+#tooltip {
+    position-anchor: --tooltip-trigger;
+    position-area: top;
+    position-try-fallbacks: flip-block;
+    /* ... additional styling ... */
+}
+```
+
+I also created `guides_used.json` to record the use of the `ui/tooltip.md` guide.

@@ -70,7 +70,11 @@ pnpm report --test_dir=my_test_run
 
 ### Agents
 
+#### Jetski
+
 Jetski is the default agent that will be used. When running, be sure to update the settings of the Jetski automation window so that the "Review Policy" is set to "Always Proceed".
+
+#### Gemini CLI
 
 When using Gemini CLI, set the `GEMINI_API_KEY` environment variable with your API key.
 

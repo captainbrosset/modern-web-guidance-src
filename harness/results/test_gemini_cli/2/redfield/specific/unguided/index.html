@@ -4,18 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Tooltip Demo</title>
-    <!-- Polyfills for modern features -->
-    <script type="module">
-        if (!HTMLButtonElement.prototype.hasOwnProperty("interestForElement")) {
-            import("https://unpkg.com/interestfor@1.0.7/src/interestfor.min.js");
-        }
-        if (!HTMLElement.prototype.hasOwnProperty("popover")) {
-            import("https://unpkg.com/@oddbird/popover-polyfill@0.6.1/dist/popover.min.js");
-        }
-        if (!("positionAnchor" in document.documentElement.style)) {
-            import("https://unpkg.com/@oddbird/css-anchor-positioning@0.8.0/dist/css-anchor-positioning.js");
-        }
-    </script>
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -40,51 +28,42 @@
             background-color: #007bff;
             color: white;
             border-radius: 4px;
+            /* Anchor name for positioning the tooltip */
             anchor-name: --tooltip-trigger;
         }
 
-        /* The Tooltip (Modern Popover) */
+        /* The Tooltip using Popover and Anchor Positioning */
         #tooltip {
-            /* Position-related */
+            /* Tether to the button anchor */
             position-anchor: --tooltip-trigger;
             position-area: top;
             position-try-fallbacks: flip-block;
-            margin: 0;
             
-            /* Visual styling */
-            width: 160px;
+            /* Styling */
+            width: max-content;
             background-color: #333;
             color: #fff;
             text-align: center;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 8px;
+            border-radius: 6px;
             font-size: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             
-            /* Reset default popover styles and allow arrow to overflow */
-            overflow: visible;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        #tooltip img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid #fff;
+            /* Popover specific resets */
+            margin: 0;
+            border: none;
         }
 
         /* Little arrow at the bottom of the tooltip */
+        /* Note: With anchor positioning, we might want to be more careful, 
+           but for a simple modernization this keeps the look. */
         #tooltip::after {
             content: "";
             position: absolute;
             top: 100%;
             left: 50%;
-            margin-left: -6px;
-            border-width: 6px;
+            margin-left: -5px;
+            border-width: 5px;
             border-style: solid;
             border-color: #333 transparent transparent transparent;
         }
@@ -93,11 +72,10 @@
 <body>
 
     <div class="container">
+        <!-- interestfor triggers the popover on hover/focus -->
         <button id="tooltip-trigger" interestfor="tooltip">Hover over me</button>
-        <div id="tooltip" popover="hint">
-            <img src="https://picsum.photos/id/64/80/80" alt="Avatar">
-            <span>I'm a modern tooltip!</span>
-        </div>
+        <!-- popover="hint" is optimized for non-interactive tooltips -->
+        <div id="tooltip" popover="hint">I'm a modern tooltip!</div>
     </div>
 
 </body>

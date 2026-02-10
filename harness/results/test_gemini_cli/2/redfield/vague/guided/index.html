@@ -27,32 +27,25 @@
             anchor-name: --tooltip-trigger;
         }
 
-        /* The Tooltip */
+        /* The Tooltip using Popover and Anchor Positioning */
         #tooltip {
-            /* Popover defaults */
-            border: none;
-            padding: 0;
             margin: 0;
-            background: transparent;
-            overflow: visible;
-
+            padding: 8px;
+            border: none;
+            border-radius: 6px;
+            background-color: #333;
+            color: #fff;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            
             /* Anchor Positioning */
             position-anchor: --tooltip-trigger;
             position-area: top;
             position-try-fallbacks: flip-block;
-            
-            /* Styling */
-            width: 140px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 8px;
-            border-radius: 6px;
-            font-size: 14px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: max-content;
         }
 
-        /* Little arrow at the bottom of the tooltip */
+        /* Little arrow using a cleaner approach */
         #tooltip::after {
             content: "";
             position: absolute;
@@ -64,10 +57,29 @@
             border-color: #333 transparent transparent transparent;
         }
     </style>
-    <!-- Polyfills for modern features -->
-    <script src="https://unpkg.com/@oddbird/popover-polyfill@0.6.1/dist/popover.min.js" nomodule></script>
-    <script src="https://unpkg.com/@oddbird/css-anchor-positioning@0.8.0/dist/css-anchor-positioning.js"></script>
-    <script src="https://unpkg.com/interestfor@1.0.7/src/interestfor.min.js"></script>
+    <script>
+        // Feature detection and conditional polyfill loading
+        (function() {
+            const polyfills = [];
+            
+            if (!HTMLButtonElement.prototype.hasOwnProperty("interestForElement")) {
+                polyfills.push("interestfor.min.js");
+            }
+            if (!HTMLElement.prototype.hasOwnProperty("popover")) {
+                polyfills.push("popover-polyfill.min.js");
+            }
+            if (!("positionAnchor" in document.documentElement.style)) {
+                polyfills.push("css-anchor-positioning.js");
+            }
+
+            polyfills.forEach(src => {
+                const script = document.createElement("script");
+                script.src = src;
+                script.async = false; // Load in order if needed
+                document.head.appendChild(script);
+            });
+        })();
+    </script>
 </head>
 <body>
 

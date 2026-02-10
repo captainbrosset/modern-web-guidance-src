@@ -1,16 +1,16 @@
-I will start by investigating the available guides in the `serving/mcp-server/guides/` directory to ensure I follow the project's best practices for Popover, CSS Anchor Positioning, and Scroll-driven Animations.
-I will list the contents of the `serving/mcp-server/guides/` directory using an absolute path to correctly locate the best practice documentation.
-I will now explore the `ui` and `webperf` subdirectories within the guides to find specific instructions for implementing the requested UI components and performance optimizations.
-I will read the `tooltip.md`, `scroll-driven-animations.md`, and `adaptive-loading.md` guides to understand the recommended implementation patterns for these features.
-I will read the `index.html` file in the current directory to understand the existing structure and where to integrate the new features.
-I will now create the `index.html` file, implementing the coffee shop landing page with the requested features: a hero image that scales and fades in on scroll using Scroll-driven Animations, an Adaptive Loading placeholder, and a 'Details' button that reveals ingredients via a non-modal popover with CSS Anchor Positioning.
-I will check the root `package.json` file to see if any of the polyfills mentioned in the guides are already included as dependencies in the project.
-I will update the `index.html` file to refine the popover's CSS, ensuring it strictly adheres to the best practices for Anchor Positioning as outlined in the guides, specifically including `width: max-content` and `margin-inline: auto`.
-I have completed the product landing page for Brew & Bean. The implementation includes:
-- A **Hero Image** that uses **Scroll-driven Animations** (`animation-timeline: view()`) to fade in and scale up as it enters the viewport.
-- **Adaptive Loading** integration using the `loading-placeholder` attribute on the hero image to serve a low-resolution version on slower networks.
-- A **'Details' button** that triggers a **non-modal popover** on hover using the `interestfor` attribute and `popover="hint"`.
-- **CSS Anchor Positioning** to precisely tether the ingredients popover to the details button.
-- A modern, coffee-themed design using native web platform features and high-quality stock photography.
+I will start by listing the available guides in the `serving/mcp-server/guides/` directory to ensure I am using the most up-to-date native web platform features as prescribed by the project's documentation.
+I will read the current content of `index.html` to see if there is any boilerplate I should preserve.
+I will create a comprehensive `index.html` file that implements a modern coffee shop landing page, featuring a scroll-driven hero image animation, a hoverable non-modal popover for product details using the Popover API and Anchor Positioning, and adaptive loading logic to handle slow network conditions.
+I will refine the `index.html` to better demonstrate the "fade into view" effect by adding an initial welcome section, ensuring the hero image's scroll-driven animation is clearly triggered as the user scrolls down. I will also double-check the Adaptive Loading logic to ensure it correctly switches to a placeholder on slow networks.
+I will now add the necessary CSS for the `.welcome` section and the `.arrow-down` indicator to ensure the layout is visually appealing and the scroll-driven animation is effectively showcased.
+I will restore the `h1` styling that was inadvertently removed, ensuring the header title remains correctly formatted as per the design.
+I will now refine the Adaptive Loading implementation by setting a low-resolution placeholder as the default `src` and upgrading to a high-resolution image only when a fast connection is detected, ensuring optimal performance and data usage on slow networks.
+I will update the JavaScript to implement the refined Adaptive Loading logic, ensuring the high-resolution image is only loaded if the connection is fast and `saveData` is disabled.
+I will perform a final review of the `index.html` file to ensure all features are correctly implemented, native APIs are used appropriately, and the code is free of syntax errors.
+I have built the product landing page in `index.html` for "Steam & Savor" coffee shop, incorporating all requested native web platform features. The page includes:
+- A **Hero Image** with a scroll-driven animation using `view-timeline` that fades in and scales up as the user scrolls down.
+- **Adaptive Loading** logic that uses `navigator.connection` to serve a low-resolution placeholder on slow networks and upgrades to a high-resolution image on fast connections.
+- A **'Details' button** that triggers a non-modal **Popover** on hover, displaying ingredients. The popover is positioned precisely using **CSS Anchor Positioning**.
+- A clean, modern design using semantic HTML and CSS variables.
 
-The code adheres to the project's guidance on using the latest native APIs over third-party libraries.
+The implementation relies entirely on native browser APIs as requested.

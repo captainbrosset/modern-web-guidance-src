@@ -5,167 +5,193 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Tooltip Demo</title>
     <style>
+        :root {
+            --bg-color: #f8fafc;
+            --primary-color: #2563eb;
+            --text-color: #1e293b;
+            --tooltip-bg: rgba(255, 255, 255, 0.9);
+            --tooltip-border: #e2e8f0;
+            --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
         body {
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f8fafc;
+            background-color: var(--bg-color);
+            color: var(--text-color);
         }
 
-        /* The Button - Using CSS Anchor Positioning to define the anchor */
+        h1 {
+            margin-bottom: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+
+        /* The Button - Anchor */
         #tooltip-trigger {
-            anchor-name: --tooltip-trigger;
             padding: 12px 24px;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             border: none;
-            background-color: #2563eb;
+            background-color: var(--primary-color);
             color: white;
             border-radius: 8px;
-            transition: background-color 0.2s;
+            transition: transform 0.1s ease, background-color 0.2s ease;
+            anchor-name: --tooltip-anchor;
         }
 
         #tooltip-trigger:hover {
             background-color: #1d4ed8;
+            transform: translateY(-1px);
         }
 
-        /* The Tooltip using Popover API and Anchor Positioning */
-        #tooltip {
-            /* Modern Positioning */
-            position-anchor: --tooltip-trigger;
-            position-area: top;
-            position-try-fallbacks: flip-block;
-            margin: 0; /* Required for precise anchor positioning */
-            
-            /* Aesthetic Styling */
-            width: max-content;
-            max-width: 240px;
-            background-color: #1e293b;
-            color: #f8fafc;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 14px;
-            line-height: 1.5;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            border: none;
-            overflow: visible; /* Ensure arrow isn't clipped */
-            
-            /* Modern Entry/Exit Animations */
-            transition: 
-                opacity 0.3s, 
-                transform 0.3s, 
-                display 0.3s allow-discrete, 
-                overlay 0.3s allow-discrete;
-            opacity: 0;
-            transform: translateY(8px);
-        }
-
-        /* State when the popover is open */
-        #tooltip:popover-open {
-            opacity: 1;
+        #tooltip-trigger:active {
             transform: translateY(0);
         }
 
-        /* Starting style for the entry animation (from display: none) */
+        /* The Tooltip (Popover) */
+        #tooltip {
+            /* Remove default popover styles */
+            border: none;
+            padding: 0;
+            margin: 0;
+            background: transparent;
+            overflow: visible;
+            
+            /* Anchor Positioning */
+            position-anchor: --tooltip-anchor;
+            position-area: top;
+            position-try-options: flip-block, flip-inline;
+            margin-bottom: 12px;
+
+            /* Visuals */
+            width: 280px;
+            background-color: var(--tooltip-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--tooltip-border);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            
+            /* Animation */
+            opacity: 0;
+            transform: translateY(10px) scale(0.95);
+            transition: 
+                opacity 0.2s ease, 
+                transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                display 0.2s allow-discrete,
+                overlay 0.2s allow-discrete;
+        }
+
+        /* Shown state for Popover */
+        #tooltip:popover-open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Starting style for the entry animation */
         @starting-style {
             #tooltip:popover-open {
                 opacity: 0;
-                transform: translateY(8px);
+                transform: translateY(10px) scale(0.95);
             }
-        }
-
-        /* Tooltip Arrow */
-        #tooltip::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 6px;
-            border-style: solid;
-            border-color: #1e293b transparent transparent transparent;
         }
 
         .tooltip-content {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            flex-direction: column;
+            gap: 0;
         }
 
         .tooltip-image {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
+            width: 100%;
+            height: 120px;
             object-fit: cover;
-            border: 2px solid #3b82f6;
-            flex-shrink: 0;
+            border-radius: 11px 11px 0 0;
         }
 
-        .tooltip-text strong {
+        .tooltip-text {
+            padding: 16px;
+        }
+
+        .tooltip-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 4px;
             display: block;
-            font-size: 15px;
-            margin-bottom: 2px;
         }
 
-        .tooltip-text p {
-            margin: 0;
-            color: #94a3b8;
-            font-size: 13px;
+        .tooltip-description {
+            font-size: 0.875rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* Arrow using Anchor Positioning */
+        #tooltip::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            transform: translateX(-50%) rotate(45deg);
+            width: 12px;
+            height: 12px;
+            background-color: var(--tooltip-bg);
+            border-right: 1px solid var(--tooltip-border);
+            border-bottom: 1px solid var(--tooltip-border);
+            backdrop-filter: blur(12px);
         }
     </style>
 </head>
 <body>
 
-    <!-- interestfor declaratively links the trigger to the popover for hover/focus -->
-    <button id="tooltip-trigger" interestfor="tooltip">Hover over me</button>
-    
-    <!-- popover="hint" is the modern semantic for tooltips/toggletips -->
-    <div id="tooltip" popover="hint">
+    <h1>Modern Tooltip</h1>
+
+    <button id="tooltip-trigger">Discover more</button>
+
+    <div id="tooltip" popover="manual">
         <div class="tooltip-content">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User Avatar" class="tooltip-image">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Code on a screen" class="tooltip-image">
             <div class="tooltip-text">
-                <strong>Modern Tooltip</strong>
-                <p>Built with Popover API & Anchor Positioning</p>
+                <span class="tooltip-title">Native Browser APIs</span>
+                <p class="tooltip-description">
+                    This tooltip uses the <strong>Popover API</strong> and <strong>CSS Anchor Positioning</strong> for a performant, accessible experience.
+                </p>
             </div>
         </div>
     </div>
 
-    <!-- Progressive Enhancement: Load polyfills for older browsers -->
     <script type="module">
-        async function loadPolyfills() {
-            const polyfills = [];
+        const trigger = document.getElementById('tooltip-trigger');
+        const tooltip = document.getElementById('tooltip');
 
-            // Interest Invokers (for declarative hover/focus triggers)
-            if (!HTMLButtonElement.prototype.hasOwnProperty("interestForElement")) {
-                polyfills.push("https://unpkg.com/interestfor@1.0.7/src/interestfor.min.js");
-            }
+        let hideTimeout;
 
-            // Popover API (for top-layer management)
-            if (!HTMLElement.prototype.hasOwnProperty("popover")) {
-                polyfills.push("https://unpkg.com/@oddbird/popover-polyfill@0.6.1/dist/popover.min.js");
-            }
+        const show = () => {
+            clearTimeout(hideTimeout);
+            tooltip.showPopover();
+        };
 
-            // CSS Anchor Positioning (for tethering the tooltip)
-            if (!("positionAnchor" in document.documentElement.style)) {
-                polyfills.push("https://unpkg.com/@oddbird/css-anchor-positioning@0.8.0/dist/css-anchor-positioning.js");
-            }
+        const hide = () => {
+            // Short delay to allow moving mouse from trigger to tooltip if needed
+            // though for a simple tooltip usually immediate is fine.
+            hideTimeout = setTimeout(() => {
+                tooltip.hidePopover();
+            }, 100);
+        };
 
-            for (const url of polyfills) {
-                await new Promise((resolve, reject) => {
-                    const script = document.createElement("script");
-                    script.src = url;
-                    script.onload = resolve;
-                    script.onerror = reject;
-                    document.head.appendChild(script);
-                });
-            }
-        }
+        trigger.addEventListener('mouseenter', show);
+        trigger.addEventListener('mouseleave', hide);
 
-        loadPolyfills();
+        // Keep tooltip open when hovering over the tooltip itself
+        tooltip.addEventListener('mouseenter', show);
+        tooltip.addEventListener('mouseleave', hide);
     </script>
 
 </body>

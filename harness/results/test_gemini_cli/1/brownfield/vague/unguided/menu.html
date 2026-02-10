@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu | The Daily Grind</title>
+  <style>
+    :root {
+      --primary: #4e342e;
+      --secondary: #d7ccc8;
+      --accent: #ffab40;
+      --text: #3e2723;
+      --light: #fafafa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--light);
+    }
+    nav {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
+    nav ul { display: flex; list-style: none; }
+    nav ul li { margin-left: 20px; }
+    nav a { color: white; text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+    nav a:hover { color: var(--accent); }
+    .logout-link { border: 1px solid var(--accent); padding: 5px 12px; border-radius: 4px; }
+    .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+    h1 { color: var(--primary); margin-bottom: 1rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .menu-item { background: white; padding: 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow: hidden; }
+    .menu-item img { width: 100%; height: 200px; object-fit: cover; }
+    .menu-content { padding: 20px; }
+    .menu-item h3 { color: var(--primary); }
+    .price { font-weight: bold; color: var(--accent); }
+    footer { background: var(--secondary); text-align: center; padding: 40px 20px; margin-top: 40px; }
+    .footer-links a { margin: 0 10px; color: var(--text); text-decoration: none; font-size: 0.85rem; }
+    @view-transition { navigation: auto; }
+  </style>
+  <script type="speculationrules">
+    {
+      "prerender": [
+        {
+          "source": "document",
+          "where": {
+            "and": [
+              { "href_matches": "/*" },
+              { "not": { "href_matches": "/logout" } }
+            ]
+          },
+          "eagerness": "moderate"
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <nav>
+    <div class="logo"><a href="index.html" style="color: white; text-decoration: none;">THE DAILY GRIND</a></div>
+    <ul>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="locations.html">Locations</a></li>
+      <li><a href="rewards.html">Rewards</a></li>
+      <li><a href="account.html">My Account</a></li>
+      <li><a href="/logout" class="logout-link">Logout</a></li>
+    </ul>
+  </nav>
+  <main class="container">
+    <h1>Our Menu</h1>
+    <div class="grid">
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1570968015849-fb498103c3a1?auto=format&fit=crop&w=400&q=80" alt="Maple Oat Latte">
+        <div class="menu-content">
+          <h3>Maple Oat Latte</h3>
+          <p>Creamy oat milk with a hint of Vermont maple syrup.</p>
+          <span class="price">$5.50</span>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1510707513151-477d13936505?auto=format&fit=crop&w=400&q=80" alt="Dark Roast Espresso">
+        <div class="menu-content">
+          <h3>Dark Roast Espresso</h3>
+          <p>Bold, smokey, and perfect for a morning boost.</p>
+          <span class="price">$3.50</span>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=400&q=80" alt="Cold Brew">
+        <div class="menu-content">
+          <h3>Cold Brew</h3>
+          <p>Steeped for 18 hours for maximum smoothness.</p>
+          <span class="price">$4.75</span>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="footer-links">
+      <a href="about.html">Our Story</a> |
+      <a href="careers.html">Join the Team</a> |
+      <a href="contact.html">Contact Us</a> |
+      <a href="privacy-policy.html">Privacy</a>
+    </div>
+    <p>&copy; 2026 The Daily Grind Coffee Co. All rights reserved.</p>
+  </footer>
+</body>
+</html>

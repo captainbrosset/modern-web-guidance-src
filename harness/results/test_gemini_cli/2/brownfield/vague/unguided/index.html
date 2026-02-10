@@ -7,20 +7,20 @@
   <title>The Daily Grind | Artisanal Coffee</title>
   <meta name="view-transition" content="same-origin">
   <script type="speculationrules">
-    {
-      "prerender": [
-        {
-          "source": "document",
-          "where": {
-            "and": [
-              { "href_matches": "/*" },
-              { "not": { "href_matches": "/logout" } }
-            ]
-          },
-          "eagerness": "moderate"
-        }
-      ]
-    }
+  {
+    "prerender": [
+      {
+        "source": "document",
+        "where": {
+          "and": [
+            { "href_matches": "/*" },
+            { "not": { "href_matches": ["/logout"] }}
+          ]
+        },
+        "eagerness": "moderate"
+      }
+    ]
+  }
   </script>
   <style>
     :root {
@@ -61,6 +61,7 @@
       font-size: 1.5rem;
       font-weight: bold;
       letter-spacing: 1px;
+      view-transition-name: logo;
     }
 
     nav ul {
@@ -103,11 +104,13 @@
       color: white;
       text-align: center;
       padding: 0 20px;
+      view-transition-name: hero;
     }
 
     .hero h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
+      view-transition-name: hero-text;
     }
 
     /* Content Sections */
@@ -126,26 +129,10 @@
 
     .card {
       background: white;
+      padding: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       text-align: center;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .card-content {
-      padding: 20px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
 
     .card h3 {
@@ -191,7 +178,7 @@
 <body>
 
   <nav>
-    <div class="logo">THE DAILY GRIND</div>
+    <div class="logo"><a href="/" style="color: white; text-decoration: none;">THE DAILY GRIND</a></div>
     <ul>
       <li><a href="/menu">Menu</a></li>
       <li><a href="/locations">Locations</a></li>
@@ -212,28 +199,19 @@
       <h2 style="text-align: center;">Seasonal Favorites</h2>
       <div class="grid">
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=80" alt="Maple Oat Latte">
-          <div class="card-content">
-            <h3>Maple Oat Latte</h3>
-            <p>Creamy oat milk with a hint of Vermont maple syrup.</p>
-            <a href="/menu/seasonal" class="btn">View Details</a>
-          </div>
+          <h3>Maple Oat Latte</h3>
+          <p>Creamy oat milk with a hint of Vermont maple syrup.</p>
+          <a href="/menu/seasonal" class="btn">View Details</a>
         </div>
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80" alt="Dark Roast Espresso">
-          <div class="card-content">
-            <h3>Dark Roast Espresso</h3>
-            <p>Bold, smokey, and perfect for a morning boost.</p>
-            <a href="/menu/espresso" class="btn">View Details</a>
-          </div>
+          <h3>Dark Roast Espresso</h3>
+          <p>Bold, smokey, and perfect for a morning boost.</p>
+          <a href="/menu/espresso" class="btn">View Details</a>
         </div>
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1461023058943-07fcaf1f17e7?auto=format&fit=crop&w=600&q=80" alt="Cold Brew">
-          <div class="card-content">
-            <h3>Cold Brew</h3>
-            <p>Steeped for 18 hours for maximum smoothness.</p>
-            <a href="/menu/cold-brew" class="btn">View Details</a>
-          </div>
+          <h3>Cold Brew</h3>
+          <p>Steeped for 18 hours for maximum smoothness.</p>
+          <a href="/menu/cold-brew" class="btn">View Details</a>
         </div>
       </div>
     </section>

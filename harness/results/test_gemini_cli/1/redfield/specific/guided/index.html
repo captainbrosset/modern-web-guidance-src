@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imperative Tooltip Demo</title>
+    <title>Modern Tooltip Demo</title>
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -16,7 +16,6 @@
         }
 
         .container {
-            position: relative;
             display: inline-block;
         }
 
@@ -37,7 +36,8 @@
             position-anchor: --tooltip-trigger;
             position-area: top;
             position-try-fallbacks: flip-block;
-            margin-bottom: 8px;
+            margin-bottom: 8px; /* Space between trigger and tooltip */
+            
             width: max-content;
             background-color: #333;
             color: #fff;
@@ -60,6 +60,13 @@
             border-style: solid;
             border-color: #333 transparent transparent transparent;
         }
+
+        /* Standard popover reset to ensure it behaves like a tooltip */
+        [popover] {
+            margin: 0;
+            padding: 8px;
+            overflow: visible;
+        }
     </style>
 </head>
 <body>
@@ -68,10 +75,6 @@
         <button id="tooltip-trigger" interestfor="tooltip">Hover over me</button>
         <div id="tooltip" popover="hint">I'm a modern tooltip!</div>
     </div>
-
-    <script>
-        // No JavaScript needed for basic tooltip functionality with Interest Invokers and Popover API!
-    </script>
 
 </body>
 </html>

@@ -1,13 +1,6 @@
-I will search for the best practices for implementing popovers and adaptive loading using native web platform features.
-
-I will retrieve the best practices for tooltips, scroll-driven animations, and adaptive loading to ensure a high-quality implementation.
-
-I will create a modern coffee shop landing page in `index.html` using native web platform features, including the Popover API for ingredients, scroll-driven animations for the hero image, and the Adaptive Loading API for performance.
-
-I have completed the request. The coffee shop landing page is implemented in `index.html` using native web platform features:
-
-- **Popover API & Interest Invokers**: The "Details" button uses the `interestfor` attribute to trigger a non-modal `popover="hint"` on hover, displaying ingredients. CSS Anchor Positioning is used to tether the popover to the button.
-- **Scroll-Driven Animations**: The hero image features a `fade-in` and `scale-up` effect as it enters the viewport, powered by native CSS `animation-timeline: view()`.
-- **Adaptive Loading API**: The hero image includes the `loading-placeholder` attribute to provide a low-fidelity alternative on slow network connections.
-- **Modern Design**: The page is styled with a clean, coffee-themed aesthetic using native CSS variables, Flexbox, and Grid.
-- **Progressive Enhancement**: Conditional polyfills are included to ensure functionality in browsers that do not yet support these cutting-edge APIs.
+I will start by searching for best practices for popovers, scroll-driven animations, and adaptive loading using the "modern-web" MCP server.
+I will retrieve the implementation guides for tooltips, scroll-driven animations, and adaptive loading to ensure I use the most modern and efficient patterns.
+I will now create the `index.html` file, implementing the coffee shop landing page with the requested native web features, including a hover-triggered popover using the Interest Invokers API, a scroll-driven hero image animation, and adaptive loading for performance.
+I have completed the landing page for "Bean & Brew" in `index.html`. It incorporates native web platform features including the Popover API for ingredients, scroll-driven animations for the hero section, and adaptive loading for performance. I will now record the implementation guides used in this task.
+I'll check the project's root directory for any build or linting scripts to ensure my changes adhere to the project's quality standards.
+I have completed the task. The `index.html` file now contains a modern product landing page for a coffee shop, featuring a hover-triggered ingredients popover, a scroll-driven hero image animation, and adaptive loading for optimized performance. I've also documented the implementation guides used in `guides_used.json`.
