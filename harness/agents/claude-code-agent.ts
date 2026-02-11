@@ -1,26 +1,26 @@
 import fs from 'fs';
-import os from 'os';
 import path from 'path';
-import { spawn } from 'child_process';
-import { createIsolatedHome, cleanupIsolatedHome, parseAgentArgs, copyFileIfExists, updateMcpConfig, copyAgentContext } from '../lib/agent-shared.ts';
+import { spawn, execSync } from 'child_process';
+import { createIsolatedHome, cleanupIsolatedHome, parseAgentArgs, copyFileIfExists, updateMcpConfig, copyAgentContext, copyTemplateToHome, copyResultsToTarget } from '../lib/agent-shared.ts';
 import config from '../config.ts';
 
-// Usage: node claude-code-agent.ts <directory> <prompt> [runType]
-const { userPrompt, runType, absoluteTargetDir, projectRoot } = parseAgentArgs('claude-code-agent.ts');
+// Usage: node claude-code-agent.ts <directory> <prompt> <runType> <templateDir>
+const { userPrompt, runType, absoluteTargetDir, projectRoot, templateDir } = parseAgentArgs('claude-code-agent.ts');
 
 /**
- * Sets up an isolated HOME directory to ensure test isolation.
- * @returns {string} The path to the temporary HOME directory.
+ * Sets up an isolated HOME and work directory to ensure test isolation.
+ * @returns {string} The path to the temporary work directory.
  */
-function setupIsolatedHome(): string {
+function setupIsolatedWorkDir(): string {
   const tempHome = createIsolatedHome('ghh-claude');
+  const workDir = copyTemplateToHome(templateDir, tempHome);
 
   // Copy GCP credentials (for Vertex auth)
   const gcloudConfigDest = path.join(tempHome, '.config/gcloud');
   fs.mkdirSync(gcloudConfigDest, { recursive: true });
   copyFileIfExists(config.gcpCredentials, path.join(gcloudConfigDest, 'application_default_credentials.json'));
 
-  // Set environment variables for the current process (and children)
+  // Set environment variables
   process.env.HOME = tempHome;
 
   // Add CLAUDE context and MCP servers for guided runs
@@ -32,28 +32,25 @@ function setupIsolatedHome(): string {
       config.mcpServersToEnable,
       config.modernWebServerPath,
       config.mcpApiKey,
-      'claude-code'
+      'claude_code'
     );
   }
 
-  return tempHome;
+  return workDir;
 }
 
 /**
  * Executes the Claude CLI command and captures output.
  */
 async function run() {
-  let tempHome: string | null = null;
+  const workDir = setupIsolatedWorkDir();
+
+  if (!workDir || !fs.existsSync(workDir)) {
+    throw new Error(`Failed to initialize working directory: ${workDir}`);
+  }
+
   try {
-    console.log(`Starting Claude Code agent in: ${absoluteTargetDir}`);
-
-    // Setup isolated environment
-    tempHome = setupIsolatedHome();
-
-    // Ensure the target directory exists
-    if (!fs.existsSync(absoluteTargetDir)) {
-      fs.mkdirSync(absoluteTargetDir, { recursive: true });
-    }
+    console.log(`Starting Claude Code agent in: ${workDir}`);
 
     const command = config.claudeCodeCliBin;
     const commandArgs = [
@@ -65,7 +62,7 @@ async function run() {
     console.log(`Executing: ${command} ${commandArgs.join(' ')}`);
 
     const child = spawn(command, commandArgs, {
-      cwd: absoluteTargetDir,
+      cwd: workDir, // Run in the isolated project directory
       env: { ...process.env }, // Pass through environment variables (including new HOME)
       stdio: ['ignore', 'pipe', 'pipe'] // Capture stdout/stderr
     });
@@ -93,6 +90,8 @@ async function run() {
       throw new Error(`Claude Code exited with code ${exitCode}`);
     }
 
+    copyResultsToTarget(workDir, absoluteTargetDir);
+
     // Save output to chat_log.txt
     const chatLogPath = path.join(absoluteTargetDir, 'chat_log.txt');
     fs.writeFileSync(chatLogPath, stdoutData, 'utf8');
@@ -104,9 +103,7 @@ async function run() {
     console.error("Error during Claude Code execution:", err);
     process.exit(1);
   } finally {
-    if (tempHome) {
-      cleanupIsolatedHome(tempHome);
-    }
+    cleanupIsolatedHome(path.dirname(workDir));
   }
 }
 

@@ -1,21 +1,22 @@
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
-import { spawn } from 'child_process';
+import { spawn, execSync } from 'child_process';
 
 import config from '../config.ts';
 
-import { updateMcpConfig, createIsolatedHome, cleanupIsolatedHome, copyFileIfExists, createTrustedFolders, copyAgentContext, parseAgentArgs } from '../lib/agent-shared.ts';
+import { updateMcpConfig, createIsolatedHome, cleanupIsolatedHome, copyFileIfExists, copyAgentContext, parseAgentArgs, copyTemplateToHome, copyResultsToTarget } from '../lib/agent-shared.ts';
 
-// Usage: node gemini-cli-agent.ts <directory> <prompt> [runType]
-const { userPrompt, runType, absoluteTargetDir, projectRoot } = parseAgentArgs('gemini-cli-agent.ts');
+// Usage: node gemini-cli-agent.ts <directory> <prompt> <runType> <templateDir>
+const { userPrompt, runType, absoluteTargetDir, projectRoot, templateDir } = parseAgentArgs('gemini-cli-agent.ts');
 
 /**
- * Sets up an isolated HOME directory to ensure test isolation while preserving authentication.
- * @returns {string} The path to the temporary HOME directory.
+ * Sets up an isolated HOME and work directory to ensure test isolation.
+ * @returns {string} The path to the temporary work directory.
  */
-function setupIsolatedHome(): string {
+function setupIsolatedWorkDir(): string {
   const tempHome = createIsolatedHome('ghh-gemini');
+  const workDir = copyTemplateToHome(templateDir, tempHome);
 
   const geminiSource = path.join(os.homedir(), '.gemini');
   const geminiDest = path.join(tempHome, '.gemini');
@@ -34,9 +35,7 @@ function setupIsolatedHome(): string {
     copyFileIfExists(src, path.join(geminiDest, file));
   }
 
-  createTrustedFolders(geminiDest, [absoluteTargetDir]);
-
-  // Set environment variables for the current process (and children)
+  // Set environment variables
   process.env.HOME = tempHome;
 
   // Add GEMINI context and MCP servers for guided runs
@@ -51,48 +50,34 @@ function setupIsolatedHome(): string {
       config.mcpApiKey,
       'gemini-cli'
     );
-
-    // Also update MCP config in the target directory to ensure Gemini CLI finds it
-    // (It looks in both ~/.gemini/settings.json and <project>/.gemini/settings.json)
-    updateMcpConfig(
-      path.join(absoluteTargetDir, '.gemini', 'settings.json'),
-      config.mcpServersToEnable,
-      config.modernWebServerPath,
-      config.mcpApiKey,
-      'gemini-cli'
-    );
   }
 
-  return tempHome;
+  return workDir;
 }
 
 /**
  * Executes the Gemini CLI command and captures output.
  */
 async function run() {
-  let tempHome: string | null = null;
+  const workDir = setupIsolatedWorkDir();
+
+  if (!workDir || !fs.existsSync(workDir)) {
+    throw new Error(`Failed to initialize working directory: ${workDir}`);
+  }
+
   try {
-    console.log(`Starting Gemini CLI agent in: ${absoluteTargetDir}`);
-
-    // Setup isolated environment
-    tempHome = setupIsolatedHome();
-
-    // Ensure the target directory exists
-    if (!fs.existsSync(absoluteTargetDir)) {
-      fs.mkdirSync(absoluteTargetDir, { recursive: true });
-    }
+    console.log(`Starting Gemini CLI agent in ${workDir}`);
 
     const command = config.geminiCliBin;
     const commandArgs = [
       '-p', userPrompt,
-      '--yolo',
-      '--include-directories', absoluteTargetDir
+      '--yolo'
     ];
 
     console.log(`Executing: ${command} ${commandArgs.join(' ')}`);
 
     const child = spawn(command, commandArgs, {
-      cwd: absoluteTargetDir,
+      cwd: workDir,
       env: { ...process.env }, // Pass through environment variables (including new HOME)
       stdio: ['ignore', 'pipe', 'pipe'] // Capture stdout/stderr
     });
@@ -120,6 +105,8 @@ async function run() {
       throw new Error(`Gemini CLI exited with code ${exitCode}`);
     }
 
+    copyResultsToTarget(workDir, absoluteTargetDir);
+
     // Save output to chat_log.txt
     const chatLogPath = path.join(absoluteTargetDir, 'chat_log.txt');
     fs.writeFileSync(chatLogPath, stdoutData, 'utf8');
@@ -131,9 +118,7 @@ async function run() {
     console.error("Error during Gemini CLI execution:", err);
     process.exit(1);
   } finally {
-    if (tempHome) {
-      cleanupIsolatedHome(tempHome);
-    }
+    cleanupIsolatedHome(path.dirname(workDir));
   }
 }
 

@@ -6,17 +6,18 @@ import type { Page } from 'puppeteer-core';
 import { spawn, execSync } from 'child_process';
 import { config } from '../config.ts';
 
-import { createIsolatedHome, cleanupIsolatedHome, updateMcpConfig, createTrustedFolders, copyAgentContext, sleep, killProcessOnPort, parseAgentArgs } from '../lib/agent-shared.ts';
+import { createIsolatedHome, cleanupIsolatedHome, updateMcpConfig, createTrustedFolders, copyAgentContext, sleep, killProcessOnPort, parseAgentArgs, copyTemplateToHome, copyResultsToTarget } from '../lib/agent-shared.ts';
 
 // Parse arguments
-const { userPrompt, runType, absoluteTargetDir, projectRoot } = parseAgentArgs('jetski-agent.ts');
+const { userPrompt, runType, absoluteTargetDir, projectRoot, templateDir } = parseAgentArgs('jetski-agent.ts');
 
 /**
- * Sets up an isolated HOME directory to ensure test isolation while preserving authentication.
- * @returns {string} The path to the temporary HOME directory.
+ * Sets up an isolated HOME and work directory to ensure test isolation.
+ * @returns {string} The path to the temporary work directory.
  */
-function setupIsolatedHome(): string {
+function setupIsolatedWorkDir(): string {
   const tempHome = createIsolatedHome('ghh-jetski');
+  const workDir = copyTemplateToHome(templateDir, tempHome);
 
   const appSupportSource = path.join(os.homedir(), 'Library/Application Support/Jetski');
   const appSupportDest = path.join(tempHome, 'Library/Application Support/Jetski');
@@ -26,7 +27,8 @@ function setupIsolatedHome(): string {
   fs.mkdirSync(appSupportDest, { recursive: true });
   fs.mkdirSync(jetskiDest, { recursive: true });
 
-  createTrustedFolders(path.dirname(jetskiDest), [absoluteTargetDir]);
+  // To bypass trusted folder checks
+  createTrustedFolders(path.dirname(jetskiDest), [tempHome]);
 
   // Copy minimal authentication state
   const filesToCopy = [
@@ -71,7 +73,7 @@ function setupIsolatedHome(): string {
     }
   }
 
-  // Set environment variables for the child process and the current process
+  // Set environment variables
   process.env.HOME = tempHome;
   process.env.JETSKI_DIR = jetskiDest;
 
@@ -88,7 +90,7 @@ function setupIsolatedHome(): string {
     );
   }
 
-  return tempHome;
+  return workDir;
 }
 
 
@@ -167,8 +169,6 @@ async function extractJetskiVersionInfo(page: Page, outputPath: string): Promise
   }
 }
 
-
-
 async function startJetski(directory: string, profileDir: string): Promise<void> {
   // Kill anything on the debug port first
   killProcessOnPort(config.jetskiDebugPort);
@@ -205,18 +205,20 @@ async function startJetski(directory: string, profileDir: string): Promise<void>
 }
 
 async function run(): Promise<void> {
-  let testHomeDir: string | null = null;
-  try {
-    // Setup isolated environment and MCP config
-    testHomeDir = setupIsolatedHome();
+  const workDir = setupIsolatedWorkDir();
 
+  if (!workDir || !fs.existsSync(workDir)) {
+    throw new Error(`Failed to initialize working directory: ${workDir}`);
+  }
+
+  try {
     // Use stable user data dir to persist state (welcome screen, etc.)
     const profileDir = config.jetskiProfileDir;
     if (!fs.existsSync(profileDir)) {
       fs.mkdirSync(profileDir, { recursive: true });
     }
 
-    await startJetski(absoluteTargetDir, profileDir);
+    await startJetski(workDir, profileDir);
 
     const browserURL = `http://127.0.0.1:${config.jetskiDebugPort}`;
     const browser = await puppeteer.connect({
@@ -345,12 +347,14 @@ async function run(): Promise<void> {
     await browser.disconnect();
     console.log("Disconnected.");
 
+    copyResultsToTarget(workDir, absoluteTargetDir);
+
   } catch (err) {
     console.error("Error during execution:", err);
     process.exit(1);
   } finally {
     killProcessOnPort(config.jetskiDebugPort);
-    cleanupIsolatedHome(testHomeDir || '');
+    cleanupIsolatedHome(path.dirname(workDir));
   }
 }
 

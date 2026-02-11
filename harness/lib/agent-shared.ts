@@ -112,7 +112,7 @@ export function updateMcpConfig(
             'X-Goog-Api-Key': apiKey
           }
         };
-      } else if (agent === 'claude-code') {
+      } else if (agent === 'claude_code') {
         mcpConfig.mcpServers['google-developer-knowledge'] = {
           type: 'http',
           url: url,
@@ -136,7 +136,7 @@ export function updateMcpConfig(
   try {
     fs.mkdirSync(path.dirname(configPath), { recursive: true });
     fs.writeFileSync(configPath, JSON.stringify(mcpConfig, null, 2));
-    console.log(`Enabled MCP servers in ${configPath}: ${Object.keys(mcpConfig.mcpServers).join(', ')}`);
+    console.log(`Added MCP server config(s) to ${configPath}: ${Object.keys(mcpConfig.mcpServers).join(', ')}`);
     return true;
   } catch (e) {
     console.error(`Failed to write MCP config to ${configPath}:`, e);
@@ -204,14 +204,15 @@ export function killProcessOnPort(port: number | string): void {
 
 export interface AgentArgs {
   userPrompt: string;
-  runType: string; // 'guided' or 'unguided'
+  runType: string;
   absoluteTargetDir: string;
   projectRoot: string;
+  templateDir: string;
 }
 
 /**
  * Parses command line arguments for agents.
- * Usage: node <agent-script> <directory> <prompt> [runType]
+ * Usage: node <agent-script> <prompt> <runType> <targetDir> <templateDir>
  * 
  * @param scriptName Name of the script for usage message
  * @returns Parsed arguments
@@ -219,18 +220,44 @@ export interface AgentArgs {
 export function parseAgentArgs(scriptName: string): AgentArgs {
   const args = process.argv.slice(2);
   if (args.length < 2) {
-    console.error(`Usage: node ${scriptName} <directory> <prompt> [runType]`);
+    console.error(`Usage: node ${scriptName} <prompt> <runType> <targetDir> <templateDir>`);
     process.exit(1);
   }
-  const [targetDirectory, userPrompt, runType] = args;
+  const [userPrompt, runType, targetDirectory, templateDirRaw] = args;
   const absoluteTargetDir = path.resolve(targetDirectory);
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
   const projectRoot = path.resolve(__dirname, '../..');
+  const templateDir = templateDirRaw ? path.resolve(templateDirRaw) : '';
 
   return {
     userPrompt,
     runType,
     absoluteTargetDir,
-    projectRoot
+    projectRoot,
+    templateDir
   };
+}
+
+/**
+ * Copies the template directory to the isolated home directory.
+ * @param templateDir Path to the template directory
+ * @param homeDir Path to the isolated home directory
+ * @returns The path to the working directory within the isolated home
+ */
+export function copyTemplateToHome(templateDir: string, homeDir: string): string {
+  execSync(`cp -R "${templateDir}" "${homeDir}/"`);
+  console.log(`Copied ${templateDir} to ${homeDir}...`);
+  return path.join(homeDir, path.basename(templateDir));
+}
+
+/**
+ * Copies results from the working directory to the target directory.
+ * @param workDir The working directory where execution happened
+ * @param targetDir The target directory to copy results to
+ * @param subPath Optional sub-path within workDir to copy from (e.g. if you only want specific files)
+ */
+export function copyResultsToTarget(workDir: string, targetDir: string, subPath: string = '.'): void {
+  const sourceDir = path.join(workDir, subPath);
+  execSync(`cp -R "${sourceDir}/." "${targetDir}/"`);
+  console.log(`Copied results from ${sourceDir} to: ${targetDir}`);
 }
