@@ -57,7 +57,6 @@ async function main() {
     process.exit(1);
   }
 
-
   // Single task mode check
   const [argDir, argPrompt] = positionalArgs;
 
@@ -76,11 +75,11 @@ async function main() {
       // Dispatch based on agent
       if (agent === 'gemini_cli') {
         // Use experimental-strip-types for running TS directly
-        await runCommand('node', ['--experimental-strip-types', 'agents/gemini-cli-agent.ts', path.resolve(argDir), JSON.stringify(argPrompt), 'guided']);
+        await runCommand('node', ['--experimental-strip-types', 'agents/gemini-cli-agent.ts', JSON.stringify(argPrompt), 'guided', path.resolve(argDir)]);
       } else if (agent === 'claude_code') {
-        await runCommand('node', ['--experimental-strip-types', 'agents/claude-code-agent.ts', path.resolve(argDir), JSON.stringify(argPrompt), 'guided']);
+        await runCommand('node', ['--experimental-strip-types', 'agents/claude-code-agent.ts', JSON.stringify(argPrompt), 'guided', path.resolve(argDir)]);
       } else {
-        await runCommand('node', ['--experimental-strip-types', 'agents/jetski-agent.ts', path.resolve(argDir), JSON.stringify(argPrompt), 'guided']);
+        await runCommand('node', ['--experimental-strip-types', 'agents/jetski-agent.ts', JSON.stringify(argPrompt), 'guided', path.resolve(argDir)]);
       }
       console.log(`\n✅ Single task complete!`);
     } catch (error) {
@@ -129,6 +128,10 @@ async function main() {
           for (const runType of RUN_TYPES) {
             const templateDir = path.join(baseAppsDir, scenario, promptType, runType);
             const targetDir = path.join(runDir, scenario, promptType, runType);
+
+            if (!fs.existsSync(templateDir)) {
+              throw new Error(`Template directory not found: ${templateDir}`);
+            }
 
             if (!fs.existsSync(targetDir)) {
               fs.mkdirSync(targetDir, { recursive: true });

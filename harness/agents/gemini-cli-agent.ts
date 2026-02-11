@@ -1,14 +1,14 @@
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
-import { spawn, execSync } from 'child_process';
+import { spawn } from 'child_process';
 
 import config from '../config.ts';
 
-import { updateMcpConfig, createIsolatedHome, cleanupIsolatedHome, copyFileIfExists, copyAgentContext, parseAgentArgs, copyTemplateToHome, copyResultsToTarget } from '../lib/agent-shared.ts';
+import { updateMcpConfig, createIsolatedHome, cleanupIsolatedHome, copyFileIfExists, copyAgentContext, parseAgentArgs, createWorkDir, copyResultsToTarget } from '../lib/agent-shared.ts';
 
-// Usage: node gemini-cli-agent.ts <directory> <prompt> <runType> <templateDir>
-const { userPrompt, runType, absoluteTargetDir, projectRoot, templateDir } = parseAgentArgs('gemini-cli-agent.ts');
+// Usage: node gemini-cli-agent.ts <prompt> <runType> <targetDir> <templateDir>
+const { userPrompt, runType, targetDir, templateDir } = parseAgentArgs('gemini-cli-agent.ts');
 
 /**
  * Sets up an isolated HOME and work directory to ensure test isolation.
@@ -16,7 +16,7 @@ const { userPrompt, runType, absoluteTargetDir, projectRoot, templateDir } = par
  */
 function setupIsolatedWorkDir(): string {
   const tempHome = createIsolatedHome('ghh-gemini');
-  const workDir = copyTemplateToHome(templateDir, tempHome);
+  const workDir = createWorkDir(templateDir, tempHome, runType);
 
   const geminiSource = path.join(os.homedir(), '.gemini');
   const geminiDest = path.join(tempHome, '.gemini');
@@ -40,7 +40,7 @@ function setupIsolatedWorkDir(): string {
 
   // Add GEMINI context and MCP servers for guided runs
   if (runType === 'guided') {
-    copyAgentContext(projectRoot, tempHome);
+    copyAgentContext(tempHome, 'gemini_cli');
 
     // Update MCP config in isolated home
     updateMcpConfig(
@@ -48,7 +48,7 @@ function setupIsolatedWorkDir(): string {
       config.mcpServersToEnable,
       config.modernWebServerPath,
       config.mcpApiKey,
-      'gemini-cli'
+      'gemini_cli'
     );
   }
 
@@ -105,10 +105,10 @@ async function run() {
       throw new Error(`Gemini CLI exited with code ${exitCode}`);
     }
 
-    copyResultsToTarget(workDir, absoluteTargetDir);
+    copyResultsToTarget(workDir, targetDir);
 
     // Save output to chat_log.txt
-    const chatLogPath = path.join(absoluteTargetDir, 'chat_log.txt');
+    const chatLogPath = path.join(targetDir, 'chat_log.txt');
     fs.writeFileSync(chatLogPath, stdoutData, 'utf8');
     console.log(`Saved output to: ${chatLogPath}`);
 

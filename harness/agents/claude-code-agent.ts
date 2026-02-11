@@ -1,11 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import { spawn, execSync } from 'child_process';
-import { createIsolatedHome, cleanupIsolatedHome, parseAgentArgs, copyFileIfExists, updateMcpConfig, copyAgentContext, copyTemplateToHome, copyResultsToTarget } from '../lib/agent-shared.ts';
+import { spawn } from 'child_process';
+import { createIsolatedHome, cleanupIsolatedHome, parseAgentArgs, copyFileIfExists, updateMcpConfig, copyAgentContext, copyResultsToTarget, createWorkDir } from '../lib/agent-shared.ts';
 import config from '../config.ts';
 
-// Usage: node claude-code-agent.ts <directory> <prompt> <runType> <templateDir>
-const { userPrompt, runType, absoluteTargetDir, projectRoot, templateDir } = parseAgentArgs('claude-code-agent.ts');
+// Usage: node claude-code-agent.ts <prompt> <runType> <targetDir> <templateDir>
+const { userPrompt, runType, targetDir, templateDir } = parseAgentArgs('claude-code-agent.ts');
 
 /**
  * Sets up an isolated HOME and work directory to ensure test isolation.
@@ -13,7 +13,7 @@ const { userPrompt, runType, absoluteTargetDir, projectRoot, templateDir } = par
  */
 function setupIsolatedWorkDir(): string {
   const tempHome = createIsolatedHome('ghh-claude');
-  const workDir = copyTemplateToHome(templateDir, tempHome);
+  const workDir = createWorkDir(templateDir, tempHome, runType);
 
   // Copy GCP credentials (for Vertex auth)
   const gcloudConfigDest = path.join(tempHome, '.config/gcloud');
@@ -25,7 +25,7 @@ function setupIsolatedWorkDir(): string {
 
   // Add CLAUDE context and MCP servers for guided runs
   if (runType === 'guided') {
-    copyAgentContext(projectRoot, tempHome, true);
+    copyAgentContext(tempHome, 'claude_code');
 
     updateMcpConfig(
       path.join(tempHome, '.claude.json'),
@@ -90,10 +90,10 @@ async function run() {
       throw new Error(`Claude Code exited with code ${exitCode}`);
     }
 
-    copyResultsToTarget(workDir, absoluteTargetDir);
+    copyResultsToTarget(workDir, targetDir);
 
     // Save output to chat_log.txt
-    const chatLogPath = path.join(absoluteTargetDir, 'chat_log.txt');
+    const chatLogPath = path.join(targetDir, 'chat_log.txt');
     fs.writeFileSync(chatLogPath, stdoutData, 'utf8');
     console.log(`Saved output to: ${chatLogPath}`);
 

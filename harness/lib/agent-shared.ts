@@ -3,6 +3,8 @@ import path from 'path';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 /**
  * Creates a unique isolated HOME directory in /tmp.
  * @param prefix The prefix for the directory name
@@ -23,10 +25,9 @@ export function createIsolatedHome(prefix: string): string {
  */
 export function cleanupIsolatedHome(homeDir: string): void {
   if (homeDir && fs.existsSync(homeDir)) {
-    console.log(`\n=== Cleaning up isolated HOME ===`);
+    console.log(`\nCleaning up isolated HOME.`);
     try {
       fs.rmSync(homeDir, { recursive: true, force: true });
-      console.log('✅ Cleanup successful');
     } catch (cleanupErr) {
       console.error('Failed to cleanup isolated HOME:', cleanupErr);
     }
@@ -144,8 +145,9 @@ export function updateMcpConfig(
   }
 }
 
-export function copyAgentContext(projectRoot: string, homeDir: string, isClaude: boolean = false): boolean {
-  const instructionsSource = path.join(projectRoot, 'harness', 'INSTRUCTIONS.md');
+export function copyAgentContext(homeDir: string, agent: string): boolean {
+  const harnessRoot = path.resolve(__dirname, '..');
+  const instructionsSource = path.join(harnessRoot, 'INSTRUCTIONS.md');
 
   if (!fs.existsSync(instructionsSource)) {
     console.warn(`Warning: INSTRUCTIONS.md not found at ${instructionsSource}`);
@@ -155,7 +157,7 @@ export function copyAgentContext(projectRoot: string, homeDir: string, isClaude:
   let destDir = '';
   let destFile = '';
 
-  if (isClaude) {
+  if (agent === 'claude_code') {
     destDir = path.join(homeDir, '.claude');
     destFile = 'CLAUDE.md';
   } else {
@@ -205,8 +207,7 @@ export function killProcessOnPort(port: number | string): void {
 export interface AgentArgs {
   userPrompt: string;
   runType: string;
-  absoluteTargetDir: string;
-  projectRoot: string;
+  targetDir: string;
   templateDir: string;
 }
 
@@ -219,32 +220,46 @@ export interface AgentArgs {
  */
 export function parseAgentArgs(scriptName: string): AgentArgs {
   const args = process.argv.slice(2);
-  if (args.length < 2) {
-    console.error(`Usage: node ${scriptName} <prompt> <runType> <targetDir> <templateDir>`);
-    process.exit(1);
+  if (args.length < 4) {
+    // Single task scenario (no template directory is passed)
+    if (args.length === 3) {
+      args.push('');
+    } else {
+      console.error(`Usage: node ${scriptName} <prompt> <runType> <targetDir> <templateDir>`);
+      process.exit(1);
+    }
   }
-  const [userPrompt, runType, targetDirectory, templateDirRaw] = args;
-  const absoluteTargetDir = path.resolve(targetDirectory);
-  const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const projectRoot = path.resolve(__dirname, '../..');
-  const templateDir = templateDirRaw ? path.resolve(templateDirRaw) : '';
+  const [userPrompt, runType, targetDirectoryRaw, templateDirRaw] = args;
+  const targetDir = path.resolve(targetDirectoryRaw);
+  let templateDir = '';
+  if (templateDirRaw !== '') {
+    templateDir = path.resolve(templateDirRaw);
+  }
 
   return {
     userPrompt,
     runType,
-    absoluteTargetDir,
-    projectRoot,
+    targetDir,
     templateDir
   };
 }
 
 /**
- * Copies the template directory to the isolated home directory.
+ * Creates the working directory for the agent.
  * @param templateDir Path to the template directory
  * @param homeDir Path to the isolated home directory
+ * @param runType The type of run
  * @returns The path to the working directory within the isolated home
  */
-export function copyTemplateToHome(templateDir: string, homeDir: string): string {
+export function createWorkDir(templateDir: string, homeDir: string, runType: string): string {
+  // For the single task run, there is no template
+  // Create the empty work dir with the runType as the directory name
+  if (templateDir === '') {
+    const workDir = path.join(homeDir, runType);
+    fs.mkdirSync(workDir, { recursive: true });
+    return workDir;
+  }
+  // For the suite run, copy the template directory to the isolated home directory
   execSync(`cp -R "${templateDir}" "${homeDir}/"`);
   console.log(`Copied ${templateDir} to ${homeDir}...`);
   return path.join(homeDir, path.basename(templateDir));
