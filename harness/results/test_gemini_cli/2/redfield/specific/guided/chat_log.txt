@@ -1,5 +1,0 @@
-I'll start by reading the current implementation of the tooltip in `index.html` to understand how it's currently handled with JavaScript and event listeners.
-I'll search for the recommended modern tooltip implementation patterns in the project's documentation to ensure I'm using the correct "Interest Invokers" syntax.
-I'll retrieve the detailed implementation guide for tooltips using the Popover API and Interest Invokers.
-I'll modernize the `index.html` by replacing the manual event listeners with the Popover API and Interest Invokers, and I'll use CSS Anchor Positioning for placement. I'll also add a small stock image to the tooltip to enhance the "hovercard" feel as suggested.
-I've completed the modernization of the tooltip implementation, replacing the imperative JavaScript logic with the declarative Popover API and Interest Invokers. I also applied CSS Anchor Positioning for precise, modern placement and added a stock image to create a more polished hovercard experience.

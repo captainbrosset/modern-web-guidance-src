@@ -26,11 +26,6 @@
       "runCount": 3
     },
     {
-      "id": "test_gemini_cli",
-      "timestamp": "2026-02-10T00:01:44.417Z",
-      "runCount": 3
-    },
-    {
       "id": "test_jetski",
       "timestamp": "2026-02-10T06:05:42.951Z",
       "runCount": 3
@@ -38,6 +33,16 @@
     {
       "id": "test_claude_code",
       "timestamp": "2026-02-11T22:47:35.922Z",
+      "runCount": 3
+    },
+    {
+      "id": "gemini_cli_mcp",
+      "timestamp": "2026-02-13T19:45:34.273Z",
+      "runCount": 3
+    },
+    {
+      "id": "gemini_cli_skills",
+      "timestamp": "2026-02-13T21:21:04.722Z",
       "runCount": 3
     }
   ]

@@ -1,6 +1,0 @@
-I will start by reading the `index.html` file to understand the current tooltip implementation.
-I will search for any guides related to the Popover API or Interest Invokers in the `serving/mcp-server/guides/` directory to ensure I follow the project's best practices.
-I will list the contents of the root directory to confirm the project structure and locate the guides.
-I will use the `codebase_investigator` to search for existing implementations of popovers or interest invokers in the codebase to ensure consistency with the project's patterns.
-I will modernize the `index.html` file by removing the manual JavaScript event listeners and replacing them with the HTML Popover API and Interest Invokers, while also using CSS Anchor Positioning for placement and adding a stock photo for a modern touch.
-I have modernized the tooltip implementation by replacing the manual JavaScript event listeners and DOM manipulation with the native HTML Popover API and Interest Invokers. The positioning now utilizes CSS Anchor Positioning, and I've added modern CSS transitions (including `allow-discrete` and `@starting-style`) for a smooth, performant user experience. Additionally, a stock image has been included within the tooltip as requested.

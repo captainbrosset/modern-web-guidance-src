@@ -1,7 +1,0 @@
-I will read the `index.html` file to understand its current structure and where the navigation links are located.
-I will search for the best practices for implementing pre-rendering to speed up navigation.
-I will retrieve the best practices for preloading and pre-rendering to ensure a correct and efficient implementation.
-I will implement the Speculation Rules API in `index.html` to pre-render the specified navigation links while explicitly excluding the `/logout` link to prevent accidental state changes.
-I will create the `guides_used.json` file to document the pre-rendering guide I followed, including the timestamp of access.
-I will verify the content of the `index.html` file to ensure the Speculation Rules API was correctly integrated.
-I have implemented pre-rendering for the requested navigation links using the Speculation Rules API. This modern web platform feature will speed up navigation to `/menu`, `/locations`, `/rewards`, and `/account` by pre-rendering them in the background. I have also ensured that the `/logout` link is explicitly excluded from pre-rendering to prevent any accidental state changes. Additionally, I have documented the implementation guide used in `guides_used.json`.

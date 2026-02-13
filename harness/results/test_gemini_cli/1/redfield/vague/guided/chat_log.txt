@@ -1,8 +1,0 @@
-I will read the `index.html` file to understand the current tooltip implementation.
-I will search for the "tooltip" use case to retrieve the best practices for modern implementation.
-I will retrieve the best practices for the "tooltip" use case to ensure I follow the recommended modern implementation.
-I will modernize the tooltip implementation in `index.html` by replacing the manual JavaScript event listeners with the declarative Popover API and CSS Anchor Positioning, as recommended in the best practices.
-I will check the current directory to see if a `package.json` file exists, which will help me decide whether to use `npm install` or link directly to the polyfills.
-I will enhance the tooltip's appearance by adding a stock photo and improving its styling to give it a more modern feel, as suggested by the user's preference for stock photos.
-I will create the `guides_used.json` file to record that I used the `tooltip` guide, as required by the instructions.
-I have modernized the tooltip implementation by moving from manual JavaScript event listeners to the native **Popover API**, **Interest Invokers**, and **CSS Anchor Positioning**. This approach is declarative and leverages modern browser capabilities for better performance and maintainability. I also enhanced the UI with a stock photo and updated styling.

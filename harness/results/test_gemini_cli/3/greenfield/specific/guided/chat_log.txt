@@ -1,6 +1,0 @@
-I will start by searching for best practices for popovers, scroll-driven animations, and adaptive loading using the "modern-web" MCP server.
-I will retrieve the implementation guides for tooltips, scroll-driven animations, and adaptive loading to ensure I use the most modern and efficient patterns.
-I will now create the `index.html` file, implementing the coffee shop landing page with the requested native web features, including a hover-triggered popover using the Interest Invokers API, a scroll-driven hero image animation, and adaptive loading for performance.
-I have completed the landing page for "Bean & Brew" in `index.html`. It incorporates native web platform features including the Popover API for ingredients, scroll-driven animations for the hero section, and adaptive loading for performance. I will now record the implementation guides used in this task.
-I'll check the project's root directory for any build or linting scripts to ensure my changes adhere to the project's quality standards.
-I have completed the task. The `index.html` file now contains a modern product landing page for a coffee shop, featuring a hover-triggered ingredients popover, a scroll-driven hero image animation, and adaptive loading for optimized performance. I've also documented the implementation guides used in `guides_used.json`.
