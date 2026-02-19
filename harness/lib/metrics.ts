@@ -30,7 +30,7 @@ export interface Metrics {
 }
 
 export function calculateMetrics(allResults: Record<string, RunResult[]>, numRuns: number): Metrics {
-  // Dynamic sorting: Base apps alphabetically, then Use Case alphabetically, then Run Type (unguided first if present)
+  // Dynamic sorting: Base apps alphabetically, then Guide alphabetically, then Run Type (unguided first if present)
   const runTypeOrder: Record<string, number> = { 'unguided': 1, 'guided': 2 };
 
   const sortedKeys = Object.keys(allResults).sort((a, b) => {

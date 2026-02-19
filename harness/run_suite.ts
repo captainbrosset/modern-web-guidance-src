@@ -8,6 +8,7 @@ import { spawn } from 'child_process';
 import { config, Agents } from './config.ts';
 
 const RUN_TYPES = ['guided', 'unguided'];
+
 // Global log file stream
 let logStream: fs.WriteStream | null = null;
 
