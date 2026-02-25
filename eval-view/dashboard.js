@@ -389,7 +389,7 @@ async function showDetails(testName, runs, stats, testID) {
     const title = document.getElementById('modal-title');
     const contentDiv = document.querySelector('.modal-content');
     const body = document.getElementById('modal-body');
-    const [appName, guide] = testName.split(' - ');
+    const [, guide] = testName.split(' - ');
 
     // Reset modifier classes
     modal.classList.remove('diff-modal');
@@ -398,13 +398,20 @@ async function showDetails(testName, runs, stats, testID) {
 
     title.textContent = formatTestName(testName);
 
-    // Fetch prompt text
+    // Fetch prompt text from tasks directory
     let promptHtml = '';
     try {
-        const promptPath = `base_apps/${appName}/PROMPT.txt`;
-        const res = await fetch(promptPath);
+        const taskPath = `tasks/${guide}.md`;
+        const res = await fetch(taskPath);
         if (res.ok) {
-            const text = await res.text();
+            let text = await res.text();
+            
+            // Strip frontmatter if present
+            const frontmatterMatch = text.match(/^---\n(?:[\s\S]*?)\n---\n([\s\S]*)$/);
+            if (frontmatterMatch) {
+                text = frontmatterMatch[1].trim();
+            }
+
             promptHtml = `
                     <div class="prompt-section" style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid var(--text-secondary);">
                     <h4 style="margin-top: 0; margin-bottom: 10px;">Prompt</h4>
@@ -803,6 +810,7 @@ function renderRadarChart(data, testID) {
 
 async function getResultPaths(testID, run, testName) {
     const [appName, guide, runType] = testName.split(' - ');
+    const actualBaseApp = run.baseApp || appName;
 
     // Cover cases for new use case format and old (greenfield, brownfield, redfield) format
     const basePaths = [
@@ -817,7 +825,23 @@ async function getResultPaths(testID, run, testName) {
 
     // Calculate relative path (e.g., "src/App.jsx" or "index.html")
     const relativePath = resultPath.replace(usedBasePath + '/', '');
-    const setupPath = `base_apps/${appName}/${runType}/${relativePath}`;
+    
+    // Check old style path and new style path
+    const candidateSetupPaths = [
+        `base_apps/${actualBaseApp}/${runType}/${relativePath}`,
+        `base_apps/${actualBaseApp}/${relativePath}`
+    ];
+    let setupPath = candidateSetupPaths[candidateSetupPaths.length - 1]; // Assume new style by default
+    
+    for (const path of candidateSetupPaths) {
+        try {
+            const res = await fetch(path, { method: 'HEAD' });
+            if (res.ok) {
+                setupPath = path;
+                break;
+            }
+        } catch {}
+    }
 
     return { setupPath, resultPath, usedBasePath };
 }
