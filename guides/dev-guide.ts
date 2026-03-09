@@ -138,7 +138,7 @@ function inventoryGuide(dir: string, taskMap: Map<string, TaskInfo>): GuideInven
 function scanAllGuides(taskMap = getTaskMap()): GuideInventory[] {
   const guides: GuideInventory[] = [];
   const categories = fs.readdirSync(__dirname, { withFileTypes: true })
-    .filter(d => d.isDirectory() && !d.name.startsWith('.'))
+    .filter(d => d.isDirectory() && !d.name.startsWith('.') && d.name !== 'node_modules')
     .map(d => d.name);
   for (const category of categories) {
     const categoryDir = path.join(__dirname, category);
@@ -173,6 +173,8 @@ function printInventory(inv: GuideInventory): void {
 
   console.log(`   ${NEGATIVE_DEMO_FILE.padEnd(18)} ${inv.hasNegativeDemo ? icon(true) : icon(false, true) + ' will generate'}`);
   console.log(`   ${GRADER_FILE.padEnd(18)} ${inv.hasGrader ? icon(true) : icon(false, true) + ' will generate'}`);
+  console.log(`   ${PROMPTS_FILE.padEnd(18)} ${inv.hasPrompts ? icon(true) : icon(false, true) + ' will generate'}`);
+  console.log(`   ${'task'.padEnd(18)} ${inv.hasTask ? icon(true) : icon(false, true) + ' will generate'}`);
 }
 
 export async function devGuide(targetDirRaw: string, options: DevGuideOptions = {}, inv?: GuideInventory): Promise<boolean> {
@@ -273,12 +275,34 @@ export async function devGuide(targetDirRaw: string, options: DevGuideOptions = 
     }
   }
 
-  // Step 5: Optional agent test
+  // Step 5: Test task and prompt generation
+  if (calibrationResult?.success) {
+    console.log(cCyan(`\n--- Setting up test task ---`));
+    const existingTask = taskMap.get(currentInv.name);
+    const baseApp = existingTask?.baseApp ?? 'daily-grind';
+
+    const promptsPath = path.join(targetDir, PROMPTS_FILE);
+    if (!fs.existsSync(promptsPath)) {
+      console.log(`${PROMPTS_FILE} not found, generating...`);
+      try {
+        await generatePrompts(targetDir, baseApp);
+      } catch (err) {
+        console.error(cRed(`Failed to generate ${PROMPTS_FILE}: ${err}`));
+      }
+    }
+
+    if (!existingTask && fs.existsSync(promptsPath)) {
+      const taskInfo = createTask(targetDir, currentInv.name);
+      taskMap.set(currentInv.name, taskInfo);
+    }
+  }
+
+  // Step 6: Optional agent test
   if (options.test !== false && calibrationResult?.success) {
     await runAgentTest(targetDir, currentInv.name, taskMap);
   }
 
-  // Step 6: Summary
+  // Step 7: Summary
   printSummary(targetDir, currentInv, calibrationResult, calibrationAttempt);
 
   return calibrationResult?.success ?? false;
@@ -390,24 +414,12 @@ ${prompt}
 async function runAgentTest(targetDir: string, guideName: string, taskMap: Map<string, TaskInfo>): Promise<void> {
   console.log(cCyan(`\n--- Running agent test ---`));
 
-  // Step a: Determine base app — check for an existing task first
-  const existingTask = taskMap.get(guideName);
-  const baseApp = existingTask?.baseApp ?? 'daily-grind';
-
-  // Step b: Ensure prompts.md exists
-  const promptsPath = path.join(targetDir, PROMPTS_FILE);
-  if (!fs.existsSync(promptsPath)) {
-    console.log(`${PROMPTS_FILE} not found, generating...`);
-    try {
-      await generatePrompts(targetDir, baseApp);
-    } catch (err) {
-      console.error(cRed(`Failed to generate ${PROMPTS_FILE}: ${err}`));
-      return;
-    }
+  const taskInfo = taskMap.get(guideName);
+  if (!taskInfo) {
+    console.error(cRed(`Task info not found for ${guideName}, cannot run agent test.`));
+    return;
   }
-
-  // Step c: Find or create task file
-  const taskInfo = existingTask ?? createTask(targetDir, guideName);
+  
   console.log(`Task: ${taskInfo.taskName} (base_app: ${taskInfo.baseApp})`);
   console.log(`Prompt: ${cDim(taskInfo.prompt.substring(0, 120))}${taskInfo.prompt.length > 120 ? '...' : ''}`);
 
@@ -539,6 +551,12 @@ function printSummary(targetDir: string, inv: GuideInventory, result: Calibratio
     console.log(`   ${GRADER_FILE.padEnd(21)} \u274c not generated`);
   }
 
+  const promptsStatus = inv.hasPrompts ? 'exists' : (result?.success ? 'generated' : 'not generated');
+  console.log(`   ${PROMPTS_FILE.padEnd(21)} ${inv.hasPrompts || result?.success ? '\u2705' : '\u274c'} ${promptsStatus}`);
+
+  const taskStatus = inv.hasTask ? 'exists' : (result?.success ? 'generated' : 'not generated');
+  console.log(`   ${'task'.padEnd(21)} ${inv.hasTask || result?.success ? '\u2705' : '\u274c'} ${taskStatus}`);
+
   console.log(`\nAll generated files are in ${relDir}/`);
   if (result?.success) {
     console.log(`Ready to review and commit.`);
@@ -550,7 +568,7 @@ function printSummary(targetDir: string, inv: GuideInventory, result: Calibratio
 export async function devAll(options: DevGuideOptions = {}): Promise<void> {
   const taskMap = getTaskMap();
   const incompleteGuides = scanAllGuides(taskMap).filter(inv =>
-    inv.hasGuide && inv.hasDemo && (!inv.hasNegativeDemo || !inv.hasGrader)
+    inv.hasGuide && inv.hasDemo && (!inv.hasNegativeDemo || !inv.hasGrader || !inv.hasPrompts || !inv.hasTask)
   );
 
   if (incompleteGuides.length === 0) {
@@ -563,6 +581,8 @@ export async function devAll(options: DevGuideOptions = {}): Promise<void> {
     const missing = [];
     if (!inv.hasNegativeDemo) missing.push(NEGATIVE_DEMO_FILE);
     if (!inv.hasGrader) missing.push(GRADER_FILE);
+    if (!inv.hasPrompts) missing.push(PROMPTS_FILE);
+    if (!inv.hasTask) missing.push('task');
     console.log(`  ${inv.name} ${cDim(`(missing: ${missing.join(', ')})`)}`);
   }
   console.log('');
@@ -625,17 +645,17 @@ export function auditGuides(): void {
   }
 
   const statusLabel: Record<GuideStatus, { label: string; color: (s: string) => string }> = {
-    'eval-ready':        { label: 'Ready for eval', color: cGreen },
-    'needs-test':        { label: 'Needs agent test run (missing prompts/task)', color: cCyan },
-    'needs-calibration': { label: 'Needs calibration (run gd dev)', color: cYellow },
-    'needs-expectations': { label: 'Needs expectations.md', color: cYellow },
-    'stub':              { label: 'Stub (yaml frontmatter only, no content)', color: cYellow },
     'incomplete':        { label: 'Incomplete (missing guide.md or demo.html)', color: cRed },
+    'stub':              { label: 'Stub (yaml frontmatter only, no content)', color: cYellow },
+    'needs-expectations': { label: 'Needs expectations.md', color: cYellow },
+    'needs-calibration': { label: 'Needs calibration (run gd dev)', color: cYellow },
+    'needs-test':        { label: 'Needs agent test run (missing prompts/task)', color: cCyan },
+    'eval-ready':        { label: 'Ready for eval', color: cGreen },
   };
 
   // Summary counts
   console.log(cBold(`\nGuide Audit: ${allGuides.length} guides\n`));
-  for (const status of ['eval-ready', 'needs-test', 'needs-calibration', 'needs-expectations', 'stub', 'incomplete'] as GuideStatus[]) {
+  for (const status of ['incomplete', 'stub', 'needs-expectations', 'needs-calibration', 'needs-test', 'eval-ready'] as GuideStatus[]) {
     const guides = byStatus.get(status) || [];
     const { label, color } = statusLabel[status];
     console.log(`  ${color(`${String(guides.length).padStart(2)}`)}  ${label}`);

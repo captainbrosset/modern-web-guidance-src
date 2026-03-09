@@ -101,6 +101,7 @@ export async function runSuite(options: RunSuiteOptions = {}) {
   console.log(`Log file: ${logFilePath}\n`);
 
   try {
+    let hasErrors = false;
     const numRuns = options.numRuns || config.suite.numRuns;
     const endRun = 1 + numRuns;
     console.log(`\nStarting execution for ${numRuns} runs`);
@@ -115,6 +116,8 @@ export async function runSuite(options: RunSuiteOptions = {}) {
       if (!fs.existsSync(runDir)) {
         fs.mkdirSync(runDir, { recursive: true });
       }
+
+      const pnpmWorkspacePackages: string[] = [];
 
       // Use configured tasks, or discover all tasks in the tasks directory
       const tasksToRun = options.tasks && options.tasks.length > 0
@@ -161,27 +164,63 @@ export async function runSuite(options: RunSuiteOptions = {}) {
             fs.mkdirSync(targetDir, { recursive: true });
           }
 
-          console.log(`\n>>> Running Task: ${task} | Template: ${baseApp} | Run Type: ${runType} | Run: ${runNumber} | Agent: ${agent}`);
-          try {
-          // Dispatch to appropriate agent script based on agent
-            const agentArgs = [
-              '--experimental-strip-types',
-              path.join(__dirname, 'agents', agent === Agents.GEMINI_CLI ? 'gemini-cli-agent.ts' :
-                agent === Agents.CLAUDE_CODE ? 'claude-code-agent.ts' :
-                  'jetski-agent.ts'),
-              JSON.stringify(promptContent),
-              runType,
-              targetDir,
-              templateDir
-            ];
+          const agentScript = path.join(__dirname, 'agents', agent === Agents.GEMINI_CLI ? 'gemini-cli-agent.ts' :
+            agent === Agents.CLAUDE_CODE ? 'claude-code-agent.ts' :
+              'jetski-agent.ts');
 
-            await runCommand('node', agentArgs);
-            console.log(`✅ Completed: ${task}/${runType} (Run ${runNumber})`);
-          } catch (error) {
-            console.error(`❌ Failed: ${task}/${runType} (Run ${runNumber})`, error);
-          }
+          // Generate runner script
+          // HACK: To get nice aggregated, prefix-multiplexed output for parallel runs,
+          // we trick pnpm into thinking each test run is a package in a pnpm workspace.
+          // This way we get \`pnpm -r\`'s great parallel scheduler and log interleaving for free.
+// This run.mjs wrapper executes the actual agent command via spawnSync.
+          const runnerContent = `
+import { spawnSync } from 'child_process';
+const args = [
+  '--experimental-strip-types',
+  ...${JSON.stringify([
+    agentScript,
+    promptContent,
+    runType,
+    targetDir,
+    templateDir
+  ])}
+];
+const result = spawnSync('node', args, { stdio: 'inherit', cwd: ${JSON.stringify(process.cwd())} });
+process.exit(result.status ?? 0);
+          `.trim();
+          
+          fs.writeFileSync(path.join(targetDir, 'run.mjs'), runnerContent);
+
+          // Generate transient package.json
+          // This tells pnpm that this directory is a "package" that can be run
+          // via \`pnpm run-agent\`.
+          fs.writeFileSync(path.join(targetDir, 'package.json'), JSON.stringify({
+            name: `${task.substring(0, 30)}-${runType}`,
+            type: "module",
+            scripts: { "run-agent": "node run.mjs" }
+          }, null, 2));
+
+          pnpmWorkspacePackages.push(`${task}/${runType}`);
         }
       }
+
+      if (pnpmWorkspacePackages.length > 0) {
+        console.log(`\n>>> Running all tests for Run ${runNumber} with pnpm -r run-agent (parallel)...`);
+        // Drop a transient pnpm-workspace.yaml at the root of the run directory.
+        // The '**' pattern tells pnpm to recursively discover all the targetDirs
+        // we just seeded with package.json files.
+        fs.writeFileSync(path.join(runDir, 'pnpm-workspace.yaml'), 'packages:\n  - \'**\'\n');
+        
+        try {
+          // Fire off the parallel execution!
+          await runCommand('pnpm', ['-r', 'run-agent'], runDir);
+          console.log(`✅ Completed Run ${runNumber} test executions`);
+        } catch (error) {
+          console.error(`❌ Failed during Run ${runNumber} test execution`, error);
+          hasErrors = true;
+        }
+      }
+
     }
 
     if (!options.outputDir) {
@@ -199,10 +238,18 @@ export async function runSuite(options: RunSuiteOptions = {}) {
       }
     }
 
-    console.log(`\n✅ Test suite complete! Results saved to: ${testDir}`);
+    if (hasErrors) {
+      console.log(`\n❌ Test suite completed with errors! Results saved to: ${testDir}`);
+    } else {
+      console.log(`\n✅ Test suite complete! Results saved to: ${testDir}`);
+    }
 
     if (!options.skipEval) {
       await evaluateSuite(testDir, testID);
+    }
+
+    if (hasErrors) {
+      process.exitCode = 1;
     }
   } catch (e) {
     console.error('❌ Error during suite execution:', e);
@@ -264,11 +311,12 @@ function restoreLogging(originals: any) {
   }
 }
 
-async function runCommand(command: string, args: string[] = []) {
+async function runCommand(command: string, args: string[] = [], cwd?: string) {
   return new Promise((resolve, reject) => {
     const process = spawn(command, args, {
       stdio: 'inherit',
-      shell: true
+      shell: true,
+      cwd
     });
 
     process.on('close', (code) => {
