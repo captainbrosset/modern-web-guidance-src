@@ -73,7 +73,11 @@ async function main() {
   const { featuresCount, useCasesCount, skillsCount, skillNames } = result;
   
   console.log(`\nVerifying built distribution with test-dist.test.ts suite...`);
-  execSync('node --test skills-cli/*.test.ts', { cwd: SERVING_DIR, stdio: 'inherit' ,  env: { ...process.env, TEST_REPORTER: 'spec'}});
+  execSync('node --test skills-cli/*.test.ts', {
+    cwd: SERVING_DIR,
+    stdio: 'inherit' ,
+    env: { ...process.env, TEST_REPORTER: 'spec', SKIP_BUILD: '1' }
+  });
   
 
   if (isDryRun) {
