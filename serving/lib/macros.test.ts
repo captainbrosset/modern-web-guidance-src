@@ -300,4 +300,35 @@ describe('INCLUDE', () => {
       assert.ok(section.includes('UNIQUE_FIRST'));
     });
   });
+
+  describe('GUIDE_REF', () => {
+    it('replaces macro with guide path', () => {
+      const content = '{{ GUIDE_REF("break-up-long-tasks") }}';
+      const result = replaceMacros(content, 'test.md');
+      assert.ok(result.includes('`performance/break-up-long-tasks/guide.md`'));
+    });
+
+    it('replaces macro with forms skill path', () => {
+      const content = '{{ GUIDE_REF("forms") }}';
+      const result = replaceMacros(content, 'test.md');
+      assert.ok(result.includes('`forms/SKILL.md`'));
+    });
+
+    it('replaces macro with category-level skill command for skills-cli', () => {
+      const content = '{{ GUIDE_REF("forms") }}';
+      const result = replaceMacros(content, 'test.md', { target: 'skills-cli' });
+      assert.ok(result.includes('`forms` (via `node <modern-web-directory>/modern-web.mjs retrieve "forms"`)'));
+    });
+
+    it('replaces macro with category-level skill command for skills-cli-npx', () => {
+      const content = '{{ GUIDE_REF("forms") }}';
+      const result = replaceMacros(content, 'test.md', { target: 'skills-cli-npx' });
+      assert.ok(result.includes('`forms` (via `npx -p modern-web-guidance@latest -- modern-web retrieve "forms"`)'));
+    });
+
+    it('throws error for non-existent guide', () => {
+      const content = '{{ GUIDE_REF("non-existent-guide-xyz") }}';
+      assert.throws(() => replaceMacros(content, 'test.md'), /Guide "non-existent-guide-xyz" not found/);
+    });
+  });
 });

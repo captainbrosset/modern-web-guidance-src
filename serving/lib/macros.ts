@@ -1,4 +1,5 @@
 import { validateFeature, getStatusMessage, getFeatureName } from "./baseline.ts";
+import { getGuidesMap } from "../../lib/guide-validation.ts";
 import { resolveInclude } from "./include.ts";
 
 /**
@@ -36,7 +37,11 @@ export function parseArguments(argsString: string): string[] {
   return args;
 }
 
-type MacroHandler = (args: string[], filePath: string) => string;
+export type BuildTarget = 'skills-cli' | 'skills-cli-npx' | 'mcp-server' | 'megaskill' | 'local-dev';
+
+type MacroHandler = (args: string[], filePath: string, options?: { target?: BuildTarget }) => string;
+
+
 
 export class MacroError extends Error {
   constructor(message: string) {
@@ -47,6 +52,8 @@ export class MacroError extends Error {
 
 // Matches {{ NAME(ARGS) }} where NAME is uppercase and ARGS can be anything
 export const MACRO_PATTERN = /{{\s*([A-Z_]+)\((.*?)\)\s*}}/g;
+
+
 
 const MACRO_HANDLERS: Record<string, MacroHandler> = {
   INCLUDE: (args, filePath) => {
@@ -65,6 +72,33 @@ const MACRO_HANDLERS: Record<string, MacroHandler> = {
     // will overflow the call stack. Add a visited set if it becomes a problem.
     return replaceMacros(result.content, result.absolutePath!);
   },
+  GUIDE_REF: (args, filePath, options) => {
+    const [guideId] = args;
+    if (!guideId) {
+      throw new MacroError(`Missing guide ID in GUIDE_REF macro (${filePath}).`);
+    }
+
+    const guideInfo = getGuidesMap().get(guideId);
+    if (!guideInfo) {
+      throw new MacroError(`Guide "${guideId}" not found (referenced in GUIDE_REF macro in ${filePath}).`);
+    }
+
+    const target = options?.target || 'local-dev';
+
+    if (target === 'skills-cli') {
+      return `\`${guideId}\` (via \`node <modern-web-directory>/modern-web.mjs retrieve "${guideId}"\`)`;
+    }
+
+    if (target === 'skills-cli-npx') {
+      return `\`${guideId}\` (via \`npx -p modern-web-guidance@latest -- modern-web retrieve "${guideId}"\`)`;
+    }
+
+    if (guideInfo.isDisciplineSkill) {
+      return `\`${guideInfo.category}/SKILL.md\``;
+    }
+
+    return `\`${guideInfo.category}/${guideId}/guide.md\``;
+  }
 };
 
 defineFeatureMacro("BASELINE_STATUS", {
@@ -189,10 +223,10 @@ export function validateMacros(content: string, filePath: string): string[] {
   return errors;
 }
 
-export function replaceMacros(content: string, filePath: string): string {
+export function replaceMacros(content: string, filePath: string, options: { target?: BuildTarget } = {}): string {
   return processMacros(content, (handler, args, match) => {
     try {
-      return handler(args, filePath);
+      return handler(args, filePath, options);
     } catch (err: any) {
       if (err instanceof MacroError) {
         throw err;
