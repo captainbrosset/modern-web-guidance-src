@@ -42,6 +42,7 @@ jobs:
         with:
           node-version: 24
           cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org/'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -62,9 +63,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          npm install -g npm@latest
           cd dist/skills-cli-npx
-          npm publish --access public --registry https://registry.npmjs.org/
+          npm publish --access public
 
       # - name: Publish to npm via OIDC Provenance
       #   run: |
