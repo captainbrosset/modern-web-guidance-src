@@ -67,30 +67,7 @@ function updateVersionsInDir(publishCliDir: string, newVersion: string) {
   console.log(`Updated ${marketplacePath}`);
 }
 
-function convertSkillToUseNpx(skillDest: string) {
-  let skillText = fs.readFileSync(skillDest, 'utf-8');
-
-  function replace(from: string, to: string) {
-    if (!skillText.includes(from)) {
-      throw new Error(`expected: '${from}', but not found`);
-    }
-
-    skillText = skillText.replaceAll(from, to);
-  }
-
-  const offlineNotice = '# Note: if this commands hangs, try running again in offline mode: "npx --offline ..."';
-  replace(
-    `node <modern-web-directory>/modern-web.mjs search "<query>"`,
-    `npx -y -p modern-web-guidance@latest -- modern-web search "<query>"\n${offlineNotice}`
-  );
-  replace(
-    `node <modern-web-directory>/modern-web.mjs retrieve "<id>"`,
-    `npx -y -p modern-web-guidance@latest -- modern-web retrieve "<id>"\n${offlineNotice}`
-  );
-  fs.writeFileSync(skillDest, skillText);
-}
-
-export function processSkills(publishRoot: string, distDir: string, npx: boolean) {
+export function processSkills(publishRoot: string) {
   console.log("Scanning for skills (SKILL.md) in guides/...");
   const skills = scanDisciplineSkills();
 
@@ -101,29 +78,24 @@ export function processSkills(publishRoot: string, distDir: string, npx: boolean
     
     fs.mkdirSync(skillDestDir, { recursive: true });
     
-    const target = npx ? 'skills-cli-npx' : 'skills-cli';
+    const target = 'skills-cli';
     const content = replaceMacros(fs.readFileSync(source, 'utf8'), source, { target });
     fs.writeFileSync(path.join(skillDestDir, "SKILL.md"), content);
     
     console.log(`Processed and copied skill ${skillName} (SKILL.md) to ${skillDestDir}`);
   }
 
-  if (npx) {
-    const skillDest = path.join(distDir, "SKILL.md");
-    convertSkillToUseNpx(skillDest);
-  }
-
   console.log(`Successfully copied ${skills.length} skills to distribution.`);
   return { skillsCount: skills.length, skillNames: skills.map(s => s.name) };
 }
 
-async function main(opts: {publishRoot: string, version?: string, npx?: boolean}): Promise<BuildResult | undefined> {
-  const {publishRoot, version, npx} = opts;
+async function main(opts: {publishRoot: string, version?: string}): Promise<BuildResult | undefined> {
+  const {publishRoot, version} = opts;
 
   fs.rmSync(publishRoot, { recursive: true, force: true });
   fs.mkdirSync(publishRoot, {recursive: true});
 
-  const DIST_DIR = path.join(publishRoot, "skills/modern-web");
+  const DIST_DIR = path.join(publishRoot, "skills/modern-web-guidance");
 
   fs.mkdirSync(ROOT_DIST_DIR, { recursive: true });
   const lockFilePath = path.join(ROOT_DIST_DIR, "build-dist.lock");
@@ -139,7 +111,7 @@ async function main(opts: {publishRoot: string, version?: string, npx?: boolean}
     console.time("⏳ processGuides");
     await processGuides({
       outputDir: DIST_DIR,
-      target: npx ? 'skills-cli-npx' : 'skills-cli',
+      target: 'skills-cli',
     });
     console.timeEnd("⏳ processGuides");
   } catch (error) {
@@ -181,7 +153,7 @@ async function main(opts: {publishRoot: string, version?: string, npx?: boolean}
       bundle: true,
       platform: "node",
       format: "esm",
-      outfile: path.join(publishRoot, "skills/modern-web/search.mjs"),
+      outfile: path.join(publishRoot, "skills/modern-web-guidance/search.mjs"),
       banner: {
         js: `// @ts-nocheck\nimport { createRequire } from 'module';\nconst require = createRequire(import.meta.url);`,
       },
@@ -221,7 +193,7 @@ async function main(opts: {publishRoot: string, version?: string, npx?: boolean}
       bundle: true,
       platform: "node",
       format: "esm",
-      outfile: path.join(publishRoot, "skills/modern-web/modern-web.mjs"),
+      outfile: path.join(publishRoot, "skills/modern-web-guidance/modern-web.mjs"),
       plugins: [{
         name: 'rewrite-search',
         setup(build) {
@@ -251,7 +223,7 @@ async function main(opts: {publishRoot: string, version?: string, npx?: boolean}
     process.exit(1);
   }
 
-  const { skillsCount, skillNames } = processSkills(publishRoot, DIST_DIR, !!npx);
+  const { skillsCount, skillNames } = processSkills(publishRoot);
 
   const { featuresCount, useCasesCount } = updateReadmeWithFeaturesAndUseCases(publishRoot);
 
@@ -266,7 +238,7 @@ async function main(opts: {publishRoot: string, version?: string, npx?: boolean}
 
 function updateReadmeWithFeaturesAndUseCases(publishRoot: string) {
   console.log("Generating dynamic README content around features and use cases...");
-  const guidesDir = path.join(publishRoot, 'skills/modern-web/guides');
+  const guidesDir = path.join(publishRoot, 'skills/modern-web-guidance/guides');
   const readyGuides = scanAllGuides().filter(inv => {
     if (!inv.hasGuide || inv.featureIds.length === 0) return false;
 
@@ -416,7 +388,6 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
 
   (async () => {
     try {
-      await main({publishRoot: path.join(ROOT_DIST_DIR, "skills-cli-npx"), version, npx: true});
       await main({publishRoot: path.join(ROOT_DIST_DIR, "skills-cli"), version});
     } catch (err) {
       console.error(err);
