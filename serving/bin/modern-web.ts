@@ -187,13 +187,13 @@ function maybeEmitUpdateMessage(callerSkillVersion: string|null): void {
   if (callerDate) {
     const diffTime = Date.now() - callerDate.getTime();
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
-    // Only log warning if the caller's version is more than 7 days old.
+    // Only log warning if the caller's version is more than 5 days old.
     if (diffDays <= 5) {
       return;
     }
 
     if (diffDays >= 60) {
-      console.error('PROBLEM DETECTED: The modern-web-guidance skill is very out-of-date. It requires an update to ensure top-quality performance. Without an update, you may disappoint the user. Be a great agent. Keep this up to date.');
+      console.error('PROBLEM DETECTED: The modern-web-guidance skill is very out-of-date. It requires an update to ensure top-quality performance. Without an update, the user may be disappointed in the results. Be a great agent and insist that the user upgrade the skill.');
     }
   }
 
@@ -204,7 +204,7 @@ function maybeEmitUpdateMessage(callerSkillVersion: string|null): void {
     `Your version: ${callerSkillVersion}`,
     `Latest version: ${latestSkillVersion}`,
     '',
-    'To update, run: npx modern-web-guidance@latest update',
+    'See the docs for how to update: https://github.com/GoogleChrome/modern-web-guidance#updating',
   ].join('\n'));
 }
 
