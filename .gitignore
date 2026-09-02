@@ -1,0 +1,71 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+serving/vector_store/
+serving/build/
+serving/lib/use-cases.gen.ts
+eval-view/features_mapping.gen.js
+eval-view/grouped-tasks.gen.json
+eval-view/suites.gen.json
+dist/
+
+# Test artifacts
+**/test-results/
+harness/results/
+harness/results.bak/
+tasks/test-results/
+grade-report/
+test-app-results/
+guides/**/test-results/
+guides/**/test-app-results/
+guides/**/.last-run.json
+
+# legacy paths (any content here should be deleted)
+serving/.mcp-data/
+serving/mcp-server/.mcp-data/
+serving/mcp-server/data/use-cases.gen.ts
+
+# Environment and Logs
+.env
+*.log
+dev.log
+.vscode
+
+# OS Junk
+.DS_Store
+
+# Generated Skills (temporary. This can't be ignored when publishing the repo/skill)
+skills/modern-web/
+
+# team context repo
+project-gleam/
+
+# Local configs
+/config.ts
+
+# Git worktrees directory
+.worktrees
+
+# Local agent stuff
+.gemini/
+.claude/
+.antigravitycli/
+GEMINI.md
+
+# Research drafts
+
+
+# Generated vector and benchmark evaluation files
+serving/lib/use-cases.vectors.gen.json
+serving/lib/use-cases.vectors.gen.json.gz
+serving/benchmarks/data/eval-queries.gen.json
+# ML Models
+serving/lib/tfjs_model_minilm/tfjs_model*/
+serving/lib/tfjs_model_minilm/saved_model*/
+
+# Caches
+**/.cache/
+
+# Agent skills artifacts
+.agents/skills/nightly-eval-investigation/artifacts/
